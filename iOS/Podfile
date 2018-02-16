@@ -1,0 +1,28 @@
+
+source 'https://github.com/CocoaPods/Specs.git'
+
+def network
+
+pod 'Alamofire'
+pod 'AlamofireObjectMapper'
+pod 'ObjectMapper+Realm'
+pod 'RealmSwift'
+
+end
+
+target 'Abra' do
+
+use_frameworks!
+platform :ios, '11.0'
+
+network
+
+target 'AbraTests' do
+inherit! :search_paths
+end
+
+target 'AbraUITests' do
+inherit! :search_paths
+end
+
+end
