@@ -8,12 +8,17 @@
 
 /* Begin PBXBuildFile section */
 		64ED622620375B9B008CDEB1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64ED622520375B9B008CDEB1 /* AppDelegate.swift */; };
-		64ED622820375B9B008CDEB1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64ED622720375B9B008CDEB1 /* ViewController.swift */; };
 		64ED622B20375B9B008CDEB1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64ED622920375B9B008CDEB1 /* Main.storyboard */; };
 		64ED622D20375B9B008CDEB1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 64ED622C20375B9B008CDEB1 /* Assets.xcassets */; };
 		64ED623020375B9B008CDEB1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64ED622E20375B9B008CDEB1 /* LaunchScreen.storyboard */; };
 		64ED623B20375B9B008CDEB1 /* AbraTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64ED623A20375B9B008CDEB1 /* AbraTests.swift */; };
 		64ED624620375B9B008CDEB1 /* AbraUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64ED624520375B9B008CDEB1 /* AbraUITests.swift */; };
+		64ED6256203779BE008CDEB1 /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64ED6255203779BE008CDEB1 /* BaseNavigationController.swift */; };
+		64ED625820378181008CDEB1 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64ED625720378181008CDEB1 /* ProfileViewController.swift */; };
+		64ED625A20378187008CDEB1 /* InboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64ED625920378187008CDEB1 /* InboxViewController.swift */; };
+		64ED625C203781BC008CDEB1 /* FindViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64ED625B203781BC008CDEB1 /* FindViewController.swift */; };
+		64ED625E203781C6008CDEB1 /* OrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64ED625D203781C6008CDEB1 /* OrdersViewController.swift */; };
+		64ED6260203781CF008CDEB1 /* OfferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64ED625F203781CF008CDEB1 /* OfferViewController.swift */; };
 		7DD4B4235F2902934F62874D /* Pods_AbraUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44C891810A95E6F0DE649AF3 /* Pods_AbraUITests.framework */; };
 		881D5828EB4513D5EEFFA470 /* Pods_AbraTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EC615AB478694676C51DCC5 /* Pods_AbraTests.framework */; };
 		AC805E1589FE21DB114F23AF /* Pods_Abra.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88A5048DAAB06B86C6A27FD2 /* Pods_Abra.framework */; };
@@ -42,7 +47,6 @@
 		44C891810A95E6F0DE649AF3 /* Pods_AbraUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AbraUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		64ED622220375B9B008CDEB1 /* Abra.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Abra.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		64ED622520375B9B008CDEB1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		64ED622720375B9B008CDEB1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		64ED622A20375B9B008CDEB1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		64ED622C20375B9B008CDEB1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		64ED622F20375B9B008CDEB1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -53,6 +57,12 @@
 		64ED624120375B9B008CDEB1 /* AbraUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AbraUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		64ED624520375B9B008CDEB1 /* AbraUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbraUITests.swift; sourceTree = "<group>"; };
 		64ED624720375B9B008CDEB1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		64ED6255203779BE008CDEB1 /* BaseNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
+		64ED625720378181008CDEB1 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		64ED625920378187008CDEB1 /* InboxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxViewController.swift; sourceTree = "<group>"; };
+		64ED625B203781BC008CDEB1 /* FindViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindViewController.swift; sourceTree = "<group>"; };
+		64ED625D203781C6008CDEB1 /* OrdersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersViewController.swift; sourceTree = "<group>"; };
+		64ED625F203781CF008CDEB1 /* OfferViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfferViewController.swift; sourceTree = "<group>"; };
 		6CEBDA3EA1DB3348D7D8C7EB /* Pods-Abra.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Abra.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Abra/Pods-Abra.debug.xcconfig"; sourceTree = "<group>"; };
 		88A5048DAAB06B86C6A27FD2 /* Pods_Abra.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Abra.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F2A5B3209C179F7305B6F50 /* Pods-AbraUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AbraUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AbraUITests/Pods-AbraUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -115,9 +125,9 @@
 			isa = PBXGroup;
 			children = (
 				64ED622C20375B9B008CDEB1 /* Assets.xcassets */,
+				64ED6261203781D5008CDEB1 /* Controllers */,
 				64ED625320375CC0008CDEB1 /* Storyboards */,
 				64ED625420375CC9008CDEB1 /* Supporting Files */,
-				64ED622720375B9B008CDEB1 /* ViewController.swift */,
 			);
 			path = Abra;
 			sourceTree = "<group>";
@@ -156,6 +166,19 @@
 				64ED623120375B9B008CDEB1 /* Info.plist */,
 			);
 			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		64ED6261203781D5008CDEB1 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				64ED6255203779BE008CDEB1 /* BaseNavigationController.swift */,
+				64ED625720378181008CDEB1 /* ProfileViewController.swift */,
+				64ED625920378187008CDEB1 /* InboxViewController.swift */,
+				64ED625B203781BC008CDEB1 /* FindViewController.swift */,
+				64ED625D203781C6008CDEB1 /* OrdersViewController.swift */,
+				64ED625F203781CF008CDEB1 /* OfferViewController.swift */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		6D769E5A156A267A967B7CBB /* Frameworks */ = {
@@ -484,8 +507,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				64ED622820375B9B008CDEB1 /* ViewController.swift in Sources */,
+				64ED625C203781BC008CDEB1 /* FindViewController.swift in Sources */,
+				64ED625E203781C6008CDEB1 /* OrdersViewController.swift in Sources */,
+				64ED625820378181008CDEB1 /* ProfileViewController.swift in Sources */,
+				64ED6260203781CF008CDEB1 /* OfferViewController.swift in Sources */,
+				64ED6256203779BE008CDEB1 /* BaseNavigationController.swift in Sources */,
 				64ED622620375B9B008CDEB1 /* AppDelegate.swift in Sources */,
+				64ED625A20378187008CDEB1 /* InboxViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
