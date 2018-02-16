@@ -1,5 +1,5 @@
 //
-//  OfferViewController.swift
+//  OSDestinationLocationViewController.swift
 //  Abra
 //
 //  Created by Hakan Eren on 17/02/2018.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class OfferViewController: UIViewController {
+class OSDestinationLocationViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
