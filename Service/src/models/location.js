@@ -27,9 +27,9 @@ model.searchByNameWithStartWith = (q, req) => {
             });
         }
         const query = {
-            "name": {
-                "$regex": "^" + q + ".*",
-                "$options": "i"
+            name: {
+                $regex: "^" + q + ".*",
+                $options: "i"
             }
         }
         model.find(query)

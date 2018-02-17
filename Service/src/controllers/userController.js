@@ -71,24 +71,10 @@ router.get("/:userId/logout", (req, res) => {
         })
 });
 
-router.get("/:userId/courier/book/:pageIndex/:pageSize", (req, res) => {
+function initCouriers(data, userId, req) {
     var userIdArray = [];
     var locationIdArray = [];
-    bookModel.getListByUserId(req.params.userId, req.params.pageIndex, req.params.pageSize, req)
-        .then((books) => {
-            var courierIdArray = [];
-            new linq(books).forEach((x) => {
-                courierIdArray.push(x.courierId);
-            });
-            return courierModel.getListById(courierIdArray, req)
-                .then((couriers) => {
-                    return couriers;
-                })
-                .catch((err) => {
-                    res.status(err.statusCode)
-                        .send(response(err.statusCode, err.message));
-                });
-        })
+    return data
         .then((couriers) => {
             new linq(couriers).forEach((x) => {
                 userIdArray.push(x.ownerId);
@@ -131,7 +117,6 @@ router.get("/:userId/courier/book/:pageIndex/:pageSize", (req, res) => {
                 var destination = new linq(locations).firstOrDefault((y) => {
                     return x.destination.toString() == y._id.toString();
                 });
-
                 return {
                     _id: x._id,
                     dateCreated: x.dateCreated,
@@ -146,6 +131,8 @@ router.get("/:userId/courier/book/:pageIndex/:pageSize", (req, res) => {
                         name: origin.name,
                         date: x.originDate
                     },
+                    isMyOrder: (owner._id.toString() == userId),
+                    weight: x.weight,
                     price: x.price,
                     rating: parseInt(math.random(1, 5)),
                     totalComment: parseInt(math.random(1, 100)),
@@ -154,6 +141,55 @@ router.get("/:userId/courier/book/:pageIndex/:pageSize", (req, res) => {
             }).toArray();
             return couriers;
         })
+}
+
+router.get("/:userId/courier/book/current/:pageIndex/:pageSize", (req, res) => {
+    initCouriers(bookModel.getCurrentsByUserId(req.params.userId, req.params.pageIndex, req.params.pageSize, req)
+        .then((books) => {
+            var courierIdArray = [];
+            new linq(books).forEach((x) => {
+                courierIdArray.push(x.courierId);
+            });
+            return courierModel.getListById(courierIdArray, req)
+                .then((couriers) => {
+                    return couriers;
+                })
+                .catch((err) => {
+                    res.status(err.statusCode)
+                        .send(response(err.statusCode, err.message));
+                });
+        }), req.params.userId, req)
+        .then((couriers) => {
+            res.status(responseCode.OK)
+                .send(response(responseCode.OK, "", {
+                    key: "locations",
+                    value: couriers
+                }));
+        })
+        .catch((err) => {
+            res.status(err.statusCode)
+                .send(response(err.statusCode, err.message));
+        });
+});
+
+router.get("/:userId/courier/book/past/:pageIndex/:pageSize", (req, res) => {
+    var userIdArray = [];
+    var locationIdArray = [];
+    initCouriers(bookModel.getPastsByUserId(req.params.userId, req.params.pageIndex, req.params.pageSize, req)
+        .then((books) => {
+            var courierIdArray = [];
+            new linq(books).forEach((x) => {
+                courierIdArray.push(x.courierId);
+            });
+            return courierModel.getListById(courierIdArray, req)
+                .then((couriers) => {
+                    return couriers;
+                })
+                .catch((err) => {
+                    res.status(err.statusCode)
+                        .send(response(err.statusCode, err.message));
+                });
+        }), req.params.userId, req)
         .then((couriers) => {
             res.status(responseCode.OK)
                 .send(response(responseCode.OK, "", {
