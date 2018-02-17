@@ -30,9 +30,9 @@ public class CourierRequest {
     @SerializedName("origin")
     @Expose
     private String origin;
-    @SerializedName("luggageWeight")
+    @SerializedName("Weight")
     @Expose
-    private Integer luggageWeight;
+    private Integer weight;
     @SerializedName("price")
     @Expose
     private Integer price;
@@ -46,7 +46,7 @@ public class CourierRequest {
 
     /**
      *
-     * @param luggageWeight
+     * @param weight
      * @param instantBooking
      * @param destinationDate
      * @param price
@@ -56,7 +56,7 @@ public class CourierRequest {
      * @param destination
      * @param originDate
      */
-    public CourierRequest(String ownerId, String originDate, String destinationDate, String note, Boolean instantBooking, String destination, String origin, Integer luggageWeight, Integer price) {
+    public CourierRequest(String ownerId, String originDate, String destinationDate, String note, Boolean instantBooking, String destination, String origin, Integer weight, Integer price) {
         super();
         this.ownerId = ownerId;
         this.originDate = originDate;
@@ -65,7 +65,7 @@ public class CourierRequest {
         this.instantBooking = instantBooking;
         this.destination = destination;
         this.origin = origin;
-        this.luggageWeight = luggageWeight;
+        this.weight = weight;
         this.price = price;
     }
 
@@ -125,12 +125,12 @@ public class CourierRequest {
         this.origin = origin;
     }
 
-    public Integer getLuggageWeight() {
-        return luggageWeight;
+    public Integer getWeight() {
+        return weight;
     }
 
-    public void setLuggageWeight(Integer luggageWeight) {
-        this.luggageWeight = luggageWeight;
+    public void setWeight(Integer weight) {
+        this.weight = weight;
     }
 
     public Integer getPrice() {

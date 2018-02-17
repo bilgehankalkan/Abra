@@ -13,7 +13,7 @@ public class ApiClient {
 
     public static Retrofit getRetrofit() {
         if (retrofit == null) {
-            String SERVICE_URL = "http://getir-hackathon.exlinetr.com";
+            String SERVICE_URL = "https://getir-hackathon.exlinetr.com";
             retrofit = new Retrofit.Builder()
                     .baseUrl(SERVICE_URL)
                     .addConverterFactory(GsonConverterFactory.create())

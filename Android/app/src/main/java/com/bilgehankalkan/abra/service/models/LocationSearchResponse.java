@@ -3,21 +3,23 @@ package com.bilgehankalkan.abra.service.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 /**
  * Created by Bilgehan on 17.02.2018.
  */
 
-public class CourierResponse extends BaseResponse {
+public class LocationSearchResponse extends BaseResponse {
 
     @SerializedName("data")
     @Expose
-    private CourierRequest data;
+    private List<Location> data = null;
 
-    public CourierRequest getData() {
+    public List<Location> getData() {
         return data;
     }
 
-    public void setData(CourierRequest data) {
+    public void setData(List<Location> data) {
         this.data = data;
     }
 }
