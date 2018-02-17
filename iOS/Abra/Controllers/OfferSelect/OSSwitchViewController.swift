@@ -1,5 +1,5 @@
 //
-//  OSOriginDateViewController.swift
+//  OSInstantBookingViewController.swift
 //  Abra
 //
 //  Created by Hakan Eren on 17/02/2018.
@@ -8,7 +8,11 @@
 
 import UIKit
 
-class OSOriginDateViewController: UIViewController {
+enum OSSwitchMode {
+    case instantBooking
+}
+
+class OSSwitchViewController: OSBaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

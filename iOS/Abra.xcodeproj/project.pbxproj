@@ -8,15 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		6416F1EC2037952D00B77D8B /* Offer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6416F1EA2037952D00B77D8B /* Offer.storyboard */; };
-		6416F1F1203797D900B77D8B /* OSOriginLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6416F1F0203797D900B77D8B /* OSOriginLocationViewController.swift */; };
-		6416F1F3203797E200B77D8B /* OSOriginDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6416F1F2203797E200B77D8B /* OSOriginDateViewController.swift */; };
-		6416F1F52037981900B77D8B /* OSDestinationLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6416F1F42037981900B77D8B /* OSDestinationLocationViewController.swift */; };
-		6416F1F72037982400B77D8B /* OSDestinationDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6416F1F62037982400B77D8B /* OSDestinationDateViewController.swift */; };
-		6416F1F92037984C00B77D8B /* OSWeightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6416F1F82037984C00B77D8B /* OSWeightViewController.swift */; };
-		6416F1FB2037985C00B77D8B /* OSInstantBookingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6416F1FA2037985C00B77D8B /* OSInstantBookingViewController.swift */; };
-		6416F1FD2037986500B77D8B /* OSPriceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6416F1FC2037986500B77D8B /* OSPriceViewController.swift */; };
+		6416F1F1203797D900B77D8B /* OSLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6416F1F0203797D900B77D8B /* OSLocationViewController.swift */; };
+		6416F1F3203797E200B77D8B /* OSDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6416F1F2203797E200B77D8B /* OSDateViewController.swift */; };
+		6416F1F92037984C00B77D8B /* OSAmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6416F1F82037984C00B77D8B /* OSAmountViewController.swift */; };
+		6416F1FB2037985C00B77D8B /* OSSwitchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6416F1FA2037985C00B77D8B /* OSSwitchViewController.swift */; };
 		6416F1FF2037987100B77D8B /* OSNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6416F1FE2037987100B77D8B /* OSNoteViewController.swift */; };
-		6416F203203798A700B77D8B /* OSCarryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6416F202203798A700B77D8B /* OSCarryViewController.swift */; };
+		6416F203203798A700B77D8B /* OSFinishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6416F202203798A700B77D8B /* OSFinishViewController.swift */; };
+		64E6D69E2037AB0C007A4475 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64E6D69D2037AB0C007A4475 /* Location.swift */; };
+		64E6D6A72037B16E007A4475 /* OSTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64E6D6A62037B16E007A4475 /* OSTimeViewController.swift */; };
+		64E6D6A92037BF64007A4475 /* OSBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64E6D6A82037BF64007A4475 /* OSBaseViewController.swift */; };
 		64ED622620375B9B008CDEB1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64ED622520375B9B008CDEB1 /* AppDelegate.swift */; };
 		64ED622B20375B9B008CDEB1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64ED622920375B9B008CDEB1 /* Main.storyboard */; };
 		64ED622D20375B9B008CDEB1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 64ED622C20375B9B008CDEB1 /* Assets.xcassets */; };
@@ -28,7 +28,7 @@
 		64ED625A20378187008CDEB1 /* InboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64ED625920378187008CDEB1 /* InboxViewController.swift */; };
 		64ED625C203781BC008CDEB1 /* FindViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64ED625B203781BC008CDEB1 /* FindViewController.swift */; };
 		64ED625E203781C6008CDEB1 /* OrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64ED625D203781C6008CDEB1 /* OrdersViewController.swift */; };
-		64ED6260203781CF008CDEB1 /* OfferViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64ED625F203781CF008CDEB1 /* OfferViewController.swift */; };
+		64ED6260203781CF008CDEB1 /* OSStartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64ED625F203781CF008CDEB1 /* OSStartViewController.swift */; };
 		7DD4B4235F2902934F62874D /* Pods_AbraUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44C891810A95E6F0DE649AF3 /* Pods_AbraUITests.framework */; };
 		881D5828EB4513D5EEFFA470 /* Pods_AbraTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EC615AB478694676C51DCC5 /* Pods_AbraTests.framework */; };
 		AC805E1589FE21DB114F23AF /* Pods_Abra.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88A5048DAAB06B86C6A27FD2 /* Pods_Abra.framework */; };
@@ -56,15 +56,15 @@
 		3D7545B45B3FA8F03AA8696D /* Pods-Abra.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Abra.release.xcconfig"; path = "Pods/Target Support Files/Pods-Abra/Pods-Abra.release.xcconfig"; sourceTree = "<group>"; };
 		44C891810A95E6F0DE649AF3 /* Pods_AbraUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AbraUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6416F1EB2037952D00B77D8B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Offer.storyboard; sourceTree = "<group>"; };
-		6416F1F0203797D900B77D8B /* OSOriginLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSOriginLocationViewController.swift; sourceTree = "<group>"; };
-		6416F1F2203797E200B77D8B /* OSOriginDateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSOriginDateViewController.swift; sourceTree = "<group>"; };
-		6416F1F42037981900B77D8B /* OSDestinationLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSDestinationLocationViewController.swift; sourceTree = "<group>"; };
-		6416F1F62037982400B77D8B /* OSDestinationDateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSDestinationDateViewController.swift; sourceTree = "<group>"; };
-		6416F1F82037984C00B77D8B /* OSWeightViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSWeightViewController.swift; sourceTree = "<group>"; };
-		6416F1FA2037985C00B77D8B /* OSInstantBookingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSInstantBookingViewController.swift; sourceTree = "<group>"; };
-		6416F1FC2037986500B77D8B /* OSPriceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSPriceViewController.swift; sourceTree = "<group>"; };
+		6416F1F0203797D900B77D8B /* OSLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSLocationViewController.swift; sourceTree = "<group>"; };
+		6416F1F2203797E200B77D8B /* OSDateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSDateViewController.swift; sourceTree = "<group>"; };
+		6416F1F82037984C00B77D8B /* OSAmountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSAmountViewController.swift; sourceTree = "<group>"; };
+		6416F1FA2037985C00B77D8B /* OSSwitchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSSwitchViewController.swift; sourceTree = "<group>"; };
 		6416F1FE2037987100B77D8B /* OSNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSNoteViewController.swift; sourceTree = "<group>"; };
-		6416F202203798A700B77D8B /* OSCarryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSCarryViewController.swift; sourceTree = "<group>"; };
+		6416F202203798A700B77D8B /* OSFinishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSFinishViewController.swift; sourceTree = "<group>"; };
+		64E6D69D2037AB0C007A4475 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		64E6D6A62037B16E007A4475 /* OSTimeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSTimeViewController.swift; sourceTree = "<group>"; };
+		64E6D6A82037BF64007A4475 /* OSBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSBaseViewController.swift; sourceTree = "<group>"; };
 		64ED622220375B9B008CDEB1 /* Abra.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Abra.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		64ED622520375B9B008CDEB1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		64ED622A20375B9B008CDEB1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -82,7 +82,7 @@
 		64ED625920378187008CDEB1 /* InboxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxViewController.swift; sourceTree = "<group>"; };
 		64ED625B203781BC008CDEB1 /* FindViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindViewController.swift; sourceTree = "<group>"; };
 		64ED625D203781C6008CDEB1 /* OrdersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersViewController.swift; sourceTree = "<group>"; };
-		64ED625F203781CF008CDEB1 /* OfferViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfferViewController.swift; sourceTree = "<group>"; };
+		64ED625F203781CF008CDEB1 /* OSStartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSStartViewController.swift; sourceTree = "<group>"; };
 		6CEBDA3EA1DB3348D7D8C7EB /* Pods-Abra.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Abra.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Abra/Pods-Abra.debug.xcconfig"; sourceTree = "<group>"; };
 		88A5048DAAB06B86C6A27FD2 /* Pods_Abra.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Abra.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F2A5B3209C179F7305B6F50 /* Pods-AbraUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AbraUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AbraUITests/Pods-AbraUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -119,17 +119,10 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6416F1ED2037978F00B77D8B /* Base */ = {
-			isa = PBXGroup;
-			children = (
-				64ED6255203779BE008CDEB1 /* BaseNavigationController.swift */,
-			);
-			path = Base;
-			sourceTree = "<group>";
-		};
 		6416F1EE2037979B00B77D8B /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				64ED6255203779BE008CDEB1 /* BaseNavigationController.swift */,
 				64ED625720378181008CDEB1 /* ProfileViewController.swift */,
 				64ED625920378187008CDEB1 /* InboxViewController.swift */,
 				64ED625B203781BC008CDEB1 /* FindViewController.swift */,
@@ -138,21 +131,28 @@
 			path = Main;
 			sourceTree = "<group>";
 		};
-		6416F1EF203797A400B77D8B /* Offer */ = {
+		6416F1EF203797A400B77D8B /* OfferSelect */ = {
 			isa = PBXGroup;
 			children = (
-				64ED625F203781CF008CDEB1 /* OfferViewController.swift */,
-				6416F1F0203797D900B77D8B /* OSOriginLocationViewController.swift */,
-				6416F1F2203797E200B77D8B /* OSOriginDateViewController.swift */,
-				6416F1F42037981900B77D8B /* OSDestinationLocationViewController.swift */,
-				6416F1F62037982400B77D8B /* OSDestinationDateViewController.swift */,
-				6416F1F82037984C00B77D8B /* OSWeightViewController.swift */,
-				6416F1FA2037985C00B77D8B /* OSInstantBookingViewController.swift */,
-				6416F1FC2037986500B77D8B /* OSPriceViewController.swift */,
+				64E6D6A82037BF64007A4475 /* OSBaseViewController.swift */,
+				64ED625F203781CF008CDEB1 /* OSStartViewController.swift */,
+				6416F1F0203797D900B77D8B /* OSLocationViewController.swift */,
+				6416F1F2203797E200B77D8B /* OSDateViewController.swift */,
+				64E6D6A62037B16E007A4475 /* OSTimeViewController.swift */,
+				6416F1F82037984C00B77D8B /* OSAmountViewController.swift */,
+				6416F1FA2037985C00B77D8B /* OSSwitchViewController.swift */,
 				6416F1FE2037987100B77D8B /* OSNoteViewController.swift */,
-				6416F202203798A700B77D8B /* OSCarryViewController.swift */,
+				6416F202203798A700B77D8B /* OSFinishViewController.swift */,
 			);
-			path = Offer;
+			path = OfferSelect;
+			sourceTree = "<group>";
+		};
+		64E6D69F2037AB11007A4475 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				64E6D69D2037AB0C007A4475 /* Location.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		64ED621920375B9B008CDEB1 = {
@@ -182,6 +182,7 @@
 			children = (
 				64ED622C20375B9B008CDEB1 /* Assets.xcassets */,
 				64ED6261203781D5008CDEB1 /* Controllers */,
+				64E6D69F2037AB11007A4475 /* Models */,
 				64ED625320375CC0008CDEB1 /* Storyboards */,
 				64ED625420375CC9008CDEB1 /* Supporting Files */,
 			);
@@ -228,9 +229,8 @@
 		64ED6261203781D5008CDEB1 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				6416F1ED2037978F00B77D8B /* Base */,
 				6416F1EE2037979B00B77D8B /* Main */,
-				6416F1EF203797A400B77D8B /* Offer */,
+				6416F1EF203797A400B77D8B /* OfferSelect */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -562,22 +562,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6416F1F92037984C00B77D8B /* OSWeightViewController.swift in Sources */,
+				6416F1F92037984C00B77D8B /* OSAmountViewController.swift in Sources */,
+				64E6D6A92037BF64007A4475 /* OSBaseViewController.swift in Sources */,
 				6416F1FF2037987100B77D8B /* OSNoteViewController.swift in Sources */,
-				6416F203203798A700B77D8B /* OSCarryViewController.swift in Sources */,
+				6416F203203798A700B77D8B /* OSFinishViewController.swift in Sources */,
 				64ED625C203781BC008CDEB1 /* FindViewController.swift in Sources */,
-				6416F1FD2037986500B77D8B /* OSPriceViewController.swift in Sources */,
-				6416F1F3203797E200B77D8B /* OSOriginDateViewController.swift in Sources */,
-				6416F1F1203797D900B77D8B /* OSOriginLocationViewController.swift in Sources */,
-				6416F1F72037982400B77D8B /* OSDestinationDateViewController.swift in Sources */,
+				6416F1F3203797E200B77D8B /* OSDateViewController.swift in Sources */,
+				6416F1F1203797D900B77D8B /* OSLocationViewController.swift in Sources */,
+				64E6D69E2037AB0C007A4475 /* Location.swift in Sources */,
 				64ED625E203781C6008CDEB1 /* OrdersViewController.swift in Sources */,
-				6416F1F52037981900B77D8B /* OSDestinationLocationViewController.swift in Sources */,
 				64ED625820378181008CDEB1 /* ProfileViewController.swift in Sources */,
-				64ED6260203781CF008CDEB1 /* OfferViewController.swift in Sources */,
+				64ED6260203781CF008CDEB1 /* OSStartViewController.swift in Sources */,
 				64ED6256203779BE008CDEB1 /* BaseNavigationController.swift in Sources */,
-				6416F1FB2037985C00B77D8B /* OSInstantBookingViewController.swift in Sources */,
+				6416F1FB2037985C00B77D8B /* OSSwitchViewController.swift in Sources */,
 				64ED622620375B9B008CDEB1 /* AppDelegate.swift in Sources */,
 				64ED625A20378187008CDEB1 /* InboxViewController.swift in Sources */,
+				64E6D6A72037B16E007A4475 /* OSTimeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

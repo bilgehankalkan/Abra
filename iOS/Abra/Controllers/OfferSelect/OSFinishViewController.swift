@@ -8,7 +8,7 @@
 
 import UIKit
 
-class OSCarryViewController: UIViewController {
+class OSFinishViewController: OSBaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

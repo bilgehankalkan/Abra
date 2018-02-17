@@ -1,5 +1,5 @@
 //
-//  OSPriceViewController.swift
+//  OSOriginDateViewController.swift
 //  Abra
 //
 //  Created by Hakan Eren on 17/02/2018.
@@ -8,7 +8,12 @@
 
 import UIKit
 
-class OSPriceViewController: UIViewController {
+enum OSDateMode {
+    case origin
+    case destination
+}
+
+class OSDateViewController: OSBaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

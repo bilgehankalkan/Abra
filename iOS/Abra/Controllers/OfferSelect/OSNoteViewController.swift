@@ -1,5 +1,5 @@
 //
-//  OSOriginLocationViewController.swift
+//  OSNoteViewController.swift
 //  Abra
 //
 //  Created by Hakan Eren on 17/02/2018.
@@ -8,22 +8,23 @@
 
 import UIKit
 
-class OSOriginLocationViewController: UIViewController {
+enum OSNoteMode {
+    case about
+}
+
+class OSNoteViewController: OSBaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
-    
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-    @IBAction func close(_ sender: UIButton) {
-        dismiss(animated: true)
-    }
+    
 
     /*
     // MARK: - Navigation

@@ -1,5 +1,5 @@
 //
-//  OSDestinationLocationViewController.swift
+//  OSTimeViewController.swift
 //  Abra
 //
 //  Created by Hakan Eren on 17/02/2018.
@@ -8,7 +8,12 @@
 
 import UIKit
 
-class OSDestinationLocationViewController: UIViewController {
+enum OSTimeMode {
+    case origin
+    case destination
+}
+
+class OSTimeViewController: OSBaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

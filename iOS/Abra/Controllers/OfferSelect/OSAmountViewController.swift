@@ -1,5 +1,5 @@
 //
-//  OSDestinationDateViewController.swift
+//  OSWeightViewController.swift
 //  Abra
 //
 //  Created by Hakan Eren on 17/02/2018.
@@ -8,7 +8,12 @@
 
 import UIKit
 
-class OSDestinationDateViewController: UIViewController {
+enum OSAmountMode {
+    case weight
+    case price
+}
+
+class OSAmountViewController: OSBaseViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
