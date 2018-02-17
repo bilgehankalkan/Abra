@@ -1,7 +1,12 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const guid = require("guid");
+const linq = require("ex-js-linq");
+const math = require("../utilities/math");
+const courierModel = require("../models/courier");
+const bookModel = require("../models/book");
 const userModel = require("../models/user");
+const locationModel = require("../models/location");
 const tokenModel = require("../models/token");
 const responseCode = require("../utilities/responseCode");
 const response = require("../utilities/response");
@@ -64,6 +69,102 @@ router.get("/:userId/logout", (req, res) => {
             res.status(responseCode.SERVER_ERROR)
                 .send(response(responseCode.SERVER_ERROR, dictionary.errorMessages.systemError));
         })
+});
+
+router.get("/:userId/courier/book/:pageIndex/:pageSize", (req, res) => {
+    var userIdArray = [];
+    var locationIdArray = [];
+    bookModel.getListByUserId(req.params.userId, req.params.pageIndex, req.params.pageSize, req)
+        .then((books) => {
+            var courierIdArray = [];
+            new linq(books).forEach((x) => {
+                courierIdArray.push(x.courierId);
+            });
+            return courierModel.getListById(courierIdArray, req)
+                .then((couriers) => {
+                    return couriers;
+                })
+                .catch((err) => {
+                    res.status(err.statusCode)
+                        .send(response(err.statusCode, err.message));
+                });
+        })
+        .then((couriers) => {
+            new linq(couriers).forEach((x) => {
+                userIdArray.push(x.ownerId);
+                locationIdArray.push(x.origin);
+                locationIdArray.push(x.destination);
+            });
+            return couriers;
+        })
+        .then((couriers) => {
+            return userModel.getListByIdArray(userIdArray, req)
+                .then((users) => {
+                    return {
+                        users: users,
+                        couriers: couriers
+                    }
+                });
+        })
+        .then((result) => {
+            return locationModel.getListByIdArray(locationIdArray, req)
+                .then((locations) => {
+                    return {
+                        users: result.users,
+                        couriers: result.couriers,
+                        locations: locations
+                    }
+                });
+        })
+        .then((result) => {
+            var couriers = result.couriers;
+            var locations = result.locations;
+            var users = result.users;
+
+            couriers = new linq(couriers).select((x) => {
+                var owner = new linq(users).firstOrDefault((y) => {
+                    return x.ownerId.toString() == y._id.toString();
+                });
+                var origin = new linq(locations).firstOrDefault((y) => {
+                    return x.origin.toString() == y._id.toString();
+                });
+                var destination = new linq(locations).firstOrDefault((y) => {
+                    return x.destination.toString() == y._id.toString();
+                });
+
+                return {
+                    _id: x._id,
+                    dateCreated: x.dateCreated,
+                    owner: owner,
+                    destination: {
+                        _id: x.destination.toString(),
+                        name: destination.name,
+                        date: x.destinationDate
+                    },
+                    origin: {
+                        _id: x.origin.toString(),
+                        name: origin.name,
+                        date: x.originDate
+                    },
+                    price: x.price,
+                    rating: parseInt(math.random(1, 5)),
+                    totalComment: parseInt(math.random(1, 100)),
+                    instantBooking: x.instantBooking,
+                }
+            }).toArray();
+            return couriers;
+        })
+        .then((couriers) => {
+            res.status(responseCode.OK)
+                .send(response(responseCode.OK, "", {
+                    key: "locations",
+                    value: couriers
+                }));
+        })
+        .catch((err) => {
+            res.status(err.statusCode)
+                .send(response(err.statusCode, err.message));
+        });
 });
 
 router.post("/", (req, res) => {
