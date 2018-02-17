@@ -172,8 +172,8 @@ router.get("/search/:pageIndex/:pageSize", (req, res) => {
                                 },
                                 price: x.price,
                                 weight:x.weight,
-                                rating: parseInt(math.random(1, 5)),
-                                totalComment: parseInt(math.random(1, 100)),
+                                avgRating: parseInt(math.random(1, 5)),
+                                totalRating: parseInt(math.random(1, 100)),
                                 instantBooking: x.instantBooking,
                             }
                         }).toArray();
@@ -203,8 +203,8 @@ router.get("/search/:pageIndex/:pageSize", (req, res) => {
                                             date: x.destination.date
                                         },
                                         weight:x.weight,
-                                        rating: x.rating,
-                                        totalComment: x.totalComment,
+                                        avgRating: x.avgRating,
+                                        totalRatingt: x.totalRatingt,
                                         price: x.price,
                                         instantBooking: x.instantBooking
                                     }
