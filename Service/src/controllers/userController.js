@@ -134,8 +134,8 @@ function initCouriers(data, userId, req) {
                     isMyOrder: (owner._id.toString() == userId),
                     weight: x.weight,
                     price: x.price,
-                    rating: parseInt(math.random(1, 5)),
-                    totalComment: parseInt(math.random(1, 100)),
+                    avgRating: parseInt(math.random(1, 5)),
+                    totalRating: parseInt(math.random(1, 100)),
                     instantBooking: x.instantBooking,
                 }
             }).toArray();
