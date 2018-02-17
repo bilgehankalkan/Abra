@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6416F1EC2037952D00B77D8B /* Offer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6416F1EA2037952D00B77D8B /* Offer.storyboard */; };
+		6416F1EC2037952D00B77D8B /* OfferSelect.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6416F1EA2037952D00B77D8B /* OfferSelect.storyboard */; };
 		6416F1F1203797D900B77D8B /* OSLocationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6416F1F0203797D900B77D8B /* OSLocationViewController.swift */; };
 		6416F1F3203797E200B77D8B /* OSDateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6416F1F2203797E200B77D8B /* OSDateViewController.swift */; };
 		6416F1F92037984C00B77D8B /* OSAmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6416F1F82037984C00B77D8B /* OSAmountViewController.swift */; };
@@ -15,6 +15,10 @@
 		6416F1FF2037987100B77D8B /* OSNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6416F1FE2037987100B77D8B /* OSNoteViewController.swift */; };
 		6416F203203798A700B77D8B /* OSFinishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6416F202203798A700B77D8B /* OSFinishViewController.swift */; };
 		647DEF9A20383E74004490FE /* OFBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647DEF9920383E74004490FE /* OFBaseViewController.swift */; };
+		647DEFA3203875FD004490FE /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647DEFA2203875FD004490FE /* Location.swift */; };
+		647DEFA62038791D004490FE /* UCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647DEFA52038791D004490FE /* UCViewController.swift */; };
+		647DEFAA20387E02004490FE /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647DEFA920387E02004490FE /* NetworkManager.swift */; };
+		647DEFAD20387EAE004490FE /* Carry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647DEFAC20387EAE004490FE /* Carry.swift */; };
 		64E6D6A72037B16E007A4475 /* OSTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64E6D6A62037B16E007A4475 /* OSTimeViewController.swift */; };
 		64E6D6A92037BF64007A4475 /* OSBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64E6D6A82037BF64007A4475 /* OSBaseViewController.swift */; };
 		64ED622620375B9B008CDEB1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64ED622520375B9B008CDEB1 /* AppDelegate.swift */; };
@@ -55,7 +59,7 @@
 		35C693E8F5878FFA7D9CA102 /* Pods-AbraTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AbraTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AbraTests/Pods-AbraTests.debug.xcconfig"; sourceTree = "<group>"; };
 		3D7545B45B3FA8F03AA8696D /* Pods-Abra.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Abra.release.xcconfig"; path = "Pods/Target Support Files/Pods-Abra/Pods-Abra.release.xcconfig"; sourceTree = "<group>"; };
 		44C891810A95E6F0DE649AF3 /* Pods_AbraUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AbraUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		6416F1EB2037952D00B77D8B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Offer.storyboard; sourceTree = "<group>"; };
+		6416F1EB2037952D00B77D8B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/OfferSelect.storyboard; sourceTree = "<group>"; };
 		6416F1F0203797D900B77D8B /* OSLocationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSLocationViewController.swift; sourceTree = "<group>"; };
 		6416F1F2203797E200B77D8B /* OSDateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSDateViewController.swift; sourceTree = "<group>"; };
 		6416F1F82037984C00B77D8B /* OSAmountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSAmountViewController.swift; sourceTree = "<group>"; };
@@ -63,6 +67,10 @@
 		6416F1FE2037987100B77D8B /* OSNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSNoteViewController.swift; sourceTree = "<group>"; };
 		6416F202203798A700B77D8B /* OSFinishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSFinishViewController.swift; sourceTree = "<group>"; };
 		647DEF9920383E74004490FE /* OFBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFBaseViewController.swift; sourceTree = "<group>"; };
+		647DEFA2203875FD004490FE /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		647DEFA52038791D004490FE /* UCViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UCViewController.swift; sourceTree = "<group>"; };
+		647DEFA920387E02004490FE /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		647DEFAC20387EAE004490FE /* Carry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Carry.swift; sourceTree = "<group>"; };
 		64E6D6A62037B16E007A4475 /* OSTimeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSTimeViewController.swift; sourceTree = "<group>"; };
 		64E6D6A82037BF64007A4475 /* OSBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSBaseViewController.swift; sourceTree = "<group>"; };
 		64ED622220375B9B008CDEB1 /* Abra.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Abra.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -119,14 +127,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6416F1EE2037979B00B77D8B /* Main */ = {
+		6416F1EE2037979B00B77D8B /* Shared */ = {
 			isa = PBXGroup;
 			children = (
 				64ED6255203779BE008CDEB1 /* BaseNavigationController.swift */,
-				64ED625720378181008CDEB1 /* ProfileViewController.swift */,
-				64ED625920378187008CDEB1 /* InboxViewController.swift */,
 			);
-			path = Main;
+			path = Shared;
 			sourceTree = "<group>";
 		};
 		6416F1EF203797A400B77D8B /* OfferSelect */ = {
@@ -146,13 +152,40 @@
 			path = OfferSelect;
 			sourceTree = "<group>";
 		};
-		647DEF9B20383E88004490FE /* Orders & Find */ = {
+		647DEF9B20383E88004490FE /* OrdersFind */ = {
 			isa = PBXGroup;
 			children = (
 				647DEF9920383E74004490FE /* OFBaseViewController.swift */,
 				64ED625D203781C6008CDEB1 /* OrdersViewController.swift */,
 			);
-			path = "Orders & Find";
+			path = OrdersFind;
+			sourceTree = "<group>";
+		};
+		647DEFA420387602004490FE /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				647DEFA2203875FD004490FE /* Location.swift */,
+				647DEFAC20387EAE004490FE /* Carry.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		647DEFA820387946004490FE /* UserContents */ = {
+			isa = PBXGroup;
+			children = (
+				64ED625920378187008CDEB1 /* InboxViewController.swift */,
+				64ED625720378181008CDEB1 /* ProfileViewController.swift */,
+				647DEFA52038791D004490FE /* UCViewController.swift */,
+			);
+			path = UserContents;
+			sourceTree = "<group>";
+		};
+		647DEFAB20387E06004490FE /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				647DEFA920387E02004490FE /* NetworkManager.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 		64ED621920375B9B008CDEB1 = {
@@ -182,6 +215,8 @@
 			children = (
 				64ED622C20375B9B008CDEB1 /* Assets.xcassets */,
 				64ED6261203781D5008CDEB1 /* Controllers */,
+				647DEFA420387602004490FE /* Models */,
+				647DEFAB20387E06004490FE /* Network */,
 				64ED625320375CC0008CDEB1 /* Storyboards */,
 				64ED625420375CC9008CDEB1 /* Supporting Files */,
 			);
@@ -211,7 +246,7 @@
 			children = (
 				64ED622E20375B9B008CDEB1 /* LaunchScreen.storyboard */,
 				64ED622920375B9B008CDEB1 /* Main.storyboard */,
-				6416F1EA2037952D00B77D8B /* Offer.storyboard */,
+				6416F1EA2037952D00B77D8B /* OfferSelect.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -228,9 +263,10 @@
 		64ED6261203781D5008CDEB1 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				6416F1EE2037979B00B77D8B /* Main */,
 				6416F1EF203797A400B77D8B /* OfferSelect */,
-				647DEF9B20383E88004490FE /* Orders & Find */,
+				647DEF9B20383E88004490FE /* OrdersFind */,
+				6416F1EE2037979B00B77D8B /* Shared */,
+				647DEFA820387946004490FE /* UserContents */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -375,7 +411,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				64ED623020375B9B008CDEB1 /* LaunchScreen.storyboard in Resources */,
-				6416F1EC2037952D00B77D8B /* Offer.storyboard in Resources */,
+				6416F1EC2037952D00B77D8B /* OfferSelect.storyboard in Resources */,
 				64ED622D20375B9B008CDEB1 /* Assets.xcassets in Resources */,
 				64ED622B20375B9B008CDEB1 /* Main.storyboard in Resources */,
 			);
@@ -562,15 +598,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				647DEFAA20387E02004490FE /* NetworkManager.swift in Sources */,
 				6416F1F92037984C00B77D8B /* OSAmountViewController.swift in Sources */,
 				64E6D6A92037BF64007A4475 /* OSBaseViewController.swift in Sources */,
 				6416F1FF2037987100B77D8B /* OSNoteViewController.swift in Sources */,
 				6416F203203798A700B77D8B /* OSFinishViewController.swift in Sources */,
 				647DEF9A20383E74004490FE /* OFBaseViewController.swift in Sources */,
+				647DEFA3203875FD004490FE /* Location.swift in Sources */,
 				64ED625C203781BC008CDEB1 /* OSCourierViewController.swift in Sources */,
 				6416F1F3203797E200B77D8B /* OSDateViewController.swift in Sources */,
 				6416F1F1203797D900B77D8B /* OSLocationViewController.swift in Sources */,
 				64ED625E203781C6008CDEB1 /* OrdersViewController.swift in Sources */,
+				647DEFA62038791D004490FE /* UCViewController.swift in Sources */,
 				64ED625820378181008CDEB1 /* ProfileViewController.swift in Sources */,
 				64ED6260203781CF008CDEB1 /* OSCarryViewController.swift in Sources */,
 				64ED6256203779BE008CDEB1 /* BaseNavigationController.swift in Sources */,
@@ -578,6 +617,7 @@
 				64ED622620375B9B008CDEB1 /* AppDelegate.swift in Sources */,
 				64ED625A20378187008CDEB1 /* InboxViewController.swift in Sources */,
 				64E6D6A72037B16E007A4475 /* OSTimeViewController.swift in Sources */,
+				647DEFAD20387EAE004490FE /* Carry.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -613,12 +653,12 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		6416F1EA2037952D00B77D8B /* Offer.storyboard */ = {
+		6416F1EA2037952D00B77D8B /* OfferSelect.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				6416F1EB2037952D00B77D8B /* Base */,
 			);
-			name = Offer.storyboard;
+			name = OfferSelect.storyboard;
 			sourceTree = "<group>";
 		};
 		64ED622920375B9B008CDEB1 /* Main.storyboard */ = {

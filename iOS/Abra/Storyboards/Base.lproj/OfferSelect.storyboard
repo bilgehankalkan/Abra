@@ -31,6 +31,9 @@
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="fF3-jL-diQ" id="sKq-b3-mG1"/>
+                                </connections>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zcr-dr-a8n">
                                 <rect key="frame" x="58" y="155.5" width="287" height="1"/>
@@ -52,6 +55,10 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="fF3-jL-diQ" id="t9o-6M-6ez"/>
+                                    <outlet property="delegate" destination="fF3-jL-diQ" id="YZF-a2-htF"/>
+                                </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aME-Qr-9Nd">
                                 <rect key="frame" x="156.5" y="27" width="62" height="30"/>
@@ -112,7 +119,7 @@
                 <customObject id="fF3-jL-diQ" customClass="OSLocationViewModel" customModule="Abra" customModuleProvider="target">
                     <connections>
                         <outlet property="backButton" destination="LeR-DV-HUj" id="VBY-wh-vss"/>
-                        <outlet property="locationTableView" destination="aTZ-q4-7xB" id="D6S-r4-QHB"/>
+                        <outlet property="locationTableView" destination="aTZ-q4-7xB" id="6Xy-es-H0l"/>
                         <outlet property="locationTextField" destination="lHw-h6-oOX" id="auO-bB-ZSD"/>
                         <outlet property="titleLabel" destination="Vl3-NB-mEz" id="S8N-qA-tvF"/>
                     </connections>

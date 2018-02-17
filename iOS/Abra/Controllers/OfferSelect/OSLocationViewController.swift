@@ -60,7 +60,7 @@ class OSLocationViewModel: NSObject {
     
 }
 
-class Location {
+extension OSLocationViewModel: UITableViewDelegate {
     
 }
 

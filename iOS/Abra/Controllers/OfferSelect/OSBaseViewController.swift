@@ -29,7 +29,7 @@ class OSBaseViewController: UIViewController {
     static var offerSelectMode: OfferSelectMode = .courier
     static var offerSelect = OfferSelect()
     
-    lazy fileprivate var offerStoryboard        = UIStoryboard(name: "Offer", bundle: .main)
+    lazy fileprivate var offerStoryboard        = UIStoryboard(name: "OfferSelect", bundle: .main)
     lazy fileprivate var locationViewController = offerStoryboard.instantiateViewController(withIdentifier: "OSLocationViewController") as! OSLocationViewController
     lazy fileprivate var dateViewController     = offerStoryboard.instantiateViewController(withIdentifier: "OSDateViewController")     as! OSDateViewController
     lazy fileprivate var timeViewController     = offerStoryboard.instantiateViewController(withIdentifier: "OSTimeViewController")     as! OSTimeViewController
