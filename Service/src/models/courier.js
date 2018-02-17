@@ -21,7 +21,8 @@ const courierSchema = new Schema({
     // başlangıç noktası
     origin: objectId,
     // bagaj kapasitesi
-    luggageCapacity: Number
+    weight: Number,
+    price: Number
 
 }, { versionKey: false });
 
@@ -56,12 +57,12 @@ model.register = (courier, req) => {
             rej({
                 message: dictionary.errorMessages.nullOrEmptyOrigin
             }, responseCode.BAD_REQUEST);
-        } else if (courier.luggageCapacity == null) {
+        } else if (courier.weight == null) {
             rej({
                 message: dictionary.errorMessages.invalidLuggageCapacity,
                 statusCode: responseCode.BAD_REQUEST
             });
-        } else if (courier.luggageCapacity < 0) {
+        } else if (courier.weight < 0) {
             rej({
                 message: dictionary.errorMessages.negativeBaggage,
                 statusCode: responseCode.BAD_REQUEST
@@ -82,5 +83,9 @@ model.getList = (pageIndex, pageSize, req) => {
         .skip(pageIndex * pageSize)
         .limit(pageSize);
 };
+
+model.seach = () => {
+
+}
 
 module.exports = model;
