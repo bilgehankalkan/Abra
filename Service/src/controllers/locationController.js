@@ -1,6 +1,5 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const cities = require("cities.json");
 const locationModel = require("../models/location");
 const response = require("../utilities/response");
 const responseCode = require("../utilities/responseCode");
