@@ -52,7 +52,43 @@ class OSLocationViewModel: NSObject {
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var locationTextField: UITextField!
-    @IBOutlet weak var locationTableView: UITableView!
+    @IBOutlet weak var loadingActivityIndicatorView: UIActivityIndicatorView!
+    @IBOutlet weak var locationsTableView: UITableView!
+    
+    var locations = [Location]()
+    
+    var timer: Timer?
+
+    @IBAction func search(_ sender: UITextField) {
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(performSearch(_:)), userInfo: sender, repeats: false)
+    }
+    
+    @objc func performSearch(_ timer: Timer) {
+        if let textField = timer.userInfo as? UITextField {
+            DispatchQueue.global(qos: .userInitiated).async { [unowned self] in
+                self.locations.removeAll()
+                DispatchQueue.main.async {
+                    self.locationsTableView.reloadData()
+                    self.locationsTableView.isHidden = true
+                    self.loadingActivityIndicatorView.isHidden = false
+                }
+            }
+            API.sharedManager.location(search: textField.text ?? "nil", completion: {
+                (locations: [Location]?, error: Error?) in
+                DispatchQueue.global(qos: .userInitiated).async { [unowned self] in
+                    if let locations = locations {
+                        self.locations.append(contentsOf: locations)
+                    }
+                    DispatchQueue.main.async {
+                        self.locationsTableView.reloadData()
+                        self.locationsTableView.isHidden = self.locations.count == 0
+                        self.loadingActivityIndicatorView.isHidden = true
+                    }
+                }
+            })
+        }
+    }
     
     @IBAction func `continue`(_ sender: UIButton) {
         delegate?.`continue`()
@@ -60,7 +96,35 @@ class OSLocationViewModel: NSObject {
     
 }
 
+extension OSLocationViewModel: UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return locations.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+        
+        let location = locations[indexPath.item]
+        cell.textLabel?.text = location.name
+
+        return cell
+    }
+    
+}
+
 extension OSLocationViewModel: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: false)
+        let location = locations[indexPath.item]
+        locationTextField.text = location.name
+        self.delegate?.selected(location)
+    }
     
 }
 
