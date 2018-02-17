@@ -12,9 +12,9 @@ class OSCarryViewController: OSBaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        tabBarController?.selectedIndex = 1
-        OSBaseViewController.offerSelectMode = .carry
-        startOS()
+        startOS(mode: .carry) { [unowned self] in
+            self.tabBarController?.selectedIndex = 1
+        }
     }
 
 }

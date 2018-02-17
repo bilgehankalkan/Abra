@@ -12,9 +12,9 @@ class OSCourierViewController: OSBaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        tabBarController?.selectedIndex = 1
-        OSBaseViewController.offerSelectMode = .courier
-        startOS()
+        startOS(mode: .courier)  { [unowned self] in
+            self.tabBarController?.selectedIndex = 1
+        }
     }
 
 }

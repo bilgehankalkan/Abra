@@ -38,10 +38,16 @@ class OSBaseViewController: UIViewController {
     lazy fileprivate var noteViewController     = offerStoryboard.instantiateViewController(withIdentifier: "OSNoteViewController")     as! OSNoteViewController
     lazy fileprivate var finishViewController   = offerStoryboard.instantiateViewController(withIdentifier: "OSFinishViewController")   as! OSFinishViewController
 
-    func startOS() {
+    func startOS(mode: OfferSelectMode, completion: (() -> Swift.Void)? = nil) {
+        OSBaseViewController.offerSelectMode = mode
         locationViewController.locationMode = .origin
         let baseNavigationControllers = BaseNavigationController(rootViewController: locationViewController)
-        present(baseNavigationControllers, animated: true)
+        if let tabBarController = tabBarController {
+            tabBarController.present(baseNavigationControllers, animated: true, completion: completion)
+        }
+        else {
+            present(baseNavigationControllers, animated: true, completion: completion)
+        }
     }
     
     func showLocation(for locationMode: OSLocationMode, from viewController: OSBaseViewController) {
