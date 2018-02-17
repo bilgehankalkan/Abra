@@ -71,21 +71,66 @@ model.register = (courier, req) => {
             model.create(courier)
                 .then(res)
                 .catch((err) => {
-                    err.statusCode = responseCode.SERVER_ERROR;
-                    rej(err);
+                    rej({
+                        message: dictionary.errorMessages.systemError,
+                        statusCode: responseCode.SERVER_ERROR
+                    });
                 });
         }
     });
 };
 
+function gets(query, projection, pageIndex, pageSize, req) {
+    var dictionary = _dictionary(req);
+    if (pageIndex == undefined) {
+        pageIndex = 0;
+    }
+    if (pageSize == undefined) {
+        pageSize = 20;
+    }
+    return new Promise((res, rej) => {
+        model.find(query, projection)
+            .limit(parseInt(pageSize))
+            .skip(parseInt(pageIndex) * parseInt(pageSize))
+            .exec()
+            .then(res)
+            .catch((err) => {
+                rej({
+                    message: dictionary.errorMessages.systemError,
+                    statusCode: responseCode.SERVER_ERROR
+                });
+            });
+    });
+}
+
 model.getList = (pageIndex, pageSize, req) => {
-    model.find({})
-        .skip(pageIndex * pageSize)
-        .limit(pageSize);
+    return gets({}, {}, pageIndex, pageSize, req);
 };
-
-model.seach = () => {
-
+model.search = (originDate, destination, origin, weight, pageSize, pageIndex, req) => {
+    const query = {
+        $and: []
+    };
+    if (originDate != null) {
+        query.$and.push({
+            originDate: { $gte: originDate }
+        });
+    }
+    if (destination != null) {
+        query.$and.push({
+            destination: destination
+        });
+    }
+    if (origin != null) {
+        query.$and.push({
+            origin: origin
+        });
+    }
+    if (weight != null) {
+        weight.$and.push({
+            weight: { $gte: weight }
+        });
+    }
+    return gets(query, {}, pageIndex, pageSize, req);
 }
 
 module.exports = model;
