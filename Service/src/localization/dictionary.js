@@ -3,7 +3,7 @@ const logger = require("../utilities/logger");
 const consoleLogger = logger.init(logger.types.CONSOLE);
 
 function init(req) {
-    const acceptLanguage = req.headers["Accept-Language"];
+    const acceptLanguage = req.headers["accept-language"];
     var dictionary = {};
     try {
         dictionary = require("./dictionary." + acceptLanguage + ".js");
