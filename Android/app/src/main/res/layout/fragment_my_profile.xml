@@ -40,9 +40,9 @@
                     android:id="@+id/text_view_extra_info_my_profile_fragment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/text_view_username_my_profile_fragment"
                     android:layout_toEndOf="@id/image_view_avatar_my_profile_fragment"
-                    android:layout_marginTop="10dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="10dp"
                     android:layout_marginStart="20dp"/>
             </RelativeLayout>
         </LinearLayout>
