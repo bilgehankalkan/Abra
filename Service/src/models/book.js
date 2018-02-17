@@ -17,7 +17,7 @@ const bookSchema = new Schema({
 mongoose.model("book", bookSchema, collections.book);
 var model = mongoose.model("book");
 
-model.insert = (courierId, userId,req) => {
+model.insert = (courierId, userId, req) => {
     var dictionary = _dictionary(req);
     return new Promise((res, rej) => {
         model.create({
@@ -25,6 +25,26 @@ model.insert = (courierId, userId,req) => {
             courierId: courierId,
             dateCreated: Date.now(),
         }).then(res)
+            .catch((err) => {
+                rej({
+                    message: dictionary.errorMEssages.systemError,
+                    statusCode: responseCode.SERVER_ERROR
+                })
+            })
+    });
+};
+
+model.getListByUserId = (userId, pageIndex, pageSize, req) => {
+    var dictionary = _dictionary(req);
+    return new Promise((res, rej) => {
+        const query = {
+            userId: { $eq: userId }
+        };
+        model.find(query)
+            .limit(pageSize)
+            .skip(pageIndex * pageSize)
+            .exec()
+            .then(res)
             .catch((err) => {
                 rej({
                     message: dictionary.errorMEssages.systemError,
