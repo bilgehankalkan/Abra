@@ -7,13 +7,23 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.bilgehankalkan.abra.R;
+import com.bilgehankalkan.abra.interfaces.OnOfferChosenListener;
+import com.bilgehankalkan.abra.interfaces.OnSearchOptionListener;
+import com.bilgehankalkan.abra.service.models.Location;
 import com.bilgehankalkan.abra.ui.fragments.FindCourierFragment;
 import com.bilgehankalkan.abra.ui.fragments.InboxFragment;
 import com.bilgehankalkan.abra.ui.fragments.MyProfileFragment;
 import com.bilgehankalkan.abra.ui.fragments.OrdersFragment;
+import com.bilgehankalkan.abra.ui.fragments.create_offer.CreateOfferBaseFragment;
 import com.ncapdevi.fragnav.FragNavController;
 
-public class MainActivity extends AppCompatActivity implements FragNavController.RootFragmentListener {
+import java.util.ArrayList;
+import java.util.List;
+
+public class MainActivity extends BaseActivity implements OnSearchOptionListener {
+
+    public FragNavController fragNavController;
+    FindCourierFragment findCourierFragment;
 
     BottomNavigationView bottomNavigationView;
 
@@ -24,10 +34,19 @@ public class MainActivity extends AppCompatActivity implements FragNavController
 
         bottomNavigationView = findViewById(R.id.bottom_navigation_view_main);
 
-        FragNavController fragNavController = FragNavController.newBuilder(savedInstanceState,
+        findCourierFragment = new FindCourierFragment();
+        List<Fragment> listRootFragments = new ArrayList<>();
+        listRootFragments.add(findCourierFragment);
+        listRootFragments.add(new OrdersFragment());
+        listRootFragments.add(new InboxFragment());
+        listRootFragments.add(new MyProfileFragment());
+
+        fragNavController = FragNavController.newBuilder(savedInstanceState,
                 getSupportFragmentManager(), R.id.container_main)
-                .rootFragmentListener(this, 4)
+                .rootFragments(listRootFragments)
                 .build();
+
+        bottomNavigationView.setSelectedItemId(R.id.action_find_courier);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
                 switch (item.getItemId()) {
@@ -38,9 +57,9 @@ public class MainActivity extends AppCompatActivity implements FragNavController
                         fragNavController.switchTab(FragNavController.TAB2);
                         break;
                     case R.id.action_offer_to_carry:
+                        bottomNavigationView.setSelectedItemId(R.id.action_your_orders);
                         startActivity(new Intent(getApplicationContext(), CreateOfferActivity.class));
                         overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
-                        fragNavController.switchTab(FragNavController.TAB2);
                         break;
                     case R.id.action_inbox:
                         fragNavController.switchTab(FragNavController.TAB3);
@@ -54,17 +73,36 @@ public class MainActivity extends AppCompatActivity implements FragNavController
     }
 
     @Override
-    public Fragment getRootFragment(int i) {
-        switch (i) {
-            case 0:
-                return new FindCourierFragment();
-            case 1:
-                return new OrdersFragment();
-            case 2:
-                return new InboxFragment();
-            case 3:
-                return new MyProfileFragment();
-        }
-        return null;
+    public void onBackPressed() {
+        if (fragNavController.getCurrentFrag() instanceof CreateOfferBaseFragment)
+            fragNavController.popFragment();
+        else
+            onBackPressed();
+    }
+
+    @Override
+    public void onOriginSelected(Location originLocation) {
+        findCourierFragment.onOriginSelected(originLocation);
+    }
+
+    @Override
+    public void onOriginDateSelected(String date) {
+        findCourierFragment.onOriginDateSelected(date);
+    }
+
+    @Override
+    public void onOriginTimeSelected(String time) {
+        findCourierFragment.onOriginTimeSelected(time);
+    }
+
+    @Override
+    public void onDestinationSelected(Location destinationLocation) {
+        findCourierFragment.onDestinationSelected(destinationLocation);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        fragNavController.onSaveInstanceState(outState);
     }
 }
