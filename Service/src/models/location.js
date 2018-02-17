@@ -20,7 +20,7 @@ const model = mongoose.model("location");
 model.searchByNameWithContains = (q, req) => {
     var dictionary = _dictionary(req);
     return new Promise((res, rej) => {
-        if (req.query.q == undefined) {
+        if (q == undefined) {
             rej({
                 message: "",
                 statusCode: responseCode.BAD_REQUEST
@@ -28,7 +28,7 @@ model.searchByNameWithContains = (q, req) => {
         }
         const query = {
             "name": {
-                "$regex": ".*" + req.query.q + ".*",
+                "$regex": ".*" + q + ".*",
                 "$options": "i"
             }
         }
