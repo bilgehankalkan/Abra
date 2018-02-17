@@ -41,6 +41,25 @@ model.searchByNameWithStartWith = (q, req) => {
                 });
             });
     });
+};
+
+model.getListByIdArray = (idArray, req) => {
+    var dictionary = _dictionary(req);
+    return new Promise((res, rej) => {
+        const query = {
+            _id: {
+                $in: idArray
+            }
+        };
+        model.find(query, { name: 1 })
+            .then(res)
+            .catch((err) => {
+                rej({
+                    message: dictionary.errorMessages.systemError,
+                    statusCode: responseCode.SERVER_ERROR
+                });
+            });
+    });
 }
 
 module.exports = model;
