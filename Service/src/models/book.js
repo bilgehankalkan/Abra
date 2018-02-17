@@ -11,18 +11,20 @@ const bookSchema = new Schema({
     courierId: objectId,
     dateCreated: Date,
     userConfirm: Boolean,
+    destinationDate: Date,
     courierConfirm: Boolean
 }, { versionKey: false });
 
 mongoose.model("book", bookSchema, collections.book);
 var model = mongoose.model("book");
 
-model.insert = (courierId, userId, req) => {
+model.insert = (courierId, destinationDate, userId, req) => {
     var dictionary = _dictionary(req);
     return new Promise((res, rej) => {
         model.create({
             userId: userId,
             courierId: courierId,
+            destinationDate: destinationDate,
             dateCreated: Date.now(),
         }).then(res)
             .catch((err) => {
@@ -46,6 +48,75 @@ model.getListByUserId = (userId, pageIndex, pageSize, req) => {
             .exec()
             .then(res)
             .catch((err) => {
+                rej({
+                    message: dictionary.errorMessages.systemError,
+                    statusCode: responseCode.SERVER_ERROR
+                });
+            });
+    });
+};
+
+model.getCurrentsByUserId = (userId, pageIndex, pageSize, req) => {
+    var dictionary = _dictionary(req);
+    return new Promise((res, rej) => {
+        const query = {
+            $and: [
+                {
+                    $or: [
+                        {
+                            userId: { $eq: userId }
+                        },
+                        {
+                            courierId: { $eq: userId }
+                        }
+                    ]
+                },
+                {
+                    destinationDate: { $gte: Date.now() }
+                }
+            ]
+        };
+        model.find(query)
+            .limit(parseInt(pageSize))
+            .skip(parseInt(pageIndex) * parseInt(pageSize))
+            .exec()
+            .then(res)
+            .catch((err) => {
+                rej({
+                    message: dictionary.errorMessages.systemError,
+                    statusCode: responseCode.SERVER_ERROR
+                });
+            });
+    });
+};
+
+model.getPastsByUserId = (userId, pageIndex, pageSize, req) => {
+    var dictionary = _dictionary(req);
+    return new Promise((res, rej) => {
+        const query = {
+            $and: [
+                {
+                    $or: [
+                        {
+                            userId: { $eq: userId }
+                        },
+                        {
+                            courierId: { $eq: userId }
+                        }
+                    ]
+                },
+                {
+                    destinationDate: { $lt: Date.now() }
+                }
+            ]
+        };
+        model.find(query)
+            .limit(parseInt(pageSize))
+            .skip(parseInt(pageIndex) * parseInt(pageSize))
+            .exec()
+            .then(res)
+            .catch((err) => {
+                console.log(err);
                 rej({
                     message: dictionary.errorMessages.systemError,
                     statusCode: responseCode.SERVER_ERROR
