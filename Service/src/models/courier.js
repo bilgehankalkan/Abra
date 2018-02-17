@@ -166,7 +166,28 @@ model.getListById = (idArray, req) => {
                     statusCode: responseCode.SERVER_ERROR
                 });
             });;
-    })
+    });
+}
+
+model.getDestinationDateById = (id, req) => {
+    var dictionary = _dictionary(req);
+    return new Promise((res, rej) => {
+        const query = {
+            _id: { $eq: id }
+        };
+        const projection = {
+            destinationDate: 1
+        }
+        model.findOne(query, projection)
+            .exec()
+            .then(res)
+            .catch((err) => {
+                rej({
+                    message: dictionary.errorMessages.systemError,
+                    statusCode: responseCode.SERVER_ERROR
+                });
+            });;
+    });
 }
 
 module.exports = model;
