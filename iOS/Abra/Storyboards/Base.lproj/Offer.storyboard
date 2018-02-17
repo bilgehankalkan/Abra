@@ -17,13 +17,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bk3-QP-8oc">
-                                <rect key="frame" x="16" y="27" width="48" height="30"/>
-                                <state key="normal" title="Cancel"/>
-                                <connections>
-                                    <action selector="close:" destination="Shz-fP-DNm" eventType="touchUpInside" id="fHo-Af-bSg"/>
-                                </connections>
-                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="Where are you leaving from?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vl3-NB-mEz">
                                 <rect key="frame" x="30" y="80" width="315" height="20.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
@@ -65,6 +58,13 @@
                                 <state key="normal" title="Continue"/>
                                 <connections>
                                     <action selector="continue:" destination="fF3-jL-diQ" eventType="touchUpInside" id="POa-d8-gW3"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bk3-QP-8oc">
+                                <rect key="frame" x="16" y="27" width="48" height="30"/>
+                                <state key="normal" title="Cancel"/>
+                                <connections>
+                                    <action selector="close:" destination="Shz-fP-DNm" eventType="touchUpInside" id="fHo-Af-bSg"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LeR-DV-HUj">
@@ -110,7 +110,15 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Cz-yL-WSy" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <customObject id="fF3-jL-diQ" customClass="OSLocationViewModel" customModule="Abra" customModuleProvider="target"/>
+                <customObject id="fF3-jL-diQ" customClass="OSLocationViewModel" customModule="Abra" customModuleProvider="target">
+                    <connections>
+                        <outlet property="backButton" destination="LeR-DV-HUj" id="VBY-wh-vss"/>
+                        <outlet property="cancelButton" destination="Bk3-QP-8oc" id="3ha-Jm-HFG"/>
+                        <outlet property="locationTableView" destination="aTZ-q4-7xB" id="D6S-r4-QHB"/>
+                        <outlet property="locationTextField" destination="lHw-h6-oOX" id="auO-bB-ZSD"/>
+                        <outlet property="titleLabel" destination="Vl3-NB-mEz" id="S8N-qA-tvF"/>
+                    </connections>
+                </customObject>
             </objects>
             <point key="canvasLocation" x="0.0" y="0.0"/>
         </scene>
@@ -181,7 +189,12 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6he-n1-byA" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <customObject id="9Ay-gd-bkN" customClass="OSDateViewModel" customModule="Abra" customModuleProvider="target"/>
+                <customObject id="9Ay-gd-bkN" customClass="OSDateViewModel" customModule="Abra" customModuleProvider="target">
+                    <connections>
+                        <outlet property="datePicker" destination="KoD-qF-io3" id="YYp-cw-xcV"/>
+                        <outlet property="titleLabel" destination="d56-w5-6HT" id="tm1-aD-fkE"/>
+                    </connections>
+                </customObject>
             </objects>
             <point key="canvasLocation" x="750" y="0.0"/>
         </scene>
@@ -252,7 +265,12 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HUv-E7-i5T" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <customObject id="I8u-8v-IdZ" customClass="OSTimeViewModel" customModule="Abra" customModuleProvider="target"/>
+                <customObject id="I8u-8v-IdZ" customClass="OSTimeViewModel" customModule="Abra" customModuleProvider="target">
+                    <connections>
+                        <outlet property="datePicker" destination="Rzl-zh-Bmq" id="5qB-fv-WMw"/>
+                        <outlet property="titleLabel" destination="q6d-xx-3Ez" id="Bu2-JK-Rg6"/>
+                    </connections>
+                </customObject>
             </objects>
             <point key="canvasLocation" x="1500" y="0.0"/>
         </scene>
@@ -270,8 +288,11 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="aAp-h0-B7b">
+                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minimumValue="1" maximumValue="20" translatesAutoresizingMaskIntoConstraints="NO" id="aAp-h0-B7b">
                                 <rect key="frame" x="251" y="329" width="94" height="29"/>
+                                <connections>
+                                    <action selector="stepperValueChanged:" destination="wQE-nG-KaO" eventType="valueChanged" id="qx4-KW-Vni"/>
+                                </connections>
                             </stepper>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Kilograms" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pzK-FP-rQI">
                                 <rect key="frame" x="30" y="333" width="76.5" height="21"/>
@@ -338,7 +359,14 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jZN-Jm-hmW" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <customObject id="wQE-nG-KaO" customClass="OSAmountViewModel" customModule="Abra" customModuleProvider="target"/>
+                <customObject id="wQE-nG-KaO" customClass="OSAmountViewModel" customModule="Abra" customModuleProvider="target">
+                    <connections>
+                        <outlet property="amountLabel" destination="8WZ-tA-5QM" id="4K7-C3-4Qn"/>
+                        <outlet property="modeLabel" destination="pzK-FP-rQI" id="UsB-xo-pTs"/>
+                        <outlet property="stepper" destination="aAp-h0-B7b" id="3RD-Rr-Hih"/>
+                        <outlet property="titleLabel" destination="DL7-wm-mRV" id="UPR-Ue-grk"/>
+                    </connections>
+                </customObject>
             </objects>
             <point key="canvasLocation" x="2250" y="0.0"/>
         </scene>
@@ -424,7 +452,14 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bAS-54-ISh" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <customObject id="4n3-S9-hIn" customClass="OSSwitchViewModel" customModule="Abra" customModuleProvider="target"/>
+                <customObject id="4n3-S9-hIn" customClass="OSSwitchViewModel" customModule="Abra" customModuleProvider="target">
+                    <connections>
+                        <outlet property="modeLabel" destination="cKZ-f2-jg8" id="lsQ-zM-uPt"/>
+                        <outlet property="subtitleLabel" destination="b6p-l4-R1D" id="Nrk-dm-7s6"/>
+                        <outlet property="switch" destination="UKI-KM-6jG" id="kN9-Mg-Lve"/>
+                        <outlet property="titleLabel" destination="ZcR-Nw-Hxv" id="0xS-LK-HyT"/>
+                    </connections>
+                </customObject>
             </objects>
             <point key="canvasLocation" x="3000" y="0.0"/>
         </scene>
@@ -442,7 +477,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Your message" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="qgj-7h-yNU">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Your message goes here" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="qgj-7h-yNU">
                                 <rect key="frame" x="30" y="130.5" width="315" height="19"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -506,7 +541,12 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="J3N-Yj-JBL" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <customObject id="aJK-3u-5Ku" customClass="OSNoteViewModel" customModule="Abra" customModuleProvider="target"/>
+                <customObject id="aJK-3u-5Ku" customClass="OSNoteViewModel" customModule="Abra" customModuleProvider="target">
+                    <connections>
+                        <outlet property="aboutTextField" destination="qgj-7h-yNU" id="RDY-H6-P75"/>
+                        <outlet property="titleLabel" destination="dQm-Q6-lpT" id="KQz-mr-9eQ"/>
+                    </connections>
+                </customObject>
             </objects>
             <point key="canvasLocation" x="3750" y="0.0"/>
         </scene>
@@ -527,6 +567,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FpE-4X-z1h">
                                 <rect key="frame" x="16" y="30" width="24" height="24"/>
                                 <state key="normal" image="nav-back"/>
+                                <connections>
+                                    <action selector="back:" destination="0hi-f5-VaD" eventType="touchUpInside" id="qab-qF-vI1"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rZ4-Eg-FAF">
                                 <rect key="frame" x="30" y="587" width="315" height="50"/>

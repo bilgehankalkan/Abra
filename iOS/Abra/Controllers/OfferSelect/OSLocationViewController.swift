@@ -21,6 +21,29 @@ protocol OSLocationDelegate {
 class OSLocationViewModel: NSObject {
     
     var delegate: OSLocationDelegate?
+    var mode: OSLocationMode = .origin {
+        didSet {
+            switch mode {
+            case .origin:
+                cancelButton.isHidden = false
+                backButton.isHidden = true
+                titleLabel.text = "Where are you leaving from?"
+                locationTextField.placeholder = "Enter the origin location"
+            case .destination:
+                cancelButton.isHidden = true
+                backButton.isHidden = false
+                titleLabel.text = "Where are you heading?"
+                locationTextField.placeholder = "Enter the destination location"
+            }
+            locationTextField.addToolbar(type: .closeInputView)
+        }
+    }
+
+    @IBOutlet weak var cancelButton: UIButton!
+    @IBOutlet weak var backButton: UIButton!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var locationTextField: UITextField!
+    @IBOutlet weak var locationTableView: UITableView!
     
     @IBAction func `continue`(_ sender: UIButton) {
         delegate?.`continue`()
@@ -41,6 +64,7 @@ class OSLocationViewController: OSBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         locationViewModel.delegate = self
+        locationViewModel.mode = mode
     }
     
 }

@@ -14,16 +14,28 @@ enum OSTimeMode {
 }
 
 protocol OSTimeDelegate {
-    func selected(_ time: Date)
-    func `continue`()
+    func `continue`(time: Date)
 }
 
 class OSTimeViewModel: NSObject {
     
     var delegate: OSTimeDelegate?
+    var mode: OSTimeMode = .origin {
+        didSet {
+            switch mode {
+            case .origin:
+                titleLabel.text = "What time are you going?"
+            case .destination:
+                titleLabel.text = "What time are you arriving?"
+            }
+        }
+    }
+    
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var datePicker: UIDatePicker!
     
     @IBAction func `continue`(_ sender: UIButton) {
-        delegate?.`continue`()
+        delegate?.`continue`(time: datePicker.date)
     }
     
 }
@@ -37,24 +49,25 @@ class OSTimeViewController: OSBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         timeViewModel.delegate = self
+        timeViewModel.mode = mode
     }
     
 }
 
 extension OSTimeViewController: OSTimeDelegate {
     
-    func selected(_ time: Date) {
+    func `continue`(time: Date) {
+        // TODO: MERGE DATE & TIME
+        print(time)
         switch mode {
-        case .origin:       OSBaseViewController.offerSelect.originDate = time
-        case .destination:  OSBaseViewController.offerSelect.destinationDate = time
-        }
-    }
-    
-    func `continue`() {
-        switch mode {
-        case .origin:       showLocation(for: .destination, from: self)
-        case .destination:  showAmount(for: .weight, from: self)
+        case .origin:
+            OSBaseViewController.offerSelect.originDate = time
+            showLocation(for: .destination, from: self)
+        case .destination:
+            OSBaseViewController.offerSelect.destinationDate = time
+            showAmount(for: .weight, from: self)
         }
     }
     
 }
+

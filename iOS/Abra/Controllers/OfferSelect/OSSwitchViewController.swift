@@ -13,16 +13,30 @@ enum OSSwitchMode {
 }
 
 protocol OSSwitchDelegate {
-    func selected(_ switch: Bool)
-    func `continue`()
+    func `continue`(switch: Bool)
 }
 
 class OSSwitchViewModel: NSObject {
     
     var delegate: OSSwitchDelegate?
+    var mode: OSSwitchMode = .instantBooking {
+        didSet {
+            switch mode {
+            case .instantBooking:
+                titleLabel.text = "Save time and let your clients book instantly!"
+                subtitleLabel.text = "If not, you'll have to reply to every booking request yourself!"
+                modeLabel.text = "Instant Booking"
+            }
+        }
+    }
+    
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var subtitleLabel: UILabel!
+    @IBOutlet weak var modeLabel: UILabel!
+    @IBOutlet weak var `switch`: UISwitch!
     
     @IBAction func `continue`(_ sender: UIButton) {
-        delegate?.`continue`()
+        delegate?.`continue`(switch: `switch`.isOn)
     }
     
 }
@@ -36,21 +50,19 @@ class OSSwitchViewController: OSBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         switchViewModel.delegate = self
+        switchViewModel.mode = mode
     }
     
 }
 
 extension OSSwitchViewController: OSSwitchDelegate {
     
-    func selected(_ switch: Bool) {
+    func `continue`(switch: Bool) {
+        print(`switch`)
         switch mode {
-        case .instantBooking:   OSBaseViewController.offerSelect.instantBooking = `switch`
-        }
-    }
-    
-    func `continue`() {
-        switch mode {
-        case .instantBooking:   showAmount(for: .price, from: self)
+        case .instantBooking:
+            OSBaseViewController.offerSelect.instantBooking = `switch`
+            showAmount(for: .price, from: self)
         }
     }
     
