@@ -9,12 +9,26 @@
     <string name="continue_text">Continue</string>
     <string name="select_valid_argument">Please select valid %1$s</string>
     <string name="capacity_selection_explanation">How many kg can your luggage can carry?</string>
+    <string name="price_selection_explanation">How much money do you want for carrying?</string>
     <string name="instant_booking_explanation">Save time and let your passengers book instantly</string>
     <string name="instant_booking_explanation_2">If not, you\'ll have to reply every booking requests yourself</string>
-    <string name="post_without_instant_booking" translatable="false">Post without instant booking</string>
+    <string name="continue_without_instant_booking">Continue without instant booking</string>
     <string name="post">Post</string>
     <string name="origin_destination_explanation_text">Start typing your %1$s location</string>
     <string name="origin">origin</string>
     <string name="destination">destination</string>
     <string name="please_select_origin_destination">Please enter valid %1$s point.</string>
+    <string name="date">date</string>
+    <string name="time">time</string>
+    <string name="capacity">capacity</string>
+    <string name="search">Search</string>
+    <string name="explanation_time_origin">Please select your departure time.</string>
+    <string name="explanation_time_destination">Please select your arrival time.</string>
+    <string name="explanation_time_search">Please select your initial time.</string>
+    <string name="explanation_date_origin">Please select your departure date.</string>
+    <string name="explanation_date_destination">Please select your arrival date.</string>
+    <string name="explanation_date_search">Please select your initial date.</string>
+    <string name="explanation_add_note">Do you want to add note?</string>
+    <string name="connection_error">Connection Error</string>
+
 </resources>

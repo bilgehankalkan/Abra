@@ -11,4 +11,38 @@
     <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:background">@drawable/splash_background</item>
     </style>
+
+    <style name="CardViewButtonTheme" parent="CardView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="cardBackgroundColor">@color/colorSplashBackground</item>
+        <item name="cardElevation">0dp</item>
+        <item name="cardCornerRadius">5dp</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_centerHorizontal">true</item>
+    </style>
+
+    <style name="CardViewContinueTheme" parent="CardViewButtonTheme">
+        <item name="android:layout_marginBottom">60dp</item>
+        <item name="android:layout_alignParentBottom">true</item>
+    </style>
+
+    <style name="TextViewBase">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TextViewButtonTheme" parent="TextViewBase">
+        <item name="android:gravity">center</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="TextViewSmallHeaderStyle" parent="TextViewBase">
+        <item name="android:textColor">@color/colorSplashBackground</item>
+    </style>
+
+
 </resources>

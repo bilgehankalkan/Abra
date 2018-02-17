@@ -12,10 +12,22 @@
     <string name="capacity_selection_explanation">Valizinizde kaç kg yer müsait?</string>
     <string name="instant_booking_explanation">Zamandan kazanın ve müşterilerinize en hızlı zamanda yer ayırtsınlar</string>
     <string name="instant_booking_explanation_2">Bunu tercih etmezseniz isteklerinizi ayrıca onaylamanız gerekir</string>
-    <string name="post_without_instant_booking">Hızlı onaylamasız gönder</string>
+    <string name="continue_without_instant_booking">Hızlı onaylamasız devam et</string>
     <string name="post">Gönder</string>
     <string name="origin_destination_explanation_text">%1$s noktanızı yazmaya başlayın</string>
     <string name="origin">Çıkış</string>
     <string name="destination">Varış</string>
     <string name="please_select_origin_destination">%1$s noktasını önerilen şekilde giriniz.</string>
+    <string name="date">Tarih</string>
+    <string name="time">Saat</string>
+    <string name="capacity">Kapasite</string>
+    <string name="search">Arama</string>
+    <string name="price_selection_explanation">Bu gönderiyi ne kadara yapmak istersiniz?</string>
+    <string name="explanation_time_origin">Lüfen ayrılma saatinizi seçin.</string>
+    <string name="explanation_date_origin">Lüfen ayrılma tarihinizi seçin.</string>
+    <string name="explanation_time_destination">Lüfen varış saatinizi seçin.</string>
+    <string name="explanation_date_destination">Lüfen varış tarihinizi seçin.</string>
+    <string name="explanation_time_search">Lüfen en uygun saatinizi seçin.</string>
+    <string name="explanation_date_search">Lüfen en uygun saatinizi seçin.</string>
+    <string name="explanation_add_note">Not eklemek ister misiniz?</string>
 </resources>
