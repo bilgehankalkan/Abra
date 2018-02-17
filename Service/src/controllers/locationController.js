@@ -28,14 +28,14 @@ router.get("/search", (req, res) => {
     locationModel.searchByNameWithContains(req.query.q, req)
         .then((docs) => {
             res.status(responseCode.OK)
-                .send(response(responseCode.statusCode, "", {
+                .send(response(responseCode.OK, "", {
                     key: "locations",
                     value: docs
                 }));
         })
         .catch((err) => {
             res.status(err.statusCode)
-                .send(response(responseCode.statusCode, err.message));
+                .send(response(err.statusCode, err.message));
         });
 });
 
