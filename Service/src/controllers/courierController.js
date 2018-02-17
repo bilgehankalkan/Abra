@@ -1,7 +1,11 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const linq = require("ex-js-linq");
 const courierModel = require("../models/courier");
+const bookModel = require("../models/book");
+const userModel = require("../models/user");
+const locationModel = require("../models/location");
 const response = require("../utilities/response");
 const responseCode = require("../utilities/responseCode");
 let router = express.Router();
@@ -15,15 +19,91 @@ router.use(bodyParser.json());
 router.get("/:pageIndex/:pageSize", (req, res) => {
     courierModel.getList(req.params.pageIndex, req.params.pageSize, req)
         .then((couriers) => {
-            res.status(responseCode.OK)
-                .send(response(responseCode.OK, "", {
-                    key: "couriers",
-                    value: couriers
-                }));
+            var userIdArray = [];
+            var locationIdArray = [];
+            new linq(couriers).forEach((x) => {
+                userIdArray.push(x.ownerId);
+                locationIdArray.push(x.origin);
+                locationIdArray.push(x.destination);
+            });
+            return {
+                userIdArray: userIdArray,
+                locationIdArray: locationIdArray,
+                couriers: couriers
+            }
+        }).then((result) => {
+            userModel.getListByIdArray(result.userIdArray, req)
+                .then((users) => {
+                    var couriers = new linq(result.couriers)
+                        .select((x) => {
+                            var owner = new linq(users).firstOrDefault((y) => {
+                                return x.ownerId.toString() == y._id.toString();
+                            });
+                            return {
+                                _id: x._id,
+                                dateCreated: x.dateCreated,
+                                owner: owner,
+                                destination: {
+                                    _id: x.destination.toString(),
+                                    date: x.destinationDate
+                                },
+                                origin: {
+                                    _id: x.origin.toString(),
+                                    date: x.originDate
+                                },
+                                instantBooking: x.instantBooking,
+                            }
+                        }).toArray();
+                    return couriers;
+                })
+                .then((couriers) => {
+                    locationModel.getListByIdArray(result.locationIdArray, req)
+                        .then((locations) => {
+                            couriers = new linq(couriers)
+                                .select((x) => {
+                                    var origin = new linq(locations).firstOrDefault((y) => {
+                                        return x.origin._id.toString() == y._id.toString();
+                                    });
+                                    var destination = new linq(locations).firstOrDefault((y) => {
+                                        return x.destination._id.toString() == y._id.toString();
+                                    });
+                                    return {
+                                        _id: x._id,
+                                        dateCreated: x.dateCreated,
+                                        owner: x.owner,
+                                        origin: {
+                                            name: origin.name,
+                                            date: x.origin.date
+                                        },
+                                        destination: {
+                                            name: destination.name,
+                                            date: x.destination.date
+                                        },
+                                        instantBooking: x.instantBooking
+                                    }
+                                }).toArray();
+                            return couriers;
+                        })
+                        .then((couriers) => {
+                            res.status(responseCode.OK)
+                                .send(response(responseCode.OK, "", {
+                                    key: "couriers",
+                                    value: couriers
+                                }));
+                        })
+                        .catch((err) => {
+                            res.status(err.statusCode)
+                                .send(response(err.statusCode, err.message));
+                        });
+                })
+                .catch((err) => {
+                    res.status(err.statusCode)
+                        .send(response(err.statusCode, err.message));
+                });
         })
         .catch((err) => {
-            res.status(responseCode.SERVER_ERROR)
-                .send(response(responseCode.SERVER_ERROR, err));
+            res.status(err.statusCode)
+                .send(response(err.statusCode, err.message));
         });
 });
 
@@ -54,8 +134,107 @@ router.post("/", (req, res) => {
         });
 });
 
-router.get("/search", (req, res) => {
+router.get("/search/:pageIndex/:pageSize", (req, res) => {
+    courierModel.search(new Date(req.query.originDate), req.query.destination, req.query.origin, req.query.weight, req.params.pageSize, req.paramspageIndex, req)
+    .then((couriers) => {
+        var userIdArray = [];
+        var locationIdArray = [];
+        new linq(couriers).forEach((x) => {
+            userIdArray.push(x.ownerId);
+            locationIdArray.push(x.origin);
+            locationIdArray.push(x.destination);
+        });
+        return {
+            userIdArray: userIdArray,
+            locationIdArray: locationIdArray,
+            couriers: couriers
+        }
+    }).then((result) => {
+        userModel.getListByIdArray(result.userIdArray, req)
+            .then((users) => {
+                var couriers = new linq(result.couriers)
+                    .select((x) => {
+                        var owner = new linq(users).firstOrDefault((y) => {
+                            return x.ownerId.toString() == y._id.toString();
+                        });
+                        return {
+                            _id: x._id,
+                            dateCreated: x.dateCreated,
+                            owner: owner,
+                            destination: {
+                                _id: x.destination.toString(),
+                                date: x.destinationDate
+                            },
+                            origin: {
+                                _id: x.origin.toString(),
+                                date: x.originDate
+                            },
+                            instantBooking: x.instantBooking,
+                        }
+                    }).toArray();
+                return couriers;
+            })
+            .then((couriers) => {
+                locationModel.getListByIdArray(result.locationIdArray, req)
+                    .then((locations) => {
+                        couriers = new linq(couriers)
+                            .select((x) => {
+                                var origin = new linq(locations).firstOrDefault((y) => {
+                                    return x.origin._id.toString() == y._id.toString();
+                                });
+                                var destination = new linq(locations).firstOrDefault((y) => {
+                                    return x.destination._id.toString() == y._id.toString();
+                                });
+                                return {
+                                    _id: x._id,
+                                    dateCreated: x.dateCreated,
+                                    owner: x.owner,
+                                    origin: {
+                                        name: origin.name,
+                                        date: x.origin.date
+                                    },
+                                    destination: {
+                                        name: destination.name,
+                                        date: x.destination.date
+                                    },
+                                    instantBooking: x.instantBooking
+                                }
+                            }).toArray();
+                        return couriers;
+                    })
+                    .then((couriers) => {
+                        res.status(responseCode.OK)
+                            .send(response(responseCode.OK, "", {
+                                key: "couriers",
+                                value: couriers
+                            }));
+                    })
+                    .catch((err) => {
+                        res.status(err.statusCode)
+                            .send(response(err.statusCode, err.message));
+                    });
+            })
+            .catch((err) => {
+                res.status(err.statusCode)
+                    .send(response(err.statusCode, err.message));
+            });
+    })
+    .catch((err) => {
+        res.status(err.statusCode)
+            .send(response(err.statusCode, err.message));
+    });
+});
 
+router.post("/:userId/book", (req, res) => {
+    bookModel.insert(req.body.courierId, req.params.userId, req)
+        .then((doc) => {
+            res.status(responseCode.CREATED)
+                .send(response(responseCode.CREATED, ""));
+        })
+        .catch((err) => {
+            res.status(err.statusCode)
+                .send(response(err.statusCode, err.message));
+        });
 });
 
 module.exports = router;
