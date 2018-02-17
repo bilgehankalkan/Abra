@@ -69,13 +69,6 @@
                                     <outlet property="delegate" destination="fF3-jL-diQ" id="YZF-a2-htF"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aME-Qr-9Nd">
-                                <rect key="frame" x="156.5" y="27" width="62" height="30"/>
-                                <state key="normal" title="Continue"/>
-                                <connections>
-                                    <action selector="continue:" destination="fF3-jL-diQ" eventType="touchUpInside" id="POa-d8-gW3"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bk3-QP-8oc">
                                 <rect key="frame" x="311" y="27" width="48" height="30"/>
                                 <state key="normal" title="Cancel"/>
@@ -96,7 +89,6 @@
                         <constraints>
                             <constraint firstItem="aTZ-q4-7xB" firstAttribute="leading" secondItem="yFW-DS-mbK" secondAttribute="leading" id="05v-dB-0tT"/>
                             <constraint firstItem="x2e-p5-g8P" firstAttribute="trailing" secondItem="Vl3-NB-mEz" secondAttribute="trailing" id="5kC-EG-krF"/>
-                            <constraint firstItem="aME-Qr-9Nd" firstAttribute="centerX" secondItem="yFW-DS-mbK" secondAttribute="centerX" id="6gK-UX-AzD"/>
                             <constraint firstItem="Bk3-QP-8oc" firstAttribute="top" secondItem="yFW-DS-mbK" secondAttribute="top" constant="7" id="8Rs-Xr-fBg"/>
                             <constraint firstItem="OIx-Ih-X04" firstAttribute="leading" secondItem="Vl3-NB-mEz" secondAttribute="leading" id="D63-Zq-536"/>
                             <constraint firstItem="yFW-DS-mbK" firstAttribute="trailing" secondItem="Vl3-NB-mEz" secondAttribute="trailing" constant="30" id="JFh-tz-iqB"/>
@@ -105,7 +97,6 @@
                             <constraint firstItem="zcr-dr-a8n" firstAttribute="trailing" secondItem="lHw-h6-oOX" secondAttribute="trailing" id="QZr-LI-INk"/>
                             <constraint firstItem="Bk3-QP-8oc" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="X1K-tz-4VN" secondAttribute="leading" constant="20" symbolic="YES" id="R8B-Gs-Vhw"/>
                             <constraint firstItem="aTZ-q4-7xB" firstAttribute="bottom" secondItem="yFW-DS-mbK" secondAttribute="bottom" id="U34-GH-Jz0"/>
-                            <constraint firstItem="aME-Qr-9Nd" firstAttribute="top" secondItem="yFW-DS-mbK" secondAttribute="top" constant="7" id="Xs3-Uw-xRv"/>
                             <constraint firstItem="lHw-h6-oOX" firstAttribute="leading" secondItem="OIx-Ih-X04" secondAttribute="trailing" constant="8" id="Ztq-dq-tc9"/>
                             <constraint firstItem="aTZ-q4-7xB" firstAttribute="trailing" secondItem="yFW-DS-mbK" secondAttribute="trailing" id="aBQ-e0-f0R"/>
                             <constraint firstItem="OIx-Ih-X04" firstAttribute="top" secondItem="Vl3-NB-mEz" secondAttribute="bottom" constant="30" id="aSd-Uv-kyw"/>

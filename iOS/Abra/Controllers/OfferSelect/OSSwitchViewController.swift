@@ -58,7 +58,6 @@ class OSSwitchViewController: OSBaseViewController {
 extension OSSwitchViewController: OSSwitchDelegate {
     
     func `continue`(switch: Bool) {
-        print(`switch`)
         switch switchMode {
         case .instantBooking:
             OSBaseViewController.offerSelect.instantBooking = `switch`

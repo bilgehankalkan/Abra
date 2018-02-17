@@ -6,10 +6,6 @@
 //  Copyright © 2018 Hakan Eren. All rights reserved.
 //
 
-import ObjectMapper
-import ObjectMapper_Realm
-import RealmSwift
-
 struct CourierAddRequest {
     
     var ownerId = "5a8746500000000000000000"
@@ -23,6 +19,10 @@ struct CourierAddRequest {
     var note = ""
     
 }
+
+import ObjectMapper
+import ObjectMapper_Realm
+import RealmSwift
 
 class CourierAddResponse: Object, Mappable {
     

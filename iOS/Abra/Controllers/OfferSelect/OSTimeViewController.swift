@@ -63,7 +63,6 @@ extension OSTimeViewController: OSTimeDelegate {
     
     func `continue`(time: Date) {
         // TODO: MERGE DATE & TIME
-        print(time)
         switch timeMode {
         case .origin:
             OSBaseViewController.offerSelect.originDate = time

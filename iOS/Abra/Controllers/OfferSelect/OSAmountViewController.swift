@@ -88,7 +88,6 @@ class OSAmountViewController: OSBaseViewController {
 extension OSAmountViewController: OSAmountDelegate {
     
     func `continue`(amount: Int) {
-        print(amount)
         switch amountMode {
         case .weight:
             OSBaseViewController.offerSelect.weight = amount

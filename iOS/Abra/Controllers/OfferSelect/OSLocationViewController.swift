@@ -15,7 +15,6 @@ enum OSLocationMode {
 
 protocol OSLocationDelegate {
     func selected(_ location: Location)
-    func `continue`()
 }
 
 class OSLocationViewModel: NSObject {
@@ -88,10 +87,6 @@ class OSLocationViewModel: NSObject {
                 }
             })
         }
-    }
-    
-    @IBAction func `continue`(_ sender: UIButton) {
-        delegate?.`continue`()
     }
     
 }

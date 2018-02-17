@@ -62,7 +62,6 @@ class OSDateViewController: OSBaseViewController {
 extension OSDateViewController: OSDateDelegate {
     
     func `continue`(date: Date) {
-        print(date)
         switch dateMode {
         case .origin:
             OSBaseViewController.offerSelect.originDate = date

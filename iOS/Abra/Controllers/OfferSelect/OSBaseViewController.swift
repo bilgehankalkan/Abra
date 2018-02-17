@@ -29,14 +29,15 @@ class OSBaseViewController: UIViewController {
     static var offerSelectMode: OfferSelectMode = .courier
     static var offerSelect = OfferSelect()
     
-    lazy fileprivate var offerStoryboard        = UIStoryboard(name: "OfferSelect", bundle: .main)
-    lazy fileprivate var locationViewController = offerStoryboard.instantiateViewController(withIdentifier: "OSLocationViewController") as! OSLocationViewController
-    lazy fileprivate var dateViewController     = offerStoryboard.instantiateViewController(withIdentifier: "OSDateViewController")     as! OSDateViewController
-    lazy fileprivate var timeViewController     = offerStoryboard.instantiateViewController(withIdentifier: "OSTimeViewController")     as! OSTimeViewController
-    lazy fileprivate var amountViewController   = offerStoryboard.instantiateViewController(withIdentifier: "OSAmountViewController")   as! OSAmountViewController
-    lazy fileprivate var switchViewController   = offerStoryboard.instantiateViewController(withIdentifier: "OSSwitchViewController")   as! OSSwitchViewController
-    lazy fileprivate var noteViewController     = offerStoryboard.instantiateViewController(withIdentifier: "OSNoteViewController")     as! OSNoteViewController
-    lazy fileprivate var finishViewController   = offerStoryboard.instantiateViewController(withIdentifier: "OSFinishViewController")   as! OSFinishViewController
+    lazy fileprivate var mainStoryboard         = UIStoryboard(name: "Main", bundle: .main)
+    lazy fileprivate var offerSelectStoryboard  = UIStoryboard(name: "OfferSelect", bundle: .main)
+    lazy fileprivate var locationViewController = offerSelectStoryboard.instantiateViewController(withIdentifier: "OSLocationViewController") as! OSLocationViewController
+    lazy fileprivate var dateViewController     = offerSelectStoryboard.instantiateViewController(withIdentifier: "OSDateViewController")     as! OSDateViewController
+    lazy fileprivate var timeViewController     = offerSelectStoryboard.instantiateViewController(withIdentifier: "OSTimeViewController")     as! OSTimeViewController
+    lazy fileprivate var amountViewController   = offerSelectStoryboard.instantiateViewController(withIdentifier: "OSAmountViewController")   as! OSAmountViewController
+    lazy fileprivate var switchViewController   = offerSelectStoryboard.instantiateViewController(withIdentifier: "OSSwitchViewController")   as! OSSwitchViewController
+    lazy fileprivate var noteViewController     = offerSelectStoryboard.instantiateViewController(withIdentifier: "OSNoteViewController")     as! OSNoteViewController
+    lazy fileprivate var finishViewController   = offerSelectStoryboard.instantiateViewController(withIdentifier: "OSFinishViewController")   as! OSFinishViewController
 
     func startOS(mode: OfferSelectMode, completion: (() -> Swift.Void)? = nil) {
         OSBaseViewController.offerSelectMode = mode
@@ -88,15 +89,25 @@ class OSBaseViewController: UIViewController {
         print("-")
         print(OSBaseViewController.offerSelect)
         print("-")
-    }
-
-    @IBAction func back(_ sender: UIButton) {
-        navigationController?.popViewController(animated: true)
+        
+        OSBaseViewController.offerSelect = OfferSelect()
+        switch OSBaseViewController.offerSelectMode {
+        case .courier:
+            dismiss(animated: false) {
+                
+            }
+        case .carry:
+            dismiss(animated: true)
+        }
     }
     
     @IBAction func close(_ sender: UIButton) {
         OSBaseViewController.offerSelect = OfferSelect()
         dismiss(animated: true)
+    }
+    
+    @IBAction func back(_ sender: UIButton) {
+        navigationController?.popViewController(animated: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
