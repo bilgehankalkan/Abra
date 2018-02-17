@@ -12,7 +12,6 @@ const courierController=require("./controllers/courierController");
 const locationController=require("./controllers/locationController");
 
 app.get("/",(req,res)=>{
-    console.log("t");
     res.status(responseCode.NOT_FOUND)
         .send(response(responseCode.NOT_FOUND,""));
 });

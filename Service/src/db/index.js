@@ -19,7 +19,6 @@ function createConnectionString() {
 }
 
 mongoose.connect(createConnectionString(), (err) => {
-    console.log(createConnectionString());
     if (!err) {
         consoleLogger.success("connected");
     } else {
