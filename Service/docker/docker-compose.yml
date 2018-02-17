@@ -19,5 +19,7 @@ services:
   db:
     image: mongo:3.2-jessie
     #command: sleep(1000) && mongo --host localhost --eval  "db.getSiblingDB('${dbName}').createUser({user:'${dbUser}', pwd:'${dbPsswrd}', roles:[{role:'readWrite',db:'${dbName}'}]});"
+    volumes: 
+      - /db/mongodb:/data/db
     ports:
       - 27017:27017
