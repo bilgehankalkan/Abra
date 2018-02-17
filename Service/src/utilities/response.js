@@ -3,8 +3,9 @@ function init(code, msg, data) {
         code: code,
         msg: msg,
     };
-    if (data != undefined){
-        model[data.key] = data.value;
+    if (data != undefined) {
+        //model[data.key] = data.value;
+        model.data = data.value;
     }
     return model;
 }
