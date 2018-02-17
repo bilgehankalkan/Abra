@@ -12,6 +12,7 @@ final class API {
     fileprivate let headers: Dictionary<String, String>? = ["Content-Type" : "application/json",
                                                             "Authorization": "token=638B736C-C73B-4BB5-AC9C-3B1C08F84078",
                                                             "Accept-Language": NSLocale.preferredLanguages[0]]
+    fileprivate let userID = "5a888e1ac550959c285e1208"
     
     func location(search name:String, completion: @escaping ([Location]?, Error?) -> Void) {
         request(location: .list(name)).responseArray(keyPath: keyPath) {
@@ -29,7 +30,7 @@ final class API {
     }
     
     func courierList(pageIndex: Int, pageSize: Int, completion: @escaping ([Courier]?, Error?) -> Void) {
-        request(courier: .list(pageIndex, pageSize)).responseArray(keyPath: keyPath) {
+        request(courierList: .all(pageIndex, pageSize)).responseArray(keyPath: keyPath) {
             (response: DataResponse<[Courier]>) in
             if response.error != nil {
                 completion(nil, response.error)
@@ -43,20 +44,20 @@ final class API {
         }
     }
     
-//    func courier(add request: CourierAddRequest, completion: @escaping (CourierAddResponse?, Error?) -> Void) {
-//        request(courier: .add(request)).responseObject(keyPath: keyPath) {
-//            (response: DataResponse<CourierAddResponse>) in
-//            if response.error != nil {
-//                completion(nil, response.error)
-//            }
-//            if let courierAddResponse = response.result.value {
-//                completion(courierAddResponse, nil)
-//            }
-//            else {
-//                completion(nil, response.result.error)
-//            }
-//        }
-//    }
+    func courrier(add endpoint: courierAddEndpoint, completion: @escaping (CourierAddResponse?, Error?) -> Void) {
+        request(courierAdd: endpoint).responseObject(keyPath: keyPath) {
+            (response: DataResponse<CourierAddResponse>) in
+            if response.error != nil {
+                completion(nil, response.error)
+            }
+            if let courierAddResponse = response.result.value {
+                completion(courierAddResponse, nil)
+            }
+            else {
+                completion(nil, response.result.error)
+            }
+        }
+    }
     
 }
 
@@ -99,7 +100,7 @@ extension API {
 
 extension API {
     
-    fileprivate func request(courier endpoint: courierEndpoint) -> DataRequest {
+    fileprivate func request(courierList endpoint: courierListEndpoint) -> DataRequest {
         return Alamofire.request(baseUrl + endpoint.path,
                                  method: endpoint.method,
                                  parameters: endpoint.parameters,
@@ -107,33 +108,63 @@ extension API {
                                  headers: API.sharedManager.headers).validate()
     }
     
-    enum courierEndpoint {
-        case list(Int, Int)
-        case add(CourierAddRequest)
+    enum courierListEndpoint {
+        case all(Int, Int)
         
         var path: String {
             switch self {
-            case .list(let pageIndex, let pageSize):
+            case .all(let pageIndex, let pageSize):
                 return "courier/" + "\(pageIndex)" + "\(pageSize)"
-            case .add:
+            }
+        }
+        
+        var method: HTTPMethod {
+            switch self {
+            case .all:
+                return .get
+            }
+        }
+        
+        var parameters: [String: Any]? {
+            switch self {
+            case .all:
+                return nil
+            }
+        }
+    }
+    
+}
+
+extension API {
+    
+    fileprivate func request(courierAdd endpoint: courierAddEndpoint) -> DataRequest {
+        return Alamofire.request(baseUrl + endpoint.path,
+                                 method: endpoint.method,
+                                 parameters: endpoint.parameters,
+                                 encoding: API.sharedManager.encoding,
+                                 headers: API.sharedManager.headers).validate()
+    }
+    
+    enum courierAddEndpoint {
+        case new(CourierAddRequest)
+        
+        var path: String {
+            switch self {
+            case .new:
                 return "courier/"
             }
         }
         
         var method: HTTPMethod {
             switch self {
-            case .list:
-                return .get
-            case .add:
+            case .new:
                 return .post
             }
         }
         
         var parameters: [String: Any]? {
             switch self {
-            case .list:
-                return nil
-            case .add(let courierAddRequest):
+            case .new(let courierAddRequest):
                 return ["ownerId": courierAddRequest.ownerId,
                         "origin" : courierAddRequest.origin,
                         "originDate": courierAddRequest.originDate,
