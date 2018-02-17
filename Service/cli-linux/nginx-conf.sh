@@ -1,6 +1,3 @@
-sudo apt-get update
-sudo apt-get install nginx -y
-
 sudo cp ./getir-hackathon.exlinetr.com /etc/nginx/sites-available/ 
 sudo cp /etc/nginx/sites-available/getir-hackathon.exlinetr.com /etc/nginx/sites-enabled/ 
 
