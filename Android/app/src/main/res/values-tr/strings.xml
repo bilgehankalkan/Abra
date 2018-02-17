@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Abra</string>
+    <string name="find_courier">Kurye Bul</string>
+    <string name="your_orders">Siparişlerin</string>
+    <string name="offer_to_carry">İlan Ver</string>
+    <string name="inbox">Gelen Kutusu</string>
+    <string name="my_profile">Profilim</string>
+    <string name="start_typing">%1$s noktanızı yazmaya başlayın</string>
+    <string name="continue_text">Devam</string>
+    <string name="select_valid_argument">Lütfen %1$s girin</string>
+    <string name="capacity_selection_explanation">Valizinizde kaç kg yer müsait?</string>
+    <string name="instant_booking_explanation">Zamandan kazanın ve müşterilerinize en hızlı zamanda yer ayırtsınlar</string>
+    <string name="instant_booking_explanation_2">Bunu tercih etmezseniz isteklerinizi ayrıca onaylamanız gerekir</string>
+    <string name="post_without_instant_booking">Hızlı onaylamasız gönder</string>
+    <string name="post">Gönder</string>
+    <string name="origin_destination_explanation_text">%1$s noktanızı yazmaya başlayın</string>
+    <string name="origin">Çıkış</string>
+    <string name="destination">Varış</string>
+    <string name="please_select_origin_destination">%1$s noktasını önerilen şekilde giriniz.</string>
+</resources>
