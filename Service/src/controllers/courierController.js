@@ -171,7 +171,8 @@ router.get("/search/:pageIndex/:pageSize", (req, res) => {
                                     date: x.originDate
                                 },
                                 price: x.price,
-                                rating:parseInt(math.random(1, 5)),
+                                weight:x.weight,
+                                rating: parseInt(math.random(1, 5)),
                                 totalComment: parseInt(math.random(1, 100)),
                                 instantBooking: x.instantBooking,
                             }
@@ -201,6 +202,7 @@ router.get("/search/:pageIndex/:pageSize", (req, res) => {
                                             name: destination.name,
                                             date: x.destination.date
                                         },
+                                        weight:x.weight,
                                         rating: x.rating,
                                         totalComment: x.totalComment,
                                         price: x.price,
@@ -233,8 +235,17 @@ router.get("/search/:pageIndex/:pageSize", (req, res) => {
 });
 
 router.post("/:userId/book", (req, res) => {
-    bookModel.insert(req.body.courierId, req.params.userId, req)
-        .then((doc) => {
+    courierModel.getDestinationDateById(req.body.courierId, req)
+        .then((courier) => {
+            return bookModel.insert(req.body.courierId, courier.destinationDate, req.params.userId, req)
+                .then((doc) => {
+                    return doc;
+                })
+                .catch((err) => {
+                    res.status(err.statusCode)
+                        .send(response(err.statusCode, err.message));
+                });
+        }).then((doc) => {
             res.status(responseCode.CREATED)
                 .send(response(responseCode.CREATED, ""));
         })
