@@ -10,20 +10,10 @@ import UIKit
 
 class OSStartViewController: OSBaseViewController {
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        beginOS()
-    }
-    
-    private func beginOS() {
-        let offerStoryboard = UIStoryboard(name: "Offer", bundle: .main)
-        if let viewController = offerStoryboard.instantiateViewController(withIdentifier: "OSLocationViewController") as? OSLocationViewController {
-            viewController.offerSelect = OSBaseViewController.offerSelect
-            viewController.mode = .origin
-            present(viewController, animated: true) {
-                self.tabBarController?.selectedIndex = 1
-            }
-        }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        tabBarController?.selectedIndex = 1
+        startOS()
     }
 
 }

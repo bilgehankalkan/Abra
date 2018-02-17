@@ -172,6 +172,7 @@
         <!--Offer to carry-->
         <scene sceneID="b73-c0-QAK">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Hpl-zZ-cSK" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="3pp-wq-pKc" customClass="BaseNavigationController" customModule="Abra" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Offer to carry" image="tab-add" id="drO-IH-5Kr"/>
                     <toolbarItems/>
@@ -184,7 +185,6 @@
                         <segue destination="VJb-Je-6nF" kind="relationship" relationship="rootViewController" id="Bqo-ca-06g"/>
                     </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Hpl-zZ-cSK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="486" y="903"/>
         </scene>

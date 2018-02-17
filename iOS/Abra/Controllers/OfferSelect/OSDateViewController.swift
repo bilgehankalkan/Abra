@@ -13,28 +13,48 @@ enum OSDateMode {
     case destination
 }
 
-class OSDateViewController: OSBaseViewController {
+protocol OSDateDelegate {
+    func selected(_ date: Date)
+    func `continue`()
+}
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+class OSDateViewModel: NSObject {
+    
+    var delegate: OSDateDelegate?
+    
+    @IBAction func `continue`(_ sender: UIButton) {
+        delegate?.`continue`()
     }
     
+}
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+class OSDateViewController: OSBaseViewController {
+    
+    var mode: OSDateMode = .origin
+    
+    @IBOutlet weak var dateViewModel: OSDateViewModel!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        dateViewModel.delegate = self
     }
-    */
+    
+}
 
+extension OSDateViewController: OSDateDelegate {
+    
+    func selected(_ date: Date) {
+        switch mode {
+        case .origin:       OSBaseViewController.offerSelect.originDate = date
+        case .destination:  OSBaseViewController.offerSelect.destinationDate = date
+        }
+    }
+    
+    func `continue`() {
+        switch mode {
+        case .origin:       showTime(for: .origin, from: self)
+        case .destination:  showTime(for: .destination, from: self)
+        }
+    }
+    
 }

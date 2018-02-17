@@ -12,28 +12,46 @@ enum OSSwitchMode {
     case instantBooking
 }
 
-class OSSwitchViewController: OSBaseViewController {
+protocol OSSwitchDelegate {
+    func selected(_ switch: Bool)
+    func `continue`()
+}
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+class OSSwitchViewModel: NSObject {
+    
+    var delegate: OSSwitchDelegate?
+    
+    @IBAction func `continue`(_ sender: UIButton) {
+        delegate?.`continue`()
     }
     
+}
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+class OSSwitchViewController: OSBaseViewController {
+    
+    var mode: OSSwitchMode = .instantBooking
+    
+    @IBOutlet weak var switchViewModel: OSSwitchViewModel!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        switchViewModel.delegate = self
     }
-    */
+    
+}
 
+extension OSSwitchViewController: OSSwitchDelegate {
+    
+    func selected(_ switch: Bool) {
+        switch mode {
+        case .instantBooking:   OSBaseViewController.offerSelect.instantBooking = `switch`
+        }
+    }
+    
+    func `continue`() {
+        switch mode {
+        case .instantBooking:   showAmount(for: .price, from: self)
+        }
+    }
+    
 }

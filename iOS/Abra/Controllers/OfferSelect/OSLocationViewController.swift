@@ -13,33 +13,52 @@ enum OSLocationMode {
     case destination
 }
 
-class OSLocationViewController: OSBaseViewController {
+protocol OSLocationDelegate {
+    func selected(_ location: Location)
+    func `continue`()
+}
 
-    var mode: OSLocationMode?
+class OSLocationViewModel: NSObject {
+    
+    var delegate: OSLocationDelegate?
+    
+    @IBAction func `continue`(_ sender: UIButton) {
+        delegate?.`continue`()
+    }
+    
+}
+
+class Location {
+    
+}
+
+class OSLocationViewController: OSBaseViewController {
+    
+    var mode: OSLocationMode = .origin
+
+    @IBOutlet weak var locationViewModel: OSLocationViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        locationViewModel.delegate = self
+    }
+    
+}
 
-        // Do any additional setup after loading the view.
+extension OSLocationViewController: OSLocationDelegate {
+    
+    func selected(_ location: Location) {
+        switch mode {
+        case .origin:       OSBaseViewController.offerSelect.originLocation = location; `continue`()
+        case .destination:  OSBaseViewController.offerSelect.destinationLocation = location; `continue`()
+        }
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func `continue`() {
+        switch mode {
+        case .origin:       showDate(for: .origin, from: self)
+        case .destination:  showDate(for: .destination, from: self)
+        }
     }
-    
-    @IBAction func close(_ sender: UIButton) {
-        dismiss(animated: true)
-    }
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
     
 }

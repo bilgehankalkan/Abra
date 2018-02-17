@@ -13,28 +13,48 @@ enum OSAmountMode {
     case price
 }
 
-class OSAmountViewController: OSBaseViewController {
+protocol OSAmountDelegate {
+    func selected(_ amount: Int)
+    func `continue`()
+}
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+class OSAmountViewModel: NSObject {
+    
+    var delegate: OSAmountDelegate?
+    
+    @IBAction func `continue`(_ sender: UIButton) {
+        delegate?.`continue`()
     }
     
+}
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+class OSAmountViewController: OSBaseViewController {
+    
+    var mode: OSAmountMode = .weight
+    
+    @IBOutlet weak var amountViewModel: OSAmountViewModel!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        amountViewModel.delegate = self
     }
-    */
+    
+}
 
+extension OSAmountViewController: OSAmountDelegate {
+    
+    func selected(_ amount: Int) {
+        switch mode {
+        case .weight:       OSBaseViewController.offerSelect.weight = amount
+        case .price:        OSBaseViewController.offerSelect.price = amount
+        }
+    }
+    
+    func `continue`() {
+        switch mode {
+        case .weight:       showSwitch(for: .instantBooking, from: self)
+        case .price:        showNote(for: .about, from: self)
+        }
+    }
+    
 }

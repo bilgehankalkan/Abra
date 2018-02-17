@@ -12,28 +12,47 @@ enum OSNoteMode {
     case about
 }
 
-class OSNoteViewController: OSBaseViewController {
+protocol OSNoteDelegate {
+    func selected(_ note: String)
+    func `continue`()
+}
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+class OSNoteViewModel: NSObject {
+    
+    var delegate: OSNoteDelegate?
+    
+    @IBAction func `continue`(_ sender: UIButton) {
+        delegate?.`continue`()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
+
+class OSNoteViewController: OSBaseViewController {
+    
+    var mode: OSNoteMode = .about
+    
+    @IBOutlet weak var noteViewModel: OSNoteViewModel!
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        noteViewModel.delegate = self
+    }
+    
+}
+
+extension OSNoteViewController: OSNoteDelegate {
+    
+    func selected(_ note: String) {
+        switch mode {
+        case .about:   OSBaseViewController.offerSelect.note = note
+        }
+    }
+    
+    func `continue`() {
+        switch mode {
+        case .about:   showFinish(from: self)
+        }
+    }
+    
+}
+

@@ -14,7 +14,6 @@
 		6416F1FB2037985C00B77D8B /* OSSwitchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6416F1FA2037985C00B77D8B /* OSSwitchViewController.swift */; };
 		6416F1FF2037987100B77D8B /* OSNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6416F1FE2037987100B77D8B /* OSNoteViewController.swift */; };
 		6416F203203798A700B77D8B /* OSFinishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6416F202203798A700B77D8B /* OSFinishViewController.swift */; };
-		64E6D69E2037AB0C007A4475 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64E6D69D2037AB0C007A4475 /* Location.swift */; };
 		64E6D6A72037B16E007A4475 /* OSTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64E6D6A62037B16E007A4475 /* OSTimeViewController.swift */; };
 		64E6D6A92037BF64007A4475 /* OSBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64E6D6A82037BF64007A4475 /* OSBaseViewController.swift */; };
 		64ED622620375B9B008CDEB1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64ED622520375B9B008CDEB1 /* AppDelegate.swift */; };
@@ -62,7 +61,6 @@
 		6416F1FA2037985C00B77D8B /* OSSwitchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSSwitchViewController.swift; sourceTree = "<group>"; };
 		6416F1FE2037987100B77D8B /* OSNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSNoteViewController.swift; sourceTree = "<group>"; };
 		6416F202203798A700B77D8B /* OSFinishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSFinishViewController.swift; sourceTree = "<group>"; };
-		64E6D69D2037AB0C007A4475 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		64E6D6A62037B16E007A4475 /* OSTimeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSTimeViewController.swift; sourceTree = "<group>"; };
 		64E6D6A82037BF64007A4475 /* OSBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSBaseViewController.swift; sourceTree = "<group>"; };
 		64ED622220375B9B008CDEB1 /* Abra.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Abra.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -147,14 +145,6 @@
 			path = OfferSelect;
 			sourceTree = "<group>";
 		};
-		64E6D69F2037AB11007A4475 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				64E6D69D2037AB0C007A4475 /* Location.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
 		64ED621920375B9B008CDEB1 = {
 			isa = PBXGroup;
 			children = (
@@ -182,7 +172,6 @@
 			children = (
 				64ED622C20375B9B008CDEB1 /* Assets.xcassets */,
 				64ED6261203781D5008CDEB1 /* Controllers */,
-				64E6D69F2037AB11007A4475 /* Models */,
 				64ED625320375CC0008CDEB1 /* Storyboards */,
 				64ED625420375CC9008CDEB1 /* Supporting Files */,
 			);
@@ -569,7 +558,6 @@
 				64ED625C203781BC008CDEB1 /* FindViewController.swift in Sources */,
 				6416F1F3203797E200B77D8B /* OSDateViewController.swift in Sources */,
 				6416F1F1203797D900B77D8B /* OSLocationViewController.swift in Sources */,
-				64E6D69E2037AB0C007A4475 /* Location.swift in Sources */,
 				64ED625E203781C6008CDEB1 /* OrdersViewController.swift in Sources */,
 				64ED625820378181008CDEB1 /* ProfileViewController.swift in Sources */,
 				64ED6260203781CF008CDEB1 /* OSStartViewController.swift in Sources */,
