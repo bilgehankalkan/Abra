@@ -80,7 +80,7 @@ model.register = (courier, req) => {
     });
 };
 
-function gets(query, projection, pageIndex, pageSize, req) {
+function gets(query, options, pageIndex, pageSize, req) {
     var dictionary = _dictionary(req);
     if (pageIndex == undefined) {
         pageIndex = 0;
@@ -88,10 +88,17 @@ function gets(query, projection, pageIndex, pageSize, req) {
     if (pageSize == undefined) {
         pageSize = 20;
     }
+    return model.find(query, options)
+        .limit(parseInt(pageSize))
+        .skip(parseInt(pageIndex) * parseInt(pageSize));
+}
+
+model.getList = (pageIndex, pageSize, req) => {
     return new Promise((res, rej) => {
-        model.find(query, projection)
-            .limit(parseInt(pageSize))
-            .skip(parseInt(pageIndex) * parseInt(pageSize))
+        gets({}, {}, pageIndex, pageSize, req)
+            .sort({
+                price: 1
+            })
             .exec()
             .then(res)
             .catch((err) => {
@@ -99,13 +106,10 @@ function gets(query, projection, pageIndex, pageSize, req) {
                     message: dictionary.errorMessages.systemError,
                     statusCode: responseCode.SERVER_ERROR
                 });
-            });
-    });
-}
-
-model.getList = (pageIndex, pageSize, req) => {
-    return gets({}, {}, pageIndex, pageSize, req);
+            });;
+    })
 };
+
 model.search = (originDate, destination, origin, weight, pageSize, pageIndex, req) => {
     const query = {
         $and: []
@@ -130,7 +134,20 @@ model.search = (originDate, destination, origin, weight, pageSize, pageIndex, re
             weight: { $gte: weight }
         });
     }
-    return gets(query, {}, pageIndex, pageSize, req);
+    return new Promise((res, rej) => {
+        gets(query, {}, pageIndex, pageSize, req)
+            .sort({
+                price: 1
+            })
+            .exec()
+            .then(res)
+            .catch((err) => {
+                rej({
+                    message: dictionary.errorMessages.systemError,
+                    statusCode: responseCode.SERVER_ERROR
+                });
+            })
+    });
 }
 
 module.exports = model;
