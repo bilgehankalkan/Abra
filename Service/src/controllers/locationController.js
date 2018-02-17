@@ -25,7 +25,7 @@ router.get("/:pageIndex/:pageSize", (req, res) => {
 });
 
 router.get("/search", (req, res) => {
-    locationModel.searchByNameWithContains(req.query.q, req)
+    locationModel.searchByNameWithStartWith(req.query.q, req)
         .then((docs) => {
             res.status(responseCode.OK)
                 .send(response(responseCode.OK, "", {

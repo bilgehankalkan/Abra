@@ -17,7 +17,7 @@ const locationSchema = new Schema({
 mongoose.model("location", locationSchema, collections.location);
 const model = mongoose.model("location");
 
-model.searchByNameWithContains = (q, req) => {
+model.searchByNameWithStartWith = (q, req) => {
     var dictionary = _dictionary(req);
     return new Promise((res, rej) => {
         if (q == undefined) {
@@ -28,7 +28,7 @@ model.searchByNameWithContains = (q, req) => {
         }
         const query = {
             "name": {
-                "$regex": ".*" + q + ".*",
+                "$regex": "^" + q + ".*",
                 "$options": "i"
             }
         }
