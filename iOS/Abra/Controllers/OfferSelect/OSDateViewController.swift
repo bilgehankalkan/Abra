@@ -20,11 +20,16 @@ protocol OSDateDelegate {
 class OSDateViewModel: NSObject {
     
     var delegate: OSDateDelegate?
-    var mode: OSDateMode = .origin {
+    var dateMode: OSDateMode = .origin {
         didSet {
-            switch mode {
+            switch dateMode {
             case .origin:
-                titleLabel.text = "When are you going?"
+                switch OSBaseViewController.offerSelectMode {
+                case .courier:
+                    titleLabel.text = "When would you like to send?"
+                case .carry:
+                    titleLabel.text = "When are you going?"
+                }
             case .destination:
                 titleLabel.text = "When are you arriving?"
             }
@@ -42,14 +47,14 @@ class OSDateViewModel: NSObject {
 
 class OSDateViewController: OSBaseViewController {
     
-    var mode: OSDateMode = .origin
+    var dateMode: OSDateMode = .origin
     
     @IBOutlet weak var dateViewModel: OSDateViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         dateViewModel.delegate = self
-        dateViewModel.mode = mode
+        dateViewModel.dateMode = dateMode
     }
     
 }
@@ -58,7 +63,7 @@ extension OSDateViewController: OSDateDelegate {
     
     func `continue`(date: Date) {
         print(date)
-        switch mode {
+        switch dateMode {
         case .origin:
             OSBaseViewController.offerSelect.originDate = date
             showTime(for: .origin, from: self)

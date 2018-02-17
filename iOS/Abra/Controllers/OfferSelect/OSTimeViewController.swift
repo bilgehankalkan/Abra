@@ -20,11 +20,16 @@ protocol OSTimeDelegate {
 class OSTimeViewModel: NSObject {
     
     var delegate: OSTimeDelegate?
-    var mode: OSTimeMode = .origin {
+    var timeMode: OSTimeMode = .origin {
         didSet {
-            switch mode {
+            switch timeMode {
             case .origin:
-                titleLabel.text = "What time are you going?"
+                switch OSBaseViewController.offerSelectMode {
+                case .courier:
+                    titleLabel.text = "What time would you like to send?"
+                case .carry:
+                    titleLabel.text = "What time are you going?"
+                }
             case .destination:
                 titleLabel.text = "What time are you arriving?"
             }
@@ -42,14 +47,14 @@ class OSTimeViewModel: NSObject {
 
 class OSTimeViewController: OSBaseViewController {
     
-    var mode: OSTimeMode = .origin
+    var timeMode: OSTimeMode = .origin
     
     @IBOutlet weak var timeViewModel: OSTimeViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         timeViewModel.delegate = self
-        timeViewModel.mode = mode
+        timeViewModel.timeMode = timeMode
     }
     
 }
@@ -59,7 +64,7 @@ extension OSTimeViewController: OSTimeDelegate {
     func `continue`(time: Date) {
         // TODO: MERGE DATE & TIME
         print(time)
-        switch mode {
+        switch timeMode {
         case .origin:
             OSBaseViewController.offerSelect.originDate = time
             showLocation(for: .destination, from: self)

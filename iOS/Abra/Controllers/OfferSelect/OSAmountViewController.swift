@@ -20,15 +20,23 @@ protocol OSAmountDelegate {
 class OSAmountViewModel: NSObject {
     
     var delegate: OSAmountDelegate?
-    var mode: OSAmountMode = .weight {
+    var amountMode: OSAmountMode = .weight {
         didSet {
-            switch mode {
+            switch amountMode {
             case .weight:
-                titleLabel.text = "How many kilograms can you carry?"
                 stepper.maximumValue = 20.0
+                
+                switch OSBaseViewController.offerSelectMode {
+                case .courier:
+                    titleLabel.text = "How much does it weight?"
+                    actionButton .setTitle("Find a courier", for: .normal)
+                case .carry:
+                    titleLabel.text = "How many kilograms can you carry?"
+                    actionButton .setTitle("Continue", for: .normal)
+                }
             case .price:
-                titleLabel.text = "How much do you want to charge?"
                 stepper.maximumValue = 100.0
+                titleLabel.text = "How much do you want to charge?"
             }
             stepperValueChanged(stepper)
         }
@@ -36,23 +44,24 @@ class OSAmountViewModel: NSObject {
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var stepper: UIStepper!
-    @IBOutlet weak var modeLabel: UILabel!
+    @IBOutlet weak var amountModeLabel: UILabel!
     @IBOutlet weak var amountLabel: UILabel!
+    @IBOutlet weak var actionButton: UIButton!
     
     @IBAction func stepperValueChanged(_ sender: UIStepper) {
-        if mode == .weight {
+        if amountMode == .weight {
             amountLabel.text = "\(Int(sender.value))"
 
             if sender.value <= 1.0 {
-                modeLabel.text = "Kilogram"
+                amountModeLabel.text = "Kilogram"
             }
             else {
-                modeLabel.text = "Kilograms"
+                amountModeLabel.text = "Kilograms"
             }
         }
-        else if mode == .price {
+        else if amountMode == .price {
             amountLabel.text = "\(Int(sender.value))" + "₺"
-            modeLabel.text = "Price"
+            amountModeLabel.text = "Price"
         }
     }
     
@@ -64,14 +73,14 @@ class OSAmountViewModel: NSObject {
 
 class OSAmountViewController: OSBaseViewController {
     
-    var mode: OSAmountMode = .weight
+    var amountMode: OSAmountMode = .weight
     
     @IBOutlet weak var amountViewModel: OSAmountViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         amountViewModel.delegate = self
-        amountViewModel.mode = mode
+        amountViewModel.amountMode = amountMode
     }
     
 }
@@ -80,10 +89,16 @@ extension OSAmountViewController: OSAmountDelegate {
     
     func `continue`(amount: Int) {
         print(amount)
-        switch mode {
+        switch amountMode {
         case .weight:
             OSBaseViewController.offerSelect.weight = amount
-            showSwitch(for: .instantBooking, from: self)
+            
+            switch OSBaseViewController.offerSelectMode {
+            case .courier:
+                finishOS()
+            case .carry:
+                showSwitch(for: .instantBooking, from: self)
+            }
         case .price:
             OSBaseViewController.offerSelect.price = amount
             showNote(for: .about, from: self)

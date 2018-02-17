@@ -8,19 +8,25 @@
 
 import UIKit
 
+enum OfferSelectMode {
+    case courier
+    case carry
+}
+
 struct OfferSelect {
     var originLocation: Location?
     var originDate: Date?
     var destinationLocation: Location?
     var destinationDate: Date?
     var weight: Int?
-    var price: Int?
     var instantBooking: Bool?
+    var price: Int?
     var note: String?
 }
 
 class OSBaseViewController: UIViewController {
     
+    static var offerSelectMode: OfferSelectMode = .courier
     static var offerSelect = OfferSelect()
     
     lazy fileprivate var offerStoryboard        = UIStoryboard(name: "Offer", bundle: .main)
@@ -33,38 +39,38 @@ class OSBaseViewController: UIViewController {
     lazy fileprivate var finishViewController   = offerStoryboard.instantiateViewController(withIdentifier: "OSFinishViewController")   as! OSFinishViewController
 
     func startOS() {
-        locationViewController.mode = .origin
+        locationViewController.locationMode = .origin
         let baseNavigationControllers = BaseNavigationController(rootViewController: locationViewController)
         present(baseNavigationControllers, animated: true)
     }
     
-    func showLocation(for mode: OSLocationMode, from viewController: OSBaseViewController) {
-        locationViewController.mode = mode
+    func showLocation(for locationMode: OSLocationMode, from viewController: OSBaseViewController) {
+        locationViewController.locationMode = locationMode
         viewController.navigationController?.pushViewController(locationViewController, animated: true)
     }
     
-    func showDate(for mode: OSDateMode, from viewController: OSBaseViewController) {
-        dateViewController.mode = mode
+    func showDate(for dateMode: OSDateMode, from viewController: OSBaseViewController) {
+        dateViewController.dateMode = dateMode
         viewController.navigationController?.pushViewController(dateViewController, animated: true)
     }
 
-    func showTime(for mode: OSTimeMode, from viewController: OSBaseViewController) {
-        timeViewController.mode = mode
+    func showTime(for timeMode: OSTimeMode, from viewController: OSBaseViewController) {
+        timeViewController.timeMode = timeMode
         viewController.navigationController?.pushViewController(timeViewController, animated: true)
     }
 
-    func showAmount(for mode: OSAmountMode, from viewController: OSBaseViewController) {
-        amountViewController.mode = mode
+    func showAmount(for amountMode: OSAmountMode, from viewController: OSBaseViewController) {
+        amountViewController.amountMode = amountMode
         viewController.navigationController?.pushViewController(amountViewController, animated: true)
     }
 
-    func showSwitch(for mode: OSSwitchMode, from viewController: OSBaseViewController) {
-        switchViewController.mode = mode
+    func showSwitch(for switchMode: OSSwitchMode, from viewController: OSBaseViewController) {
+        switchViewController.switchMode = switchMode
         viewController.navigationController?.pushViewController(switchViewController, animated: true)
     }
 
-    func showNote(for mode: OSNoteMode, from viewController: OSBaseViewController) {
-        noteViewController.mode = mode
+    func showNote(for noteMode: OSNoteMode, from viewController: OSBaseViewController) {
+        noteViewController.noteMode = noteMode
         viewController.navigationController?.pushViewController(noteViewController, animated: true)
     }
     
@@ -83,6 +89,7 @@ class OSBaseViewController: UIViewController {
     }
     
     @IBAction func close(_ sender: UIButton) {
+        OSBaseViewController.offerSelect = OfferSelect()
         dismiss(animated: true)
     }
     

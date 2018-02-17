@@ -1,5 +1,5 @@
 //
-//  OrdersViewController.swift
+//  OFBaseViewController.swift
 //  Abra
 //
 //  Created by Hakan Eren on 17/02/2018.
@@ -8,16 +8,19 @@
 
 import UIKit
 
-class OrdersViewController: UIViewController {
+class OFBaseViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let navController = self.navigationController as? BaseNavigationController {
-            navController.navigationItem.rightBarButtonItem = navController.inboxBarButtonItem;
-            navController.navigationItem.leftBarButtonItem = navController.profileBarButtonItem;
-        }
-
+        setupBarButtons()
         // Do any additional setup after loading the view.
+    }
+    
+    func setupBarButtons() {
+        if let mainNavigationController = self.navigationController as? BaseNavigationController {
+            navigationItem.setLeftBarButton(mainNavigationController.profileBarButtonItem, animated: true)
+            navigationItem.setRightBarButton(mainNavigationController.inboxBarButtonItem, animated: true)
+        }
     }
 
     override func didReceiveMemoryWarning() {

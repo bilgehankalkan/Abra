@@ -8,11 +8,12 @@
 
 import UIKit
 
-class OSStartViewController: OSBaseViewController {
+class OSCarryViewController: OSBaseViewController {
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         tabBarController?.selectedIndex = 1
+        OSBaseViewController.offerSelectMode = .carry
         startOS()
     }
 

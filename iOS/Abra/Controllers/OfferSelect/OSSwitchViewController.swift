@@ -19,20 +19,20 @@ protocol OSSwitchDelegate {
 class OSSwitchViewModel: NSObject {
     
     var delegate: OSSwitchDelegate?
-    var mode: OSSwitchMode = .instantBooking {
+    var switchMode: OSSwitchMode = .instantBooking {
         didSet {
-            switch mode {
+            switch switchMode {
             case .instantBooking:
                 titleLabel.text = "Save time and let your clients book instantly!"
                 subtitleLabel.text = "If not, you'll have to reply to every booking request yourself!"
-                modeLabel.text = "Instant Booking"
+                switchModeLabel.text = "Instant Booking"
             }
         }
     }
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var subtitleLabel: UILabel!
-    @IBOutlet weak var modeLabel: UILabel!
+    @IBOutlet weak var switchModeLabel: UILabel!
     @IBOutlet weak var `switch`: UISwitch!
     
     @IBAction func `continue`(_ sender: UIButton) {
@@ -43,14 +43,14 @@ class OSSwitchViewModel: NSObject {
 
 class OSSwitchViewController: OSBaseViewController {
     
-    var mode: OSSwitchMode = .instantBooking
+    var switchMode: OSSwitchMode = .instantBooking
     
     @IBOutlet weak var switchViewModel: OSSwitchViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         switchViewModel.delegate = self
-        switchViewModel.mode = mode
+        switchViewModel.switchMode = switchMode
     }
     
 }
@@ -59,7 +59,7 @@ extension OSSwitchViewController: OSSwitchDelegate {
     
     func `continue`(switch: Bool) {
         print(`switch`)
-        switch mode {
+        switch switchMode {
         case .instantBooking:
             OSBaseViewController.offerSelect.instantBooking = `switch`
             showAmount(for: .price, from: self)

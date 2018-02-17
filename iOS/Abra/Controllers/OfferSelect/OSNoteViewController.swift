@@ -19,13 +19,13 @@ protocol OSNoteDelegate {
 class OSNoteViewModel: NSObject {
     
     var delegate: OSNoteDelegate?
-    var mode: OSNoteMode = .about {
+    var noteMode: OSNoteMode = .about {
         didSet {
-            switch mode {
+            switch noteMode {
             case .about:
-                titleLabel.text = "Anything to add about your trip?"
                 aboutTextField.placeholder = "Your message goes here"
                 aboutTextField.addToolbar(type: .closeInputView)
+                titleLabel.text = "Anything to add about your trip?"
             }
         }
     }
@@ -41,14 +41,14 @@ class OSNoteViewModel: NSObject {
 
 class OSNoteViewController: OSBaseViewController {
     
-    var mode: OSNoteMode = .about
+    var noteMode: OSNoteMode = .about
     
     @IBOutlet weak var noteViewModel: OSNoteViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         noteViewModel.delegate = self
-        noteViewModel.mode = mode
+        noteViewModel.noteMode = noteMode
     }
     
 }
@@ -56,7 +56,7 @@ class OSNoteViewController: OSBaseViewController {
 extension OSNoteViewController: OSNoteDelegate {
     
     func `continue`(note: String) {
-        switch mode {
+        switch noteMode {
         case .about:
             OSBaseViewController.offerSelect.note = note
             showFinish(from: self)
