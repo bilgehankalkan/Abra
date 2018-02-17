@@ -1,25 +1,33 @@
 package com.bilgehankalkan.abra.ui.activities;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 
 import com.bilgehankalkan.abra.R;
 import com.bilgehankalkan.abra.interfaces.OnOfferChosenListener;
-import com.bilgehankalkan.abra.ui.fragments.create_offer.CapacitySelectionFragment;
-import com.bilgehankalkan.abra.ui.fragments.create_offer.DateTimeSelectionFragment;
+import com.bilgehankalkan.abra.service.models.CourierRequest;
+import com.bilgehankalkan.abra.service.models.CourierResponse;
+import com.bilgehankalkan.abra.ui.fragments.create_offer.AddNoteFragment;
+import com.bilgehankalkan.abra.ui.fragments.create_offer.CapacityPriceSelectionFragment;
 import com.bilgehankalkan.abra.ui.fragments.create_offer.InstantBookingFragment;
 import com.bilgehankalkan.abra.ui.fragments.create_offer.OriginDestinationFragment;
+import com.bilgehankalkan.abra.ui.fragments.create_offer.DateTimeSelectionFragment;
 import com.ncapdevi.fragnav.FragNavController;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by Bilgehan on 17.02.2018.
  */
 
-public class CreateOfferActivity extends AppCompatActivity implements OnOfferChosenListener {
+public class CreateOfferActivity extends BaseActivity implements OnOfferChosenListener {
 
     FragNavController fragNavController;
+    CourierRequest courierRequest;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,44 +45,88 @@ public class CreateOfferActivity extends AppCompatActivity implements OnOfferCho
         fragNavController = FragNavController.newBuilder(savedInstanceState, getSupportFragmentManager(), R.id.container_create_offer)
                 .rootFragment(OriginDestinationFragment.newInstance(true))
                 .build();
+
+        courierRequest = new CourierRequest();
+    }
+
+    private void sendData() {
+        Call<CourierResponse> call = apiInterface.postCourier(getHeader(), courierRequest);
+        call.enqueue(new Callback<CourierResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<CourierResponse> call, @NonNull Response<CourierResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    CourierResponse courierResponse = response.body();
+                    if (courierResponse.getCode() == 200) {
+
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<CourierResponse> call, @NonNull Throwable t) {
+
+            }
+        });
     }
 
     @Override
-    public void onOriginSelected(String origin) {
+    public void onOriginSelected(String originId) {
+        fragNavController.pushFragment(DateTimeSelectionFragment.newInstance(3));
+        courierRequest.setOrigin(originId);
+    }
 
+    @Override
+    public void onOriginDateSelected(String date) {
+        fragNavController.pushFragment(DateTimeSelectionFragment.newInstance(0));
+        courierRequest.setOriginDate(date);
+    }
+
+    @Override
+    public void onOriginTimeSelected(String time) {
         fragNavController.pushFragment(OriginDestinationFragment.newInstance(false));
-        fragNavController.switchTab(fragNavController.getSize() - 1);
+        courierRequest.setOriginDate(courierRequest.getOriginDate() + "T" + time + ":00.000Z");
     }
 
     @Override
-    public void onDestinationSelected(String destination) {
-
-        fragNavController.pushFragment(new DateTimeSelectionFragment());
-        fragNavController.switchTab(fragNavController.getSize() - 1);
+    public void onDestinationSelected(String destinationId) {
+        fragNavController.pushFragment(DateTimeSelectionFragment.newInstance(4));
+        courierRequest.setDestination(destinationId);
     }
 
     @Override
-    public void onDateTimeSelected(String dateTime) {
+    public void onDestinationDateSelected(String date) {
+        fragNavController.pushFragment(DateTimeSelectionFragment.newInstance(1));
+        courierRequest.setDestinationDate(date);
+    }
 
-        fragNavController.pushFragment(new CapacitySelectionFragment());
-        fragNavController.switchTab(fragNavController.getSize() - 1);
+    @Override
+    public void onDestinationTimeSelected(String time) {
+        fragNavController.pushFragment(CapacityPriceSelectionFragment.newInstance(0));
+        courierRequest.setDestinationDate(courierRequest.getDestinationDate() + "T" + time + ":00.000Z");
     }
 
     @Override
     public void onLoadCapacitySelected(int capacity) {
-
         fragNavController.pushFragment(new InstantBookingFragment());
-        fragNavController.switchTab(fragNavController.getSize() - 1);
+        courierRequest.setWeight(capacity);
     }
 
     @Override
     public void onInstantBookingSelected(boolean isInstantBookingSelected) {
-        sendData();
-        finish();
+        fragNavController.pushFragment(CapacityPriceSelectionFragment.newInstance(1));
+        courierRequest.setInstantBooking(isInstantBookingSelected);
     }
 
-    private void sendData() {
+    @Override
+    public void onPriceSelected(int price) {
+        fragNavController.pushFragment(new AddNoteFragment());
+        courierRequest.setPrice(price);
+    }
 
+    @Override
+    public void onNotesAdded(String notes) {
+        courierRequest.setNote(notes);
+        sendData();
     }
 
     @Override

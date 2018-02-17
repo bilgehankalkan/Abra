@@ -4,21 +4,28 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.MultiAutoCompleteTextView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bilgehankalkan.abra.R;
-import com.bilgehankalkan.abra.interfaces.OnOfferChosenListener;
+import com.bilgehankalkan.abra.service.models.Location;
+import com.bilgehankalkan.abra.service.models.LocationSearchResponse;
+import com.bilgehankalkan.abra.ui.activities.MainActivity;
+import com.bilgehankalkan.abra.ui.adapters.SearchAdapter;
+import com.bilgehankalkan.abra.utils.RecyclerItemClickListener;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by Bilgehan on 17.02.2018.
@@ -26,14 +33,12 @@ import java.util.List;
 
 public class OriginDestinationFragment extends CreateOfferBaseFragment {
 
-    MultiAutoCompleteTextView multiAutoCompleteTextView;
+    SearchView searchView;
+    RecyclerView recyclerViewSuggestions;
 
-    OnOfferChosenListener onOfferChosenListener;
-
-    ArrayAdapter<String> searchSuggestionAdapter;
-    List<String> suggestions;
-    List<String> suggestionIds;
-    String selectedId;
+    SearchAdapter searchAdapter;
+    List<Location> suggestionsList = new ArrayList<>();
+    Location selectedLocation;
 
     public static OriginDestinationFragment newInstance(boolean isOriginSelect) {
         Bundle bundle = new Bundle();
@@ -48,59 +53,63 @@ public class OriginDestinationFragment extends CreateOfferBaseFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_origin_destination, container, false);
 
-        multiAutoCompleteTextView = rootView.findViewById(R.id.auto_complete_text_view_origin_destination_fragment);
+        searchView = rootView.findViewById(R.id.search_view_origin_destination_fragment);
+        recyclerViewSuggestions = rootView.findViewById(R.id.recycler_view_origin_destination_fragment);
         TextView textViewQuestion = rootView.findViewById(R.id.text_view_origin_destination_fragment);
         CardView cardViewContinue = rootView.findViewById(R.id.card_view_continue_origin_destination_fragment);
 
         assert getArguments() != null;
         Boolean isOriginSelect = getArguments().getBoolean("isOriginSelect");
 
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                //getSuggestions(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                getSuggestions(newText);
+                return false;
+            }
+        });
+        searchView.onActionViewExpanded();
+
+        searchAdapter = new SearchAdapter(getContext(), suggestionsList);
+        recyclerViewSuggestions.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerViewSuggestions.setAdapter(searchAdapter);
+        recyclerViewSuggestions.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), recyclerViewSuggestions, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                selectedLocation = suggestionsList.get(position);
+                searchView.setQuery(suggestionsList.get(position).getName(), false);
+                mActivity.closeSoftKeyboard(searchView);
+            }
+
+            @Override
+            public void onLongItemClick(View view, int position) {
+
+            }
+        }));
         textViewQuestion.setText(getString(R.string.origin_destination_explanation_text,
                 isOriginSelect ?  getString(R.string.origin) : getString(R.string.destination)));
 
-        multiAutoCompleteTextView.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                getSuggestions(String.valueOf(s));
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });
-
-        assert getContext() != null;
-        searchSuggestionAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, suggestions);
-        multiAutoCompleteTextView.setAdapter(searchSuggestionAdapter);
-        multiAutoCompleteTextView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                selectedId = suggestionIds.get(position);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                for (int i = 0; i < suggestions.size(); i++) {
-                    if (multiAutoCompleteTextView.getText().toString().equals(suggestions.get(i))) {
-                        selectedId = suggestionIds.get(i);
-                        break;
-                    }
-                }
-            }
-        });
-
         cardViewContinue.setOnClickListener(v -> {
-            if (selectedId != null) {
-                if (isOriginSelect)
-                    onOfferChosenListener.onOriginSelected(selectedId);
-                else
-                    onOfferChosenListener.onDestinationSelected(selectedId);
+            if (selectedLocation != null) {
+                if (onOfferChosenListener != null) {
+                    if (isOriginSelect)
+                        onOfferChosenListener.onOriginSelected(selectedLocation.getId());
+                    else
+                        onOfferChosenListener.onDestinationSelected(selectedLocation.getId());
+                } else {
+                    ((MainActivity) mActivity).getSupportFragmentManager().beginTransaction().detach(this).commit();
+                    if (isOriginSelect)
+                        onSearchOptionListener.onOriginSelected(selectedLocation);
+                    else
+                        onSearchOptionListener.onDestinationSelected(selectedLocation);
+
+                }
             } else
                 Toast.makeText(getContext(), getString(R.string.please_select_origin_destination,
                         isOriginSelect ? getString(R.string.origin) : getString(R.string.destination)),
@@ -111,6 +120,24 @@ public class OriginDestinationFragment extends CreateOfferBaseFragment {
     }
 
     private void getSuggestions(String query) {
+        Call<LocationSearchResponse> call = apiInterface.getLocationSearch(mActivity.getHeader(), query);
+        call.enqueue(new Callback<LocationSearchResponse>() {
+            @Override
+            public void onResponse(@NonNull Call<LocationSearchResponse> call, @NonNull Response<LocationSearchResponse> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    LocationSearchResponse locationSearchResponse = response.body();
+                    if (locationSearchResponse.getCode() == 200) {
+                        suggestionsList.clear();
+                        suggestionsList.addAll(locationSearchResponse.getData());
+                        mActivity.runOnUiThread(() -> searchAdapter.notifyDataSetChanged());
+                    }
+                }
+            }
 
+            @Override
+            public void onFailure(@NonNull Call<LocationSearchResponse> call, @NonNull Throwable t) {
+                Toast.makeText(getContext(), R.string.connection_error, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
