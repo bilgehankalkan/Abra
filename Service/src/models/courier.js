@@ -126,7 +126,7 @@ model.search = (originDate, destination, origin, weight, pageSize, pageIndex, re
         });
     }
     if (weight != null) {
-        weight.$and.push({
+        query.$and.push({
             weight: { $gte: weight }
         });
     }

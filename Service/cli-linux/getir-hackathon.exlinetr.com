@@ -9,13 +9,15 @@ server{
     listen 80 ;
     listen [::]:80;
 
-
     server_name getir-hackathon.exlinetr.com;
 
-    # url pattern for api.hayatkurtar.com
     location /live/ {
         rewrite /live/(.*) /$1  break;
         proxy_pass http://live;
+    }
+
+    location /{
+        proxy_pass http://sandbox;
     }
 
     location /sandbox/ {
