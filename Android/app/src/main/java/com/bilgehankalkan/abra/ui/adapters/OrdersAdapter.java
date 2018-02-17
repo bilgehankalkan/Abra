@@ -5,6 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.List;
+
 /**
  * Created by Bilgehan on 17.02.2018.
  */
@@ -12,9 +14,9 @@ import android.view.ViewGroup;
 public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHolder> {
 
     private Context context;
-    private List<T> orders;
+    private List<Object> orders;
 
-    public OrdersAdapter(Context context, List<T> orders) {
+    public OrdersAdapter(Context context, List<Object> orders) {
         this.context = context;
         this.orders = orders;
     }

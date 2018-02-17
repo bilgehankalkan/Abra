@@ -5,6 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.List;
+
 /**
  * Created by Bilgehan on 17.02.2018.
  */
@@ -12,9 +14,9 @@ import android.view.ViewGroup;
 public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.ViewHolder> {
 
     Context context;
-    List<T> messages;
+    List<Object> messages;
 
-    public InboxAdapter(Context context, List<T> messages) {
+    public InboxAdapter(Context context, List<Object> messages) {
         this.context = context;
         this.messages = messages;
     }
