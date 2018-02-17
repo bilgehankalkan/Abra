@@ -37,7 +37,8 @@ router.post("/", (req, res) => {
         instantBooking: req.body.instantBooking,
         destination: req.body.destination,
         origin: req.body.origin,
-        luggageCapacity: req.body.luggageCapacity
+        weight: req.body.weight,
+        price: req.body.price
     };
     courierModel.register(courier, req)
         .then((doc) => {
