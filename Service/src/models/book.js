@@ -41,16 +41,16 @@ model.getListByUserId = (userId, pageIndex, pageSize, req) => {
             userId: { $eq: userId }
         };
         model.find(query)
-            .limit(pageSize)
-            .skip(pageIndex * pageSize)
+            .limit(parseInt(pageSize))
+            .skip(parseInt(pageIndex) * parseInt(pageSize))
             .exec()
             .then(res)
             .catch((err) => {
                 rej({
-                    message: dictionary.errorMEssages.systemError,
+                    message: dictionary.errorMessages.systemError,
                     statusCode: responseCode.SERVER_ERROR
-                })
-            })
+                });
+            });
     });
 };
 

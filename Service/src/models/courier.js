@@ -94,6 +94,7 @@ function gets(query, options, pageIndex, pageSize, req) {
 }
 
 model.getList = (pageIndex, pageSize, req) => {
+    var dictionary = _dictionary(req);
     return new Promise((res, rej) => {
         gets({}, {}, pageIndex, pageSize, req)
             .sort({
@@ -107,7 +108,7 @@ model.getList = (pageIndex, pageSize, req) => {
                     statusCode: responseCode.SERVER_ERROR
                 });
             });;
-    })
+    });
 };
 
 model.search = (originDate, destination, origin, weight, pageSize, pageIndex, req) => {
@@ -148,6 +149,24 @@ model.search = (originDate, destination, origin, weight, pageSize, pageIndex, re
                 });
             })
     });
+}
+
+model.getListById = (idArray, req) => {
+    var dictionary = _dictionary(req);
+    return new Promise((res, rej) => {
+        const query = {
+            _id: { $in: idArray }
+        };
+        model.find(query)
+            .exec()
+            .then(res)
+            .catch((err) => {
+                rej({
+                    message: dictionary.errorMessages.systemError,
+                    statusCode: responseCode.SERVER_ERROR
+                });
+            });;
+    })
 }
 
 module.exports = model;
