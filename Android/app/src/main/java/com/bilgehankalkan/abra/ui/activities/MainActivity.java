@@ -37,9 +37,8 @@ public class MainActivity extends BaseActivity {
 
         List<Fragment> listRootFragments = new ArrayList<>();
         listRootFragments.add(new FindCourierFragment());
-        listRootFragments.add(new OrdersFragment());
-        listRootFragments.add(new InboxFragment());
-        listRootFragments.add(new MyProfileFragment());
+        listRootFragments.add(OrdersFragment.newInstance(null));
+        listRootFragments.add(OrdersFragment.newInstance(null));
 
         fragNavController = FragNavController.newBuilder(savedInstanceState,
                 getSupportFragmentManager(), R.id.container_main)
@@ -54,24 +53,16 @@ public class MainActivity extends BaseActivity {
                     case R.id.action_your_orders:
                         fragNavController.switchTab(FragNavController.TAB2);
                         break;
+                    case R.id.action_your_deliveries:
+                        fragNavController.switchTab(FragNavController.TAB3);
+                        break;
                     case R.id.action_offer_to_carry:
                         bottomNavigationView.setSelectedItemId(R.id.action_your_orders);
                         startActivity(new Intent(getApplicationContext(), CreateOfferActivity.class));
                         overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
                         break;
-                    case R.id.action_inbox:
-                        fragNavController.switchTab(FragNavController.TAB3);
-                        break;
-                    case R.id.action_profile:
-                        fragNavController.switchTab(FragNavController.TAB4);
-                        break;
                 }
                 return true;
             });
-    }
-
-    @Override
-    public void onBackPressed() {
-        onBackPressed();
     }
 }

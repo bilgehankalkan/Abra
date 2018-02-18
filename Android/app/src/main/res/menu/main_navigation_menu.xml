@@ -14,21 +14,15 @@
         app:showAsAction="ifRoom"
         android:enabled="true"/>
 
-    <item android:id="@+id/action_offer_to_carry"
-        android:title="@string/offer_to_carry"
+    <item android:id="@+id/action_your_deliveries"
+        android:title="@string/your_deliveries"
         android:icon="@drawable/courier"
         app:showAsAction="ifRoom"
         android:enabled="true"/>
 
-    <item android:id="@+id/action_inbox"
-        android:title="@string/inbox"
-        android:icon="@drawable/inbox"
-        app:showAsAction="ifRoom"
-        android:enabled="true"/>
-
-    <item android:id="@+id/action_profile"
-        android:title="@string/my_profile"
-        android:icon="@drawable/profile"
+    <item android:id="@+id/action_offer_to_carry"
+        android:title="@string/offer_to_carry"
+        android:icon="@drawable/plus"
         app:showAsAction="ifRoom"
         android:enabled="true"/>
 </menu>
