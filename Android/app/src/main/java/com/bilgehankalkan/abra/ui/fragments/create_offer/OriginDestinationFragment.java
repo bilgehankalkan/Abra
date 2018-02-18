@@ -64,22 +64,23 @@ public class OriginDestinationFragment extends CreateOfferBaseFragment {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                //getSuggestions(query);
                 return false;
             }
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                getSuggestions(newText);
-                return false;
+                if (newText.length() > 0)
+                    getSuggestions(newText);
+                return true;
             }
         });
         searchView.onActionViewExpanded();
 
-        searchAdapter = new SearchAdapter(getContext(), suggestionsList);
-        recyclerViewSuggestions.setLayoutManager(new LinearLayoutManager(getContext()));
+        searchAdapter = new SearchAdapter(mActivity, suggestionsList);
+        recyclerViewSuggestions.setLayoutManager(new LinearLayoutManager(mActivity));
         recyclerViewSuggestions.setAdapter(searchAdapter);
-        recyclerViewSuggestions.addOnItemTouchListener(new RecyclerItemClickListener(getContext(), recyclerViewSuggestions, new RecyclerItemClickListener.OnItemClickListener() {
+        recyclerViewSuggestions.addOnItemTouchListener(new RecyclerItemClickListener(mActivity,
+                recyclerViewSuggestions, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 selectedLocation = suggestionsList.get(position);
@@ -102,13 +103,12 @@ public class OriginDestinationFragment extends CreateOfferBaseFragment {
                         onOfferChosenListener.onOriginSelected(selectedLocation.getId());
                     else
                         onOfferChosenListener.onDestinationSelected(selectedLocation.getId());
-                } else {
-                    ((MainActivity) mActivity).getSupportFragmentManager().beginTransaction().detach(this).commit();
+                } else if (onSearchOptionListener != null) {
                     if (isOriginSelect)
                         onSearchOptionListener.onOriginSelected(selectedLocation);
                     else
                         onSearchOptionListener.onDestinationSelected(selectedLocation);
-
+                    getFragmentManager().beginTransaction().detach(this).commit();
                 }
             } else
                 Toast.makeText(getContext(), getString(R.string.please_select_origin_destination,

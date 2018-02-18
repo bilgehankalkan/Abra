@@ -7,6 +7,7 @@ import android.view.View;
 import com.bilgehankalkan.abra.interfaces.OnOfferChosenListener;
 import com.bilgehankalkan.abra.interfaces.OnSearchOptionListener;
 import com.bilgehankalkan.abra.ui.activities.CreateOfferActivity;
+import com.bilgehankalkan.abra.ui.activities.FindCourierFilterActivity;
 import com.bilgehankalkan.abra.ui.activities.MainActivity;
 import com.bilgehankalkan.abra.ui.fragments.BaseFragment;
 import com.bilgehankalkan.abra.ui.fragments.FindCourierFragment;
@@ -26,7 +27,7 @@ public class CreateOfferBaseFragment extends BaseFragment {
         try {
             if (context instanceof CreateOfferActivity)
                 onOfferChosenListener = (OnOfferChosenListener) context;
-            else if (context instanceof MainActivity)
+            else if (context instanceof FindCourierFilterActivity)
                 onSearchOptionListener = (OnSearchOptionListener) context;
 
         } catch (Exception e) {

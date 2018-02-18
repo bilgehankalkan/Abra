@@ -14,6 +14,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.bilgehankalkan.abra.R;
+import com.bilgehankalkan.abra.ui.activities.FindCourierFilterActivity;
 import com.bilgehankalkan.abra.ui.activities.MainActivity;
 
 /**
@@ -99,7 +100,7 @@ public class DateTimeSelectionFragment extends CreateOfferBaseFragment {
             Toast.makeText(getActivity(), getString(R.string.select_valid_argument, "time"), Toast.LENGTH_SHORT).show();
             return;
         }
-        if (getContext() instanceof MainActivity) {
+        if (getContext() instanceof FindCourierFilterActivity) {
             onSearchOptionListener.onOriginTimeSelected(selectedTime);
         } else {
             if (mode == 0)
@@ -116,7 +117,7 @@ public class DateTimeSelectionFragment extends CreateOfferBaseFragment {
             Toast.makeText(getActivity(), getString(R.string.select_valid_argument, "date"), Toast.LENGTH_SHORT).show();
             return;
         }
-        if (getContext() instanceof MainActivity) {
+        if (getContext() instanceof FindCourierFilterActivity) {
             onSearchOptionListener.onOriginDateSelected(selectedDate);
         } else {
             if (mode == 3)
