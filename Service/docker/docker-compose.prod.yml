@@ -9,6 +9,13 @@ services:
       dockerfile: Dockerfile
     ports:
       - 5353:80
+    deploy:
+      mode: replicated
+      replicas: 3
+      restart_policy:
+        condition: on-failure
+        max_attempts: 2
+        delay: 2ms
     depends_on:
       - db
       - redis
