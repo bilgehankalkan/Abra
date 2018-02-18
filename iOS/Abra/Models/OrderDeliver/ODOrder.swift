@@ -25,7 +25,7 @@ class OrderViewModel: NSObject {
                     self.loadingActivityIndicatorView.isHidden = false
                 }
             }
-            // TODO - Concurrent
+            // TODO: MAKE CONCURRENT
             API.shared.orders(.current(orderDeliveryMode), completion: {
                 (orders: [Order]?, error: Error?) in
                 DispatchQueue.global(qos: .userInitiated).async { [unowned self] in
@@ -55,7 +55,7 @@ class OrderViewModel: NSObject {
         }
     }
     
-    let ordersSegmentedControl = UISegmentedControl(items: ["Current", "Past"])
+    let ordersSegmentedControl = UISegmentedControl(items: [NSLocalizedString("Current", comment: "Current || Future, !Past of transactions"), NSLocalizedString("Past", comment: "History old of transactions")])
     
     @IBOutlet weak var ordersTableView: UITableView!
     @IBOutlet weak var loadingActivityIndicatorView: UIActivityIndicatorView!
@@ -126,7 +126,7 @@ class OrderTableViewCell: UITableViewCell {
             destinationTimeLabel.text = order.destination?.date
             destinationLocationLabel.text = order.destination?.name
             nameLabel.text = (order.owner?.name ?? "") + " " + (order.owner?.surname ?? "")
-            ratingLabel.text = "\(order.avarageRating)" + " - " + "\(order.totalRating)" + " rating"
+            ratingLabel.text = "\(order.avarageRating)" + " - " + "\(order.totalRating)" + NSLocalizedString(" rating", comment: "User's rate of transaction")
             if order.avarageRating >= 4.0 {
                 ratingStarImageView.tintColor = UIColor.ratingStarGreen
             }
@@ -138,7 +138,7 @@ class OrderTableViewCell: UITableViewCell {
             }
             
             if let orderOwner = order.owner, let ownerAvatar = URL(string: orderOwner.avatar) {
-                avatarImageView.af_setImage(withURL: ownerAvatar, placeholderImage: UIImage(named: "placeholder"))
+                avatarImageView.af_setImage(withURL: ownerAvatar, placeholderImage: UIImage(named: "avatar-placeholder"))
             }
             
             weightLabel.text = "\(order.weight)" + " kg"

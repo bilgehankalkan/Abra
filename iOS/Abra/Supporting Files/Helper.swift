@@ -54,7 +54,7 @@ extension UITextField {
         toolBar.sizeToFit()
         
         if type == .closeInputView {
-            let doneButton = UIBarButtonItem(title: "Close", style: .done, target: self, action: #selector(closeKeyboard(_:)))
+            let doneButton = UIBarButtonItem(title: NSLocalizedString("Close", comment: "Dismiss the keyboard"), style: .done, target: self, action: #selector(closeKeyboard(_:)))
             toolBar.setItems([doneButton], animated: false)
             toolBar.isUserInteractionEnabled = true
         }
@@ -71,7 +71,7 @@ extension UITextField {
 extension UIViewController {
     
     func presentErrorAlertView(_ error: Error?) {
-        let alertView = UIAlertController(title: NSLocalizedString("Ooops!", comment: "Show recognition of a mistake or minor accident"), message: error?.localizedDescription, preferredStyle: .alert)
+        let alertView = UIAlertController(title: NSLocalizedString("Ooops!", comment: "Used to show recognition of a mistake or minor accident, often as part of an apology."), message: error?.localizedDescription, preferredStyle: .alert)
         alertView.addAction(UIAlertAction(title: NSLocalizedString("Oki", comment: "Dismiss an alert"), style: .cancel, handler: nil))
         present(alertView, animated: true, completion: nil)
     }

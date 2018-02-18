@@ -21,15 +21,15 @@ class OSAmountViewModel: NSObject {
                 
                 switch OSBaseViewController.offerSelectMode {
                 case .courier:
-                    titleLabel.text = "How much does it weight?"
-                    actionButton .setTitle("Find a courier", for: .normal)
+                    titleLabel.text = NSLocalizedString("How much does it weight?", comment: "")
+                    actionButton.setTitle(NSLocalizedString("Find a courier", comment: ""), for: .normal)
                 case .carry:
-                    titleLabel.text = "How many kilograms can you carry?"
-                    actionButton .setTitle("Continue", for: .normal)
+                    titleLabel.text = NSLocalizedString("How many kilograms can you carry?", comment: "")
+                    actionButton.setTitle(NSLocalizedString("Continue", comment: ""), for: .normal)
                 }
             case .price:
                 stepper.maximumValue = 100.0
-                titleLabel.text = "How much do you want to charge?"
+                titleLabel.text = NSLocalizedString("How much do you want to charge?", comment: "")
             }
             stepperValueChanged(stepper)
         }
@@ -46,15 +46,15 @@ class OSAmountViewModel: NSObject {
             amountLabel.text = "\(Int(sender.value))"
             
             if sender.value <= 1.0 {
-                amountModeLabel.text = "Kilogram"
+                amountModeLabel.text = NSLocalizedString("Kilogram", comment: "")
             }
             else {
-                amountModeLabel.text = "Kilograms"
+                amountModeLabel.text = NSLocalizedString("Kilograms", comment: "")
             }
         }
         else if amountMode == .price {
             amountLabel.text = "\(Int(sender.value))" + "₺"
-            amountModeLabel.text = "Price"
+            amountModeLabel.text = NSLocalizedString("Price", comment: "")
         }
     }
     

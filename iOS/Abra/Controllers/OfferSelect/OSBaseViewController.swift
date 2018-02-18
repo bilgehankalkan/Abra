@@ -90,8 +90,9 @@ class OSBaseViewController: UIViewController {
                             self.presentErrorAlertView(error)
                         }
                         else {
+                            OSBaseViewController.offerSelect = OfferSelect()
+                            // TODO: DISPLAY LIST OF COURIERS
                             self.dismiss(animated: true) {
-                                OSBaseViewController.offerSelect = OfferSelect()
                             }
                         }
                     }
@@ -108,10 +109,11 @@ class OSBaseViewController: UIViewController {
                             self.presentErrorAlertView(error)
                         }
                         else {
-                            let alertView = UIAlertController(title: "Yaayy!!", message: "Your post submitted!\nYou will get a notification as soon as our staff approves your post.", preferredStyle: .alert)
+                            OSBaseViewController.offerSelect = OfferSelect()
+                            // TODO: DISPLAY DETAIL OF THE POST
+                            let alertView = UIAlertController(title: NSLocalizedString("Yaayy!", comment: "Used as an exclamation of pleasure, approval, elation, or victory."), message: NSLocalizedString("Your post submitted!\nYou will get a notification as soon as our staff approves your post.", comment: ""), preferredStyle: .alert)
                             alertView.addAction(UIAlertAction(title: NSLocalizedString("Oki", comment: "Dismiss an alert"), style: .cancel, handler: { (alertAction: UIAlertAction) in
                                 self.dismiss(animated: true) {
-                                    OSBaseViewController.offerSelect = OfferSelect()
                                 }
                             }))
                             self.present(alertView, animated: true, completion: nil)

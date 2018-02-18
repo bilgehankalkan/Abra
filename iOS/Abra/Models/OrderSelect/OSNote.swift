@@ -16,15 +16,17 @@ class OSNoteViewModel: NSObject {
         didSet {
             switch noteMode {
             case .about:
-                aboutTextField.placeholder = "Your message goes here"
+                aboutTextField.placeholder = NSLocalizedString("Your message goes here", comment: "")
                 aboutTextField.addToolbar(type: .closeInputView)
-                titleLabel.text = "Anything to add about your trip?"
+                titleLabel.text = NSLocalizedString("Anything to add about your trip?", comment: "")
             }
+            actionButton.setTitle(NSLocalizedString("Post a trip", comment: ""), for: .normal)
         }
     }
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var aboutTextField: UITextField!
+    @IBOutlet weak var actionButton: UIButton!
     
     @IBAction func `continue`(_ sender: UIButton) {
         delegate?.`continue`(note: aboutTextField.text ?? "")

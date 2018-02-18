@@ -16,10 +16,11 @@ class OSSwitchViewModel: NSObject {
         didSet {
             switch switchMode {
             case .instantBooking:
-                titleLabel.text = "Save time and let your clients book instantly!"
-                subtitleLabel.text = "If not, you'll have to reply to every booking request yourself!"
-                switchModeLabel.text = "Instant Booking"
+                titleLabel.text = NSLocalizedString("Save time and let your clients book instantly!", comment: "")
+                subtitleLabel.text = NSLocalizedString("If not, you'll have to reply to every booking request yourself!", comment: "")
+                switchModeLabel.text = NSLocalizedString("Instant Booking", comment: "")
             }
+            actionButton.setTitle(NSLocalizedString("Continue", comment: ""), for: .normal)
         }
     }
     
@@ -27,6 +28,7 @@ class OSSwitchViewModel: NSObject {
     @IBOutlet weak var subtitleLabel: UILabel!
     @IBOutlet weak var switchModeLabel: UILabel!
     @IBOutlet weak var `switch`: UISwitch!
+    @IBOutlet weak var actionButton: UIButton!
     
     @IBAction func `continue`(_ sender: UIButton) {
         delegate?.`continue`(switch: `switch`.isOn)

@@ -1,0 +1,11 @@
+/* Class = "UITabBarItem"; title = "Your orders"; ObjectID = "Vwo-kU-rHp"; */
+"Vwo-kU-rHp.title" = "Siparişleriniz";
+
+/* Class = "UITabBarItem"; title = "Offer to carry"; ObjectID = "drO-IH-5Kr"; */
+"drO-IH-5Kr.title" = "Kurye ol";
+
+/* Class = "UITabBarItem"; title = "Find a courier"; ObjectID = "juZ-9q-LeT"; */
+"juZ-9q-LeT.title" = "Kurye bul";
+
+/* Class = "UITabBarItem"; title = "Your deliveries"; ObjectID = "sAO-sI-bbv"; */
+"sAO-sI-bbv.title" = "Götürecekleriniz";

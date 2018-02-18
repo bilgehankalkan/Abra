@@ -18,23 +18,22 @@ class OSLocationViewModel: NSObject {
             switch locationMode {
             case .origin:
                 backButton.isHidden = true
-                locationTextField.placeholder = "Enter the origin location"
+                locationTextField.placeholder = NSLocalizedString("Enter the origin location", comment: "")
                 
                 switch OSBaseViewController.offerSelectMode {
                 case .courier:
-                    titleLabel.text = "Where would you like to send it from?"
+                    titleLabel.text = NSLocalizedString("Where would you like to send it from?", comment: "")
                 case .carry:
-                    titleLabel.text = "Where are you leaving from?"
+                    titleLabel.text = NSLocalizedString("Where are you leaving from?", comment: "")
                 }
             case .destination:
                 backButton.isHidden = false
-                locationTextField.placeholder = "Enter the destination location"
-                
+                locationTextField.placeholder = NSLocalizedString("Enter the destination location", comment: "")
                 switch OSBaseViewController.offerSelectMode {
                 case .courier:
-                    titleLabel.text = "Where would you like to send it to?"
+                    titleLabel.text = NSLocalizedString("Where would you like to send it to?", comment: "")
                 case .carry:
-                    titleLabel.text = "Where are you heading?"
+                    titleLabel.text = NSLocalizedString("Where are you heading?", comment: "")
                 }
             }
             locationTextField.addToolbar(type: .closeInputView)

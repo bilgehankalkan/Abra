@@ -19,18 +19,20 @@ class OSDateViewModel: NSObject {
             case .origin:
                 switch OSBaseViewController.offerSelectMode {
                 case .courier:
-                    titleLabel.text = "When would you like to send?"
+                    titleLabel.text = NSLocalizedString("When would you like to send?", comment: "")
                 case .carry:
-                    titleLabel.text = "When are you going?"
+                    titleLabel.text = NSLocalizedString("When are you going?", comment: "")
                 }
             case .destination:
-                titleLabel.text = "When are you arriving?"
+                titleLabel.text = NSLocalizedString("When are you arriving?", comment: "")
             }
+            actionButton.setTitle(NSLocalizedString("Continue", comment: ""), for: .normal)
         }
     }
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var datePicker: UIDatePicker!
+    @IBOutlet weak var actionButton: UIButton!
     
     @IBAction func `continue`(_ sender: UIButton) {
         delegate?.`continue`(date: datePicker.date)
@@ -56,18 +58,20 @@ class OSTimeViewModel: NSObject {
             case .origin:
                 switch OSBaseViewController.offerSelectMode {
                 case .courier:
-                    titleLabel.text = "What time would you like to send?"
+                    titleLabel.text = NSLocalizedString("What time would you like to send?", comment: "")
                 case .carry:
-                    titleLabel.text = "What time are you going?"
+                    titleLabel.text = NSLocalizedString("What time are you going?", comment: "")
                 }
             case .destination:
-                titleLabel.text = "What time are you arriving?"
+                titleLabel.text = NSLocalizedString("What time are you arriving?", comment: "")
             }
+            actionButton.setTitle(NSLocalizedString("Continue", comment: ""), for: .normal)
         }
     }
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var datePicker: UIDatePicker!
+    @IBOutlet weak var actionButton: UIButton!
     
     @IBAction func `continue`(_ sender: UIButton) {
         delegate?.`continue`(time: datePicker.date)
