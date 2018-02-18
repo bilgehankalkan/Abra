@@ -17,11 +17,15 @@
     <string name="origin_destination_explanation_text">Start typing your %1$s location</string>
     <string name="origin">origin</string>
     <string name="destination">destination</string>
+    <string name="departure">departure</string>
+    <string name="arrival">arrival</string>
+    <string name="initial">initial</string>
     <string name="please_select_origin_destination">Please enter valid %1$s point.</string>
     <string name="date">date</string>
     <string name="time">time</string>
     <string name="capacity">capacity</string>
     <string name="search">Search</string>
+    <string name="explanation_time_date">Please select your %1$s %2$s.</string>
     <string name="explanation_time_origin">Please select your departure time.</string>
     <string name="explanation_time_destination">Please select your arrival time.</string>
     <string name="explanation_time_search">Please select your initial time.</string>

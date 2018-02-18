@@ -66,22 +66,22 @@ public class DateTimeSelectionFragment extends CreateOfferBaseFragment {
 
         switch (mode) {
             case 0:
-                textViewExplanation.setText(R.string.explanation_time_origin);
+                textViewExplanation.setText(getString(R.string.explanation_time_date, getString(R.string.departure), getString(R.string.time)));
                 break;
             case 1:
-                textViewExplanation.setText(R.string.explanation_time_destination);
+                textViewExplanation.setText(getString(R.string.explanation_time_date, getString(R.string.arrival), getString(R.string.time)));
                 break;
             case 2:
-                textViewExplanation.setText(R.string.explanation_time_search);
+                textViewExplanation.setText(getString(R.string.explanation_time_date, getString(R.string.initial), getString(R.string.time)));
                 break;
             case 3:
-                textViewExplanation.setText(R.string.explanation_date_origin);
+                textViewExplanation.setText(getString(R.string.explanation_time_date, getString(R.string.departure), getString(R.string.date)));
                 break;
             case 4:
-                textViewExplanation.setText(R.string.explanation_date_destination);
+                textViewExplanation.setText(getString(R.string.explanation_time_date, getString(R.string.arrival), getString(R.string.date)));
                 break;
             case 5:
-                textViewExplanation.setText(R.string.explanation_date_search);
+                textViewExplanation.setText(getString(R.string.explanation_time_date, getString(R.string.initial), getString(R.string.date)));
                 break;
         }
         cardViewContinue.setOnClickListener(v -> {

@@ -32,4 +32,8 @@
     <string name="explanation_add_note">Not eklemek ister misiniz?</string>
     <string name="connection_error">Bağlantı Hatası</string>
     <string name="warning_X_not_selected">%1$s seçilmeli.</string>
+    <string name="departure">ayrılık</string>
+    <string name="arrival">varış</string>
+    <string name="initial">başlangıç</string>
+    <string name="explanation_time_date">Lüfen %1$s %2$snizi seçiniz.</string>
 </resources>
