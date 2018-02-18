@@ -1,5 +1,6 @@
 package com.bilgehankalkan.abra.ui.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,12 +10,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.bilgehankalkan.abra.R;
+import com.bilgehankalkan.abra.service.ApiInterface;
 import com.bilgehankalkan.abra.service.models.Order;
 import com.bilgehankalkan.abra.service.models.OrderListResult;
 import com.bilgehankalkan.abra.ui.activities.BaseActivity;
+import com.bilgehankalkan.abra.ui.activities.OrderDetailActivity;
 import com.bilgehankalkan.abra.ui.adapters.OrderAdapter;
 import com.bilgehankalkan.abra.utils.EndlessRecyclerViewScrollListener;
 import com.bilgehankalkan.abra.utils.RecyclerItemClickListener;
@@ -24,6 +28,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import info.hoang8f.android.segmented.SegmentedGroup;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -35,9 +40,12 @@ import retrofit2.Response;
 public class OrdersFragment extends BaseFragment {
 
     RecyclerView recyclerView;
+    SegmentedGroup segmentedGroup;
 
     OrderAdapter orderAdapter;
     List<Order> listOrders;
+    private boolean isPast = true, isCourier = true;
+    private int pageIndex = 0;
 
     public static OrdersFragment newInstance(@Nullable Bundle params) {
         OrdersFragment ordersFragment = new OrdersFragment();
@@ -52,21 +60,34 @@ public class OrdersFragment extends BaseFragment {
         View rootView = inflater.inflate(R.layout.fragment_orders, container, false);
 
         recyclerView = rootView.findViewById(R.id.recycler_view_orders_fragment);
+        segmentedGroup = rootView.findViewById(R.id.segmented_group_orders_fragment);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
-        recyclerView.addOnScrollListener(new EndlessRecyclerViewScrollListener(((LinearLayoutManager) recyclerView.getLayoutManager())) {
+        recyclerView.addOnScrollListener(new EndlessRecyclerViewScrollListener(
+                ((LinearLayoutManager) recyclerView.getLayoutManager())) {
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
+                page = pageIndex;
                 if (getArguments() != null)
-                    getSearchResult(getArguments().getStringArray("params"), page);
+                    if (getArguments().getStringArray("params") != null) {
+                        getSearchResult(getArguments().getStringArray("params"), page);
+                        segmentedGroup.setVisibility(View.GONE);
+                    } else if (getArguments().getBoolean("isYourDeliveries", false)) {
+                        isCourier = false;
+                        getOrders();
+                    }
                 else
-                    getOrders(page);
+                    getOrders();
             }
         });
-        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(mActivity, recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(mActivity, recyclerView,
+                new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-
+                Intent intent = new Intent(mActivity, OrderDetailActivity.class);
+                intent.putExtra("id", listOrders.get(position).getId());
+                startActivity(intent);
+                mActivity.overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
             }
 
             @Override
@@ -79,10 +100,30 @@ public class OrdersFragment extends BaseFragment {
         orderAdapter = new OrderAdapter(mActivity, listOrders);
         recyclerView.setAdapter(orderAdapter);
 
-        if (getArguments() != null)
-            getSearchResult(getArguments().getStringArray("params"), 0);
-        else
-            getOrders(0);
+        if (getArguments() != null) {
+            if (getArguments().getStringArray("params") != null) {
+                getSearchResult(getArguments().getStringArray("params"), 0);
+                segmentedGroup.setVisibility(View.GONE);
+            } else if (getArguments().getBoolean("isYourDeliveries", false)) {
+                isCourier = false;
+                getOrders();
+            }
+        } else
+            getOrders();
+
+        segmentedGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            switch (checkedId) {
+                case R.id.radio_button_past:
+                    isPast = true;
+                    break;
+                case R.id.radio_button_current:
+                    isPast = false;
+                    break;
+            }
+            listOrders.clear();
+            pageIndex = 0;
+            getOrders();
+        });
 
         return rootView;
     }
@@ -98,8 +139,10 @@ public class OrdersFragment extends BaseFragment {
         call.enqueue(callback);
     }
 
-    private void getOrders(int pageIndex) {
-        Call<OrderListResult> call = apiInterface.getOrders(BaseActivity.USER_ID, "current", pageIndex, 20);
+    private void getOrders() {
+        Call<OrderListResult> call = apiInterface.getOrders(BaseActivity.USER_ID,
+                isCourier ? ApiInterface.COURIER : ApiInterface.CARRY,
+                isPast ? ApiInterface.PAST : ApiInterface.CURRENT, pageIndex, 20);
         call.enqueue(callback);
     }
 

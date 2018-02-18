@@ -1,12 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:segmentedgroup="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorSplashBackground"
+        android:orientation="vertical">
+
+        <info.hoang8f.android.segmented.SegmentedGroup
+            android:id="@+id/segmented_group_orders_fragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:orientation="horizontal"
+            segmentedgroup:sc_border_width="2dp"
+            segmentedgroup:sc_corner_radius="6dp"
+            segmentedgroup:sc_checked_text_color="@color/colorSplashBackground"
+            segmentedgroup:sc_tint_color="@color/white"
+            android:layout_gravity="center">
+
+            <RadioButton
+                android:id="@+id/radio_button_past"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/past"
+                style="@style/RadioButton"
+                android:textColor="@color/white"
+                android:checked="true"/>
+
+            <RadioButton
+                android:id="@+id/radio_button_current"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/current"
+                style="@style/RadioButton"
+                android:textColor="@color/white"/>
+        </info.hoang8f.android.segmented.SegmentedGroup>
+    </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view_orders_fragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="5dp"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"/>
 </LinearLayout>

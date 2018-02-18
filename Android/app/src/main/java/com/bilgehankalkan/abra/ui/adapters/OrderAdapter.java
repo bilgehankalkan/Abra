@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.bilgehankalkan.abra.R;
 import com.bilgehankalkan.abra.service.models.Order;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -46,6 +47,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
         holder.textUsername.setText(order.getOwner().getName() + " " + order.getOwner().getSurname());
         holder.textPrice.setText(order.getPrice() + "");
         holder.textRatingAverage.setText(String.valueOf(order.getRating()));
+        Picasso.with(context).load(order.getOwner().getAvatar()).into(holder.imageAvatar);
 
         if (order.getRating() > 4)
             holder.textRatingAverage.setBackground(ContextCompat.getDrawable(context, R.drawable.star_green));
