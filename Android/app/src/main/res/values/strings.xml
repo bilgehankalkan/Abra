@@ -3,9 +3,6 @@
     <string name="find_courier">Find Courier</string>
     <string name="your_orders">Your Orders</string>
     <string name="offer_to_carry">Offer to Carry</string>
-    <string name="inbox">Inbox</string>
-    <string name="my_profile">My Profile</string>
-    <string name="start_typing">start typing %1$s point</string>
     <string name="continue_text">Continue</string>
     <string name="select_valid_argument">Please select valid %1$s</string>
     <string name="capacity_selection_explanation">How many kg can your luggage can carry?</string>
@@ -26,12 +23,6 @@
     <string name="capacity">capacity</string>
     <string name="search">Search</string>
     <string name="explanation_time_date">Please select your %1$s %2$s.</string>
-    <string name="explanation_time_origin">Please select your departure time.</string>
-    <string name="explanation_time_destination">Please select your arrival time.</string>
-    <string name="explanation_time_search">Please select your initial time.</string>
-    <string name="explanation_date_origin">Please select your departure date.</string>
-    <string name="explanation_date_destination">Please select your arrival date.</string>
-    <string name="explanation_date_search">Please select your initial date.</string>
     <string name="explanation_add_note">Do you want to add note?</string>
     <string name="connection_error">Connection Error</string>
     <string name="warning_X_not_selected">%1$s is not selected.</string>

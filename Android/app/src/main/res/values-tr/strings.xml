@@ -4,9 +4,6 @@
     <string name="find_courier">Kurye Bul</string>
     <string name="your_orders">Siparişlerin</string>
     <string name="offer_to_carry">İlan Ver</string>
-    <string name="inbox">Gelen Kutusu</string>
-    <string name="my_profile">Profilim</string>
-    <string name="start_typing">%1$s noktanızı yazmaya başlayın</string>
     <string name="continue_text">Devam</string>
     <string name="select_valid_argument">Lütfen %1$s girin</string>
     <string name="capacity_selection_explanation">Valizinizde kaç kg yer müsait?</string>
@@ -23,12 +20,6 @@
     <string name="capacity">Kapasite</string>
     <string name="search">Arama</string>
     <string name="price_selection_explanation">Bu gönderiyi ne kadara yapmak istersiniz?</string>
-    <string name="explanation_time_origin">Lüfen ayrılma saatinizi seçin.</string>
-    <string name="explanation_date_origin">Lüfen ayrılma tarihinizi seçin.</string>
-    <string name="explanation_time_destination">Lüfen varış saatinizi seçin.</string>
-    <string name="explanation_date_destination">Lüfen varış tarihinizi seçin.</string>
-    <string name="explanation_time_search">Lüfen en uygun saatinizi seçin.</string>
-    <string name="explanation_date_search">Lüfen en uygun saatinizi seçin.</string>
     <string name="explanation_add_note">Not eklemek ister misiniz?</string>
     <string name="connection_error">Bağlantı Hatası</string>
     <string name="warning_X_not_selected">%1$s seçilmeli.</string>
