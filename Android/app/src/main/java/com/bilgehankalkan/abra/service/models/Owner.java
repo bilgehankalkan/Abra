@@ -18,6 +18,9 @@ public class Owner {
     @SerializedName("surname")
     @Expose
     private String surname;
+    @SerializedName("avatar")
+    @Expose
+    private String avatar;
 
     public String getId() {
         return id;
@@ -41,5 +44,13 @@ public class Owner {
 
     public void setSurname(String surname) {
         this.surname = surname;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 }

@@ -4,6 +4,7 @@ import com.bilgehankalkan.abra.service.models.CourierRequest;
 import com.bilgehankalkan.abra.service.models.CourierResponse;
 import com.bilgehankalkan.abra.service.models.LocationSearchResponse;
 import com.bilgehankalkan.abra.service.models.OrderListResult;
+import com.bilgehankalkan.abra.service.models.OrderResult;
 
 import java.util.Map;
 
@@ -25,7 +26,12 @@ public interface ApiInterface {
     String COURIER_URL = "/courier";
     String LOCATION_SEARCH_URL = "/location/search";
     String SEARCH_URL = COURIER_URL + "/Search/{pageIndex}/{pageSize}";
-    String ORDER_URL = "/User/{userId}/courier/book/{mode}/{pageIndex}/{pageSize}";
+    String ORDER_URL = "/User/{userId}/{courier}/book/{mode}/{pageIndex}/{pageSize}";
+
+    String COURIER = "courier";
+    String CARRY = "carry";
+    String CURRENT = "current";
+    String PAST = "past";
 
     @POST(COURIER_URL)
     Call<CourierResponse> postCourier(@HeaderMap Map<String, String> headerMap,
@@ -42,7 +48,12 @@ public interface ApiInterface {
 
     @GET(ORDER_URL)
     Call<OrderListResult> getOrders(@Path("userId") String userId,
+                                    @Path("courier") String courier,
                                     @Path("mode") String mode,
                                     @Path("pageIndex") int pageIndex,
                                     @Path("pageSize") int pageSize);
+
+    @GET(COURIER_URL + "/{id}")
+    Call<OrderResult> getOrderDetail(@HeaderMap Map<String, String> headerMap,
+                                     @Path("id") String orderId);
 }

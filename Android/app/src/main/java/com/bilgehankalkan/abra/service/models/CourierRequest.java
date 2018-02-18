@@ -30,44 +30,12 @@ public class CourierRequest {
     @SerializedName("origin")
     @Expose
     private String origin;
-    @SerializedName("Weight")
+    @SerializedName("weight")
     @Expose
     private Integer weight;
     @SerializedName("price")
     @Expose
     private Integer price;
-
-    /**
-     * No args constructor for use in serialization
-     *
-     */
-    public CourierRequest() {
-    }
-
-    /**
-     *
-     * @param weight
-     * @param instantBooking
-     * @param destinationDate
-     * @param price
-     * @param ownerId
-     * @param origin
-     * @param note
-     * @param destination
-     * @param originDate
-     */
-    public CourierRequest(String ownerId, String originDate, String destinationDate, String note, Boolean instantBooking, String destination, String origin, Integer weight, Integer price) {
-        super();
-        this.ownerId = ownerId;
-        this.originDate = originDate;
-        this.destinationDate = destinationDate;
-        this.note = note;
-        this.instantBooking = instantBooking;
-        this.destination = destination;
-        this.origin = origin;
-        this.weight = weight;
-        this.price = price;
-    }
 
     public String getOwnerId() {
         return ownerId;
