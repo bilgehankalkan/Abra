@@ -11,6 +11,8 @@ const locationModel = require("../models/location");
 const tokenModel = require("../models/token");
 const objectIniter = require("../helpers/objectIniter");
 const responseCode = require("../utilities/responseCode");
+const redisClient = require("../db/redis");
+const redisKeys = require("../db/redisKeys");
 const response = require("../utilities/response");
 const _dictionary = require("../localization/dictionary");
 let router = express.Router();
@@ -20,62 +22,57 @@ router.use(bodyParser.json());
 
 router.post("/login", (req, res) => {
     var dictionary = _dictionary(req);
-    const query = {
-        email: req.body.email,
-        password: req.body.password
-    };
-    const options = {
-        new: true,
-        fields: {
-            password: 0
-        }
-    }
-    userModel.findOne(query, options).then((user) => {
-        var token = guid.create();
-        tokenModel.create({
-            userId: user._id,
-            token: token,
-            dateCreated: Date.now(),
-            isActive: true
-        }).then((r) => {
+    userModel.login(req.body.email, req.body.password,req)
+        .then((user) => {
+            var token = guid.create();
+            return tokenModel.create({
+                userId: user._id,
+                token: token,
+                dateCreated: Date.now(),
+                isActive: true
+            }).then((token) => {
+                return {
+                    token: token,
+                    user: user
+                }
+            });
+        })
+        .then((result) => {
+            redisClient.set(redisKeys.userToken(res.user._id.toString()), result.token.token);
             res.status(responseCode.OK)
-                .send(user);
+                .send(response(responseCode.OK, "", {
+                    key: "user",
+                    value: {
+                        user: result.user,
+                        token: result.token.token
+                    }
+                }));
         }).catch((err) => {
             res.status(responseCode.SERVER_ERROR)
-                .send();
-        });
-
-    }).catch((err) => {
-        res.status(responseCode.SERVER_ERROR)
-            .send();
-    })
+                .send(response(err.statusCode,err.message));
+        })
 });
 
 router.get("/:userId/logout", (req, res) => {
     var dictionary = _dictionary(req);
     var token = req.headers["authorization"];
-    const query = {
-        userId: req.params.userId,
-        token: token
-    };
-    const update = {
-        isActive: { "$set": false }
-    };
-
-    tokenModel.findOneAndUpdate(query, update)
-        .then((doc) => {
+    tokenModel.deleteByUserIdAndToken(req.params.userId, token,req)
+        .then((r) => {
+            redisClient.del(redisKeys.userToken(req.params.userId));
             res.status(responseCode.OK)
                 .send(response(responseCode.OK, ""));
         })
         .catch((err) => {
             res.status(responseCode.SERVER_ERROR)
                 .send(response(responseCode.SERVER_ERROR, dictionary.errorMessages.systemError));
-        })
+        });
+
 });
 
 router.post("/:userId/notification/token", (req, res) => {
-    notificationTokenModel.insert(require.params.userId, req.body.token, req)
+    notificationTokenModel.insert(req.params.userId, req.body.token, req)
         .then((token) => {
+            redisClient.lpush(redisKeys.userPushNotificationToken(req.params.userId), token.token);
             res.status(responseCode.OK)
                 .send(response(responseCode.OK, "", {
                     key: "token",
@@ -90,7 +87,8 @@ router.post("/:userId/notification/token", (req, res) => {
 
 
 router.get("/:userId/courier/book/current/:pageIndex/:pageSize", (req, res) => {
-    new objectIniter().couriers(bookModel.getCourierCurrentsByUserId(req.params.userId, req.params.pageIndex, req.params.pageSize, req)
+    redisClient.get("")
+    objectIniter.couriers(bookModel.getCourierCurrentsByUserId(req.params.userId, req.params.pageIndex, req.params.pageSize, req)
         .then((books) => {
             var courierIdArray = [];
             new linq(books).forEach((x) => {
@@ -121,7 +119,7 @@ router.get("/:userId/courier/book/current/:pageIndex/:pageSize", (req, res) => {
 router.get("/:userId/courier/book/past/:pageIndex/:pageSize", (req, res) => {
     var userIdArray = [];
     var locationIdArray = [];
-    new objectIniter().couriers(bookModel.getCourierPastsByUserId(req.params.userId, req.params.pageIndex, req.params.pageSize, req)
+    objectIniter.couriers(bookModel.getCourierPastsByUserId(req.params.userId, req.params.pageIndex, req.params.pageSize, req)
         .then((books) => {
             var courierIdArray = [];
             new linq(books).forEach((x) => {
@@ -150,7 +148,7 @@ router.get("/:userId/courier/book/past/:pageIndex/:pageSize", (req, res) => {
 });
 
 router.get("/:userId/carry/book/current/:pageIndex/:pageSize", (req, res) => {
-    new objectIniter().couriers(bookModel.getCarryCurrentsByUserId(req.params.userId, req.params.pageIndex, req.params.pageSize, req)
+    objectIniter.couriers(bookModel.getCarryCurrentsByUserId(req.params.userId, req.params.pageIndex, req.params.pageSize, req)
         .then((books) => {
             var courierIdArray = [];
             new linq(books).forEach((x) => {
@@ -181,7 +179,7 @@ router.get("/:userId/carry/book/current/:pageIndex/:pageSize", (req, res) => {
 router.get("/:userId/carry/book/past/:pageIndex/:pageSize", (req, res) => {
     var userIdArray = [];
     var locationIdArray = [];
-    new objectIniter().couriers(bookModel.getCarryPastsByUserId(req.params.userId, req.params.pageIndex, req.params.pageSize, req)
+    objectIniter.couriers(bookModel.getCarryPastsByUserId(req.params.userId, req.params.pageIndex, req.params.pageSize, req)
         .then((books) => {
             var courierIdArray = [];
             new linq(books).forEach((x) => {
