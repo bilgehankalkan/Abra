@@ -11,6 +11,5 @@
         android:maxLines="1"
         android:textSize="18sp"
         android:textColor="@color/colorSplashBackground"
-        android:text="gegagae"
         android:padding="5dp"/>
 </LinearLayout>

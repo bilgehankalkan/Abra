@@ -6,4 +6,5 @@
     <color name="colorSplashBackground">#5D41BA</color>
     <color name="white">#ffffff</color>
     <color name="gray">#999999</color>
+    <color name="light_gray">#eeeeee</color>
 </resources>

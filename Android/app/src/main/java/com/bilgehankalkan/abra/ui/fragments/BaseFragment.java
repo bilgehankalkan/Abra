@@ -3,8 +3,6 @@ package com.bilgehankalkan.abra.ui.fragments;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 
-import com.bilgehankalkan.abra.service.ApiClient;
-import com.bilgehankalkan.abra.service.ApiInterface;
 import com.bilgehankalkan.abra.ui.activities.BaseActivity;
 
 /**

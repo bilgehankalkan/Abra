@@ -9,6 +9,7 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.bilgehankalkan.abra.service.ApiClient;
 import com.bilgehankalkan.abra.service.ApiInterface;
+import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -52,5 +53,10 @@ public class BaseActivity extends AppCompatActivity {
     public void closeSoftKeyboard(View view) {
         imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }
