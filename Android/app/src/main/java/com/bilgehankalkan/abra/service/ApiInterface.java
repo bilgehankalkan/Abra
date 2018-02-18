@@ -5,9 +5,11 @@ import com.bilgehankalkan.abra.service.models.CourierResponse;
 import com.bilgehankalkan.abra.service.models.LocationSearchResponse;
 import com.bilgehankalkan.abra.service.models.OrderListResult;
 import com.bilgehankalkan.abra.service.models.OrderResult;
+import com.bilgehankalkan.abra.service.models.TokenRequest;
 
 import java.util.Map;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -27,6 +29,7 @@ public interface ApiInterface {
     String LOCATION_SEARCH_URL = "/location/search";
     String SEARCH_URL = COURIER_URL + "/Search/{pageIndex}/{pageSize}";
     String ORDER_URL = "/User/{userId}/{courier}/book/{mode}/{pageIndex}/{pageSize}";
+    String NOTIFACTION_TOKEN_URL = "/{userId}/notification/token";
 
     String COURIER = "courier";
     String CARRY = "carry";
@@ -56,4 +59,9 @@ public interface ApiInterface {
     @GET(COURIER_URL + "/{id}")
     Call<OrderResult> getOrderDetail(@HeaderMap Map<String, String> headerMap,
                                      @Path("id") String orderId);
+
+    @POST(NOTIFACTION_TOKEN_URL)
+    Call<ResponseBody> postFirebaseToken(@HeaderMap Map<String, String> headerMap,
+                                         @Path("userId") String userId,
+                                         @Body TokenRequest token);
 }
