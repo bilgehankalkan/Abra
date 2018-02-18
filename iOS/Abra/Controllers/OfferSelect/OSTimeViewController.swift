@@ -21,10 +21,10 @@ extension OSTimeViewController: OSTimeDelegate {
         // TODO: MERGE DATE & TIME
         switch timeMode {
         case .origin:
-            OSBaseViewController.offerSelect.originDate = time
+            OSBaseViewController.offerSelect.origin?.date = time.string()
             showLocation(for: .destination, from: self)
         case .destination:
-            OSBaseViewController.offerSelect.destinationDate = time
+            OSBaseViewController.offerSelect.destination?.date = time.string()
             showAmount(for: .weight, from: self)
         }
     }

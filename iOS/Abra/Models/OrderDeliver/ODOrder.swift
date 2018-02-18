@@ -25,7 +25,8 @@ class OrderViewModel: NSObject {
                     self.loadingActivityIndicatorView.isHidden = false
                 }
             }
-            API.sharedManager.orders(.current(orderDeliveryMode), completion: {
+            // TODO - Concurrent
+            API.shared.orders(.current(orderDeliveryMode), completion: {
                 (orders: [Order]?, error: Error?) in
                 DispatchQueue.global(qos: .userInitiated).async { [unowned self] in
                     if let orders = orders {
@@ -38,7 +39,7 @@ class OrderViewModel: NSObject {
                     }
                 }
             })
-            API.sharedManager.orders(.past(orderDeliveryMode), completion: {
+            API.shared.orders(.past(orderDeliveryMode), completion: {
                 (orders: [Order]?, error: Error?) in
                 DispatchQueue.global(qos: .userInitiated).async { [unowned self] in
                     if let orders = orders {
@@ -61,7 +62,7 @@ class OrderViewModel: NSObject {
     
     var currentOrders = [Order]()
     var pastOrders = [Order]()
-    
+
     @objc func segmentChanged(_ sender: UISegmentedControl) {
         ordersTableView.reloadData()
     }

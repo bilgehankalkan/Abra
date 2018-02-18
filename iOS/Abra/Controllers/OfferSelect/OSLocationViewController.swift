@@ -19,8 +19,8 @@ extension OSLocationViewController: OSLocationViewModelDelegate {
     
     func selected(_ location: Location) {
         switch locationMode {
-        case .origin:       OSBaseViewController.offerSelect.originLocation = location; `continue`()
-        case .destination:  OSBaseViewController.offerSelect.destinationLocation = location; `continue`()
+        case .origin:       OSBaseViewController.offerSelect.origin = location; `continue`()
+        case .destination:  OSBaseViewController.offerSelect.destination = location; `continue`()
         }
     }
     

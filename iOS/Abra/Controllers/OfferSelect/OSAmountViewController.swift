@@ -24,7 +24,7 @@ extension OSAmountViewController: OSAmountDelegate {
             
             switch OSBaseViewController.offerSelectMode {
             case .courier:
-                finishOS()
+                finishOS(self)
             case .carry:
                 showSwitch(for: .instantBooking, from: self)
             }

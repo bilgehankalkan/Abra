@@ -15,7 +15,7 @@ class OSFinishViewController: OSBaseViewController {
 extension OSFinishViewController: OSFinishDelegate {
     
     func `continue`() {
-        finishOS()
+        finishOS(self)
     }
     
 }

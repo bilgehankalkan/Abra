@@ -66,7 +66,7 @@ class OSLocationViewModel: NSObject {
                     self.loadingActivityIndicatorView.isHidden = false
                 }
             }
-            API.sharedManager.location(search: textField.text ?? "", completion: {
+            API.shared.location(search: textField.text ?? "", completion: {
                 (locations: [Location]?, error: Error?) in
                 DispatchQueue.global(qos: .userInitiated).async { [unowned self] in
                     if let locations = locations {
