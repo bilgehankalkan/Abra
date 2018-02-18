@@ -1,15 +1,16 @@
 const errorMessages = {
-    missingToken: "token eksik",
-    unableToAuthenticate: "geçersiz token",
-    usedToEmail: "bu mail adresi başka bir kullanıcı tarafından kullanılıyor",
-    invalidUser: "geçersiz kullanıcı bilgisi",
-    nullOrEmptyOriginDate: "ayrılış tarihini boş geçemezsiniz",
-    nullOrEmptydestinationDate: "varış tarihini boş geçemezsiniz",
-    nullOrEmptyDestination: "varış noktası seçmelisiniz",
-    nullOrEmptyOrigin: "kalkış noktası seçmelisiniz",
-    invalidLuggageCapacity:"geçersiz bagaj kapasitesi girdiniz",
-    negativeBaggage:"negatif bir bagaj değeri giremezsiniz.",
-    systemError: "beklenmedik bir hata oluştu"
+    missingToken: "missing token",
+    unableToAuthenticate: "invalid token",
+    usedToEmail: "email is already in use",
+    invalidUser: "invalid username",
+    nullOrEmptyOriginDate: "origin date is missing",
+    nullOrEmptydestinationDate: "destination date is missing",
+    nullOrEmptyDestination: "destination location is missing",
+    nullOrEmptyOrigin: "origin location is missing",
+    invalidLuggageCapacity:"invalid weight info",
+    negativeBaggage:"negative weight info",
+    
+    systemError: "unexpected error occured"
 };
 
 module.exports = {
