@@ -144,7 +144,7 @@ function initCouriers(data, userId, req) {
 }
 
 router.get("/:userId/courier/book/current/:pageIndex/:pageSize", (req, res) => {
-    initCouriers(bookModel.getCurrentsByUserId(req.params.userId, req.params.pageIndex, req.params.pageSize, req)
+    initCouriers(bookModel.getCourierCurrentsByUserId(req.params.userId, req.params.pageIndex, req.params.pageSize, req)
         .then((books) => {
             var courierIdArray = [];
             new linq(books).forEach((x) => {
@@ -175,7 +175,67 @@ router.get("/:userId/courier/book/current/:pageIndex/:pageSize", (req, res) => {
 router.get("/:userId/courier/book/past/:pageIndex/:pageSize", (req, res) => {
     var userIdArray = [];
     var locationIdArray = [];
-    initCouriers(bookModel.getPastsByUserId(req.params.userId, req.params.pageIndex, req.params.pageSize, req)
+    initCouriers(bookModel.getCourierPastsByUserId(req.params.userId, req.params.pageIndex, req.params.pageSize, req)
+        .then((books) => {
+            var courierIdArray = [];
+            new linq(books).forEach((x) => {
+                courierIdArray.push(x.courierId);
+            });
+            return courierModel.getListById(courierIdArray, req)
+                .then((couriers) => {
+                    return couriers;
+                })
+                .catch((err) => {
+                    res.status(err.statusCode)
+                        .send(response(err.statusCode, err.message));
+                });
+        }), req.params.userId, req)
+        .then((couriers) => {
+            res.status(responseCode.OK)
+                .send(response(responseCode.OK, "", {
+                    key: "locations",
+                    value: couriers
+                }));
+        })
+        .catch((err) => {
+            res.status(err.statusCode)
+                .send(response(err.statusCode, err.message));
+        });
+});
+
+router.get("/:userId/carry/book/current/:pageIndex/:pageSize", (req, res) => {
+    initCouriers(bookModel.getCarryCurrentsByUserId(req.params.userId, req.params.pageIndex, req.params.pageSize, req)
+        .then((books) => {
+            var courierIdArray = [];
+            new linq(books).forEach((x) => {
+                courierIdArray.push(x.courierId);
+            });
+            return courierModel.getListById(courierIdArray, req)
+                .then((couriers) => {
+                    return couriers;
+                })
+                .catch((err) => {
+                    res.status(err.statusCode)
+                        .send(response(err.statusCode, err.message));
+                });
+        }), req.params.userId, req)
+        .then((couriers) => {
+            res.status(responseCode.OK)
+                .send(response(responseCode.OK, "", {
+                    key: "locations",
+                    value: couriers
+                }));
+        })
+        .catch((err) => {
+            res.status(err.statusCode)
+                .send(response(err.statusCode, err.message));
+        });
+});
+
+router.get("/:userId/carry/book/past/:pageIndex/:pageSize", (req, res) => {
+    var userIdArray = [];
+    var locationIdArray = [];
+    initCouriers(bookModel.getCarryPastsByUserId(req.params.userId, req.params.pageIndex, req.params.pageSize, req)
         .then((books) => {
             var courierIdArray = [];
             new linq(books).forEach((x) => {

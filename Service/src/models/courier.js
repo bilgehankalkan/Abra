@@ -1,12 +1,11 @@
 const mongoose = require("mongoose");
 const collections = require("../db/collectionNames");
 const _dictionary = require("../localization/dictionary");
+const responseCode = require("../utilities/responseCode");
 const Schema = mongoose.Schema;
 const objectId = Schema.Types.ObjectId;
-const responseCode = require("../utilities/responseCode");
 
 const courierSchema = new Schema({
-    // _id: objectId,
     ownerId: objectId,
     dateCreated: Date,
     note: String,
@@ -176,7 +175,8 @@ model.getDestinationDateById = (id, req) => {
             _id: { $eq: id }
         };
         const projection = {
-            destinationDate: 1
+            destinationDate: 1,
+            ownerId: 1
         }
         model.findOne(query, projection)
             .exec()
@@ -187,6 +187,21 @@ model.getDestinationDateById = (id, req) => {
                     statusCode: responseCode.SERVER_ERROR
                 });
             });;
+    });
+}
+
+model.getById = (id, req) => {
+    var dictionary = _dictionary(req);
+    return new Promise((res, rej) => {
+        model.findById(id)
+            .exec()
+            .then(res)
+            .catch((err) => {
+                rej({
+                    message: dictionary.errorMessages.systemError,
+                    statusCode: responseCode.SERVER_ERROR
+                });
+            });
     });
 }
 

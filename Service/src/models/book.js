@@ -6,8 +6,8 @@ const Schema = mongoose.Schema;
 const objectId = Schema.Types.ObjectId;
 
 const bookSchema = new Schema({
-    // _id: objectId,
     userId: objectId,
+    courierUserId: objectId,
     courierId: objectId,
     dateCreated: Date,
     userConfirm: Boolean,
@@ -18,12 +18,13 @@ const bookSchema = new Schema({
 mongoose.model("book", bookSchema, collections.book);
 var model = mongoose.model("book");
 
-model.insert = (courierId, destinationDate, userId, req) => {
+model.insert = (courierId, courierUserId, destinationDate, userId, req) => {
     var dictionary = _dictionary(req);
     return new Promise((res, rej) => {
         model.create({
             userId: userId,
             courierId: courierId,
+            courierUserId: courierUserId,
             destinationDate: destinationDate,
             dateCreated: Date.now(),
         }).then(res)
@@ -56,20 +57,14 @@ model.getListByUserId = (userId, pageIndex, pageSize, req) => {
     });
 };
 
-model.getCurrentsByUserId = (userId, pageIndex, pageSize, req) => {
+model.getCourierCurrentsByUserId = (userId, pageIndex, pageSize, req) => {
     var dictionary = _dictionary(req);
     return new Promise((res, rej) => {
         const query = {
             $and: [
+
                 {
-                    $or: [
-                        {
-                            userId: { $eq: userId }
-                        },
-                        {
-                            courierId: { $eq: userId }
-                        }
-                    ]
+                    userId: { $eq: userId }
                 },
                 {
                     destinationDate: { $gte: Date.now() }
@@ -90,20 +85,13 @@ model.getCurrentsByUserId = (userId, pageIndex, pageSize, req) => {
     });
 };
 
-model.getPastsByUserId = (userId, pageIndex, pageSize, req) => {
+model.getCourierPastsByUserId = (userId, pageIndex, pageSize, req) => {
     var dictionary = _dictionary(req);
     return new Promise((res, rej) => {
         const query = {
             $and: [
                 {
-                    $or: [
-                        {
-                            userId: { $eq: userId }
-                        },
-                        {
-                            courierId: { $eq: userId }
-                        }
-                    ]
+                    userId: { $eq: userId }
                 },
                 {
                     destinationDate: { $lt: Date.now() }
@@ -117,6 +105,60 @@ model.getPastsByUserId = (userId, pageIndex, pageSize, req) => {
             .then(res)
             .catch((err) => {
                 console.log(err);
+                rej({
+                    message: dictionary.errorMessages.systemError,
+                    statusCode: responseCode.SERVER_ERROR
+                });
+            });
+    });
+};
+
+model.getCarryCurrentsByUserId = (userId, pageIndex, pageSize, req) => {
+    var dictionary = _dictionary(req);
+    return new Promise((res, rej) => {
+        const query = {
+            $and: [
+                {
+                    courierUserId: { $eq: userId }
+                },
+                {
+                    destinationDate: { $gte: Date.now() }
+                }
+            ]
+        };
+        model.find(query)
+            .limit(parseInt(pageSize))
+            .skip(parseInt(pageIndex) * parseInt(pageSize))
+            .exec()
+            .then(res)
+            .catch((err) => {
+                rej({
+                    message: dictionary.errorMessages.systemError,
+                    statusCode: responseCode.SERVER_ERROR
+                });
+            });
+    });
+};
+
+model.getCarryPastsByUserId = (userId, pageIndex, pageSize, req) => {
+    var dictionary = _dictionary(req);
+    return new Promise((res, rej) => {
+        const query = {
+            $and: [
+                {
+                    courierUserId: { $eq: userId }
+                },
+                {
+                    destinationDate: { $lt: Date.now() }
+                }
+            ]
+        };
+        model.find(query)
+            .limit(parseInt(pageSize))
+            .skip(parseInt(pageIndex) * parseInt(pageSize))
+            .exec()
+            .then(res)
+            .catch((err) => {
                 rej({
                     message: dictionary.errorMessages.systemError,
                     statusCode: responseCode.SERVER_ERROR

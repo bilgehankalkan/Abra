@@ -108,6 +108,122 @@ router.get("/:pageIndex/:pageSize", (req, res) => {
         });
 });
 
+
+function initCouriers(data, userId, req) {
+    var userIdArray = [];
+    var locationIdArray = [];
+    return data
+        .then((couriers) => {
+            new linq(couriers).forEach((x) => {
+                userIdArray.push(x.ownerId);
+                locationIdArray.push(x.origin);
+                locationIdArray.push(x.destination);
+            });
+            return couriers;
+        })
+        .then((couriers) => {
+            return userModel.getListByIdArray(userIdArray, req)
+                .then((users) => {
+                    return {
+                        users: users,
+                        couriers: couriers
+                    }
+                });
+        })
+        .then((result) => {
+            return locationModel.getListByIdArray(locationIdArray, req)
+                .then((locations) => {
+                    return {
+                        users: result.users,
+                        couriers: result.couriers,
+                        locations: locations
+                    }
+                });
+        })
+        .then((result) => {
+            var couriers = result.couriers;
+            var locations = result.locations;
+            var users = result.users;
+
+            couriers = new linq(couriers).select((x) => {
+                var owner = new linq(users).firstOrDefault((y) => {
+                    return x.ownerId.toString() == y._id.toString();
+                });
+                var origin = new linq(locations).firstOrDefault((y) => {
+                    return x.origin.toString() == y._id.toString();
+                });
+                var destination = new linq(locations).firstOrDefault((y) => {
+                    return x.destination.toString() == y._id.toString();
+                });
+                return {
+                    _id: x._id,
+                    dateCreated: x.dateCreated,
+                    owner: owner,
+                    destination: {
+                        _id: x.destination.toString(),
+                        name: destination.name,
+                        date: x.destinationDate
+                    },
+                    origin: {
+                        _id: x.origin.toString(),
+                        name: origin.name,
+                        date: x.originDate
+                    },
+                    isMyOrder: (owner._id.toString() == userId),
+                    weight: x.weight,
+                    price: x.price,
+                    avgRating: parseInt(math.random(1, 5)),
+                    totalRating: parseInt(math.random(1, 100)),
+                    instantBooking: x.instantBooking,
+                }
+            }).toArray();
+            return couriers;
+        })
+}
+
+router.get("/:id", (req, res) => {
+    console.log(courierModel.getById(req.params.id, req));
+    initCouriers(courierModel.getById(req.params.id, req)
+        .then((courier) => {
+            return [courier]
+        }), null, req)
+        .then((couriers) => {
+            var courier = null;
+            if (couriers != null && couriers.length > 0) {
+                courier = couriers[0];
+            }
+            res.status(responseCode.OK)
+                .send(response(responseCode.OK, "", {
+                    key: "courier",
+                    value: courier
+                }))
+        })
+        // .then((result) => {
+        //     var locationIdArray = [];
+        //     locationIdArray.push(result.courier.origin);
+        //     locationIdArray.push(result.courier.destination);
+        //     return locationModel.getListByIdArray(locationIdArray, req)
+        //         .then((locations) => {
+
+        //             var courier = {
+
+        //             };
+        //             return courier;
+        //         })
+        // })
+        // .then((courier) => {
+        //     res.status(responseCode.OK)
+        //         .send(response(responseCode.OK, "", {
+        //             key: "courier",
+        //             value: courier
+        //         }))
+        // })
+        .catch((err) => {
+            res.status(err.statusCode)
+                .send(response(err.statusCode, err.message));
+        });
+});
+
 router.post("/", (req, res) => {
     var courier = {
         dateCreated: Date.now(),
@@ -171,7 +287,7 @@ router.get("/search/:pageIndex/:pageSize", (req, res) => {
                                     date: x.originDate
                                 },
                                 price: x.price,
-                                weight:x.weight,
+                                weight: x.weight,
                                 avgRating: parseInt(math.random(1, 5)),
                                 totalRating: parseInt(math.random(1, 100)),
                                 instantBooking: x.instantBooking,
@@ -202,7 +318,7 @@ router.get("/search/:pageIndex/:pageSize", (req, res) => {
                                             name: destination.name,
                                             date: x.destination.date
                                         },
-                                        weight:x.weight,
+                                        weight: x.weight,
                                         avgRating: x.avgRating,
                                         totalRatingt: x.totalRatingt,
                                         price: x.price,
@@ -237,7 +353,7 @@ router.get("/search/:pageIndex/:pageSize", (req, res) => {
 router.post("/:userId/book", (req, res) => {
     courierModel.getDestinationDateById(req.body.courierId, req)
         .then((courier) => {
-            return bookModel.insert(req.body.courierId, courier.destinationDate, req.params.userId, req)
+            return bookModel.insert(req.body.courierId, courier.ownerId, courier.destinationDate, req.params.userId, req)
                 .then((doc) => {
                     return doc;
                 })
