@@ -5,7 +5,7 @@ Abra is a platform where you can order travelers to bring something to you from 
 * You can book someone to deliver you whatever you want from and to where, when, what time, how many and for how much in seconds! 😎
 * Probably fastest and cheapest way to get goods from all over Turkey. Need a bit more work to make it all over world, and a very big rocket to make it all over the space. But no worries, we will get to that point! 🚀
 * Make easy money while helping people by bringing goods from where you have traveled. 💰
-* Be a part of thrust worthy community. We will be supplying you rating and commeting on transactions you made in order to share you experience in our platform. ☺️
+* Be a part of thrust worthy community. We will be supplying you rating and commeting. ☺️
 
 ## Built By
 * [M. Furkan DOĞAN](https://github.com/furkaandogan) - [Backend](https://github.com/hakanerendev/Abra/tree/master/Service) Developer
