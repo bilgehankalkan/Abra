@@ -14,4 +14,19 @@ const tokenSchema = new Schema({
 
 mongoose.model("token", tokenSchema, collections.token);
 
-module.exports = mongoose.model("token");
+const model = mongoose.model("token");
+
+model.deleteByUserIdAndToken = (userId, token) => {
+
+    const query = {
+        userId: userId,
+        token: token
+    };
+    const update = {
+        isActive: { "$set": false }
+    };
+
+    return model.findOneAndUpdate(query, update);
+}
+
+module.exports = model;
