@@ -40,4 +40,5 @@
     <string name="past">Geçmiş</string>
     <string name="current">Güncel</string>
     <string name="offer_created">Teklif Oluşturuldu</string>
+    <string name="successfully_retrieved">İlan Detayı Başarıyla Alındı</string>
 </resources>

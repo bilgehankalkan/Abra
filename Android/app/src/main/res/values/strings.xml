@@ -39,5 +39,6 @@
     <string name="past">Past</string>
     <string name="current">Current</string>
     <string name="offer_created">Offer Created</string>
+    <string name="successfully_retrieved">Order Detail Successfully Retrieved</string>
 
 </resources>

@@ -22,24 +22,10 @@ import retrofit2.Response;
 
 public class OrderDetailActivity extends BaseActivity {
 
-    TextView textDate, textTime, textOrigin, textDestination,
-            textPrice, textUsername, textAdditional, textRatingAverage;
-    ImageView imageAvatar;
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_order_detail);
-
-        textDate = findViewById(R.id.text_view_date_item_order);
-        textTime = findViewById(R.id.text_view_time_item_order);
-        textOrigin = findViewById(R.id.text_view_origin_item_order);
-        textDestination = findViewById(R.id.text_view_destination_item_order);
-        textPrice = findViewById(R.id.text_view_price_item_order);
-        textUsername = findViewById(R.id.text_view_username_item_order);
-        textAdditional = findViewById(R.id.text_view_additional_info_item_order);
-        textRatingAverage = findViewById(R.id.text_view_rating_average_item_order);
-        imageAvatar = findViewById(R.id.image_view_avatar_item_order);
 
         String id = getIntent().getStringExtra("id");
 
@@ -54,22 +40,7 @@ public class OrderDetailActivity extends BaseActivity {
                 if (response.isSuccessful() && response.body() != null) {
                     OrderResult orderResult = response.body();
                     if (orderResult.getCode() == 200) {
-                        textOrigin.setText(orderResult.getOrder().getOrigin().getName());
-                        textDestination.setText(orderResult.getOrder().getDestination().getName());
-                        textDate.setText(orderResult.getOrder().getOrigin().getDate());
-                        textTime.setText(orderResult.getOrder().getDestination().getDate());
-                        textUsername.setText(orderResult.getOrder().getOwner().getName() + " "
-                                + orderResult.getOrder().getOwner().getSurname());
-                        textPrice.setText(orderResult.getOrder().getPrice() + "");
-                        textRatingAverage.setText(String.valueOf(orderResult.getOrder().getRating()));
-                        Picasso.with(getBaseContext()).load(orderResult.getOrder().getOwner().getAvatar()).into(imageAvatar);
-
-                        if (orderResult.getOrder().getRating() > 4)
-                            textRatingAverage.setBackground(ContextCompat.getDrawable(getBaseContext(), R.drawable.star_green));
-                        else if (orderResult.getOrder().getRating() > 3)
-                            textRatingAverage.setBackground(ContextCompat.getDrawable(getBaseContext(), R.drawable.star_orange));
-                        else if (orderResult.getOrder().getRating() < 1.5)
-                            textRatingAverage.setBackground(ContextCompat.getDrawable(getBaseContext(), R.drawable.star_red));
+                        Toast.makeText(getApplicationContext(), R.string.successfully_retrieved, Toast.LENGTH_SHORT).show();
                     } else
                         Toast.makeText(getApplicationContext(), orderResult.getMsg(), Toast.LENGTH_SHORT).show();
                 } else
