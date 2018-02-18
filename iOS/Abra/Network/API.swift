@@ -161,7 +161,7 @@ extension API {
     }
     
     enum courierAddEndpoint {
-        case new(CourierAddRequest)
+        case new(OfferSelect)
         
         var path: String {
             switch self {
@@ -179,16 +179,16 @@ extension API {
         
         var parameters: [String: Any]? {
             switch self {
-            case .new(let courierAddRequest):
-                return ["ownerId": courierAddRequest.ownerId,
-                        "origin" : courierAddRequest.origin,
-                        "originDate": courierAddRequest.originDate,
-                        "destination": courierAddRequest.destination,
-                        "destinationDate": courierAddRequest.destinationDate,
-                        "weight": courierAddRequest.weight,
-                        "instantBooking": courierAddRequest.instantBooking,
-                        "price": courierAddRequest.price,
-                        "note": courierAddRequest.note]
+            case .new(let offerSelect):
+                return ["ownerId": API.sharedManager.userID,
+                        "origin" : offerSelect.originLocation?.identifier as Any,
+                        "originDate": offerSelect.originDate as Any,
+                        "destination": offerSelect.destinationLocation?.identifier as Any,
+                        "destinationDate": offerSelect.destinationDate as Any,
+                        "weight": offerSelect.weight as Any,
+                        "instantBooking": offerSelect.instantBooking as Any,
+                        "price": offerSelect.price as Any,
+                        "note": offerSelect.note as Any]
             }
         }
     }
