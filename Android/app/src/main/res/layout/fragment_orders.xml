@@ -5,11 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/colorSplashBackground"
-        android:orientation="vertical">
+        android:background="@color/colorPrimaryDark">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:padding="10dp"
+            android:src="@drawable/inbox"
+            android:layout_gravity="start"
+            android:tint="@color/light_gray"/>
 
         <info.hoang8f.android.segmented.SegmentedGroup
             android:id="@+id/segmented_group_orders_fragment"
@@ -19,9 +26,9 @@
             android:orientation="horizontal"
             segmentedgroup:sc_border_width="2dp"
             segmentedgroup:sc_corner_radius="6dp"
-            segmentedgroup:sc_checked_text_color="@color/colorSplashBackground"
-            segmentedgroup:sc_tint_color="@color/white"
-            android:layout_gravity="center">
+            segmentedgroup:sc_checked_text_color="@color/colorPrimaryDark"
+            segmentedgroup:sc_tint_color="@color/light_gray"
+            android:layout_centerInParent="true">
 
             <RadioButton
                 android:id="@+id/radio_button_past"
@@ -29,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/past"
                 style="@style/RadioButton"
-                android:textColor="@color/white"
+                android:textColor="@color/light_gray"
                 android:checked="true"/>
 
             <RadioButton
@@ -38,9 +45,18 @@
                 android:layout_height="wrap_content"
                 android:text="@string/current"
                 style="@style/RadioButton"
-                android:textColor="@color/white"/>
+                android:textColor="@color/light_gray"/>
         </info.hoang8f.android.segmented.SegmentedGroup>
-    </LinearLayout>
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:padding="10dp"
+            android:src="@drawable/profile"
+            android:layout_gravity="end"
+            android:tint="@color/light_gray"
+            android:layout_alignParentEnd="true"/>
+    </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view_orders_fragment"

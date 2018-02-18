@@ -19,6 +19,6 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         app:itemBackground="@color/white"
-        app:itemIconTint="@color/colorSplashBackground"
+        app:itemIconTint="@color/colorPrimaryDark"
         app:menu="@menu/main_navigation_menu"/>
 </RelativeLayout>

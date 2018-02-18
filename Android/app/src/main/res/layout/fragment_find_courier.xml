@@ -66,7 +66,7 @@
                 android:tint="@color/white"
                 android:clickable="true"
                 android:focusable="true"
-                android:background="@color/colorSplashBackground"
+                android:background="@color/colorPrimaryDark"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"/>
         </RelativeLayout>
@@ -141,7 +141,7 @@
                 android:layout_width="20dp"
                 android:layout_height="wrap_content"
                 android:textSize="16sp"
-                android:textColor="@color/colorSplashBackground"
+                android:textColor="@color/colorPrimaryDark"
                 android:text="3"
                 android:gravity="center"
                 android:layout_gravity="center_vertical"/>

@@ -41,7 +41,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Istanbul"
-                        android:textColor="@color/colorSplashBackground"
+                        android:textColor="@color/colorPrimaryDark"
                         android:textSize="18sp" />
 
                     <ImageView
@@ -55,7 +55,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Monday"
-                        android:textColor="@color/colorSplashBackground"
+                        android:textColor="@color/colorPrimaryDark"
                         android:textSize="18sp" />
                 </LinearLayout>
 
@@ -71,7 +71,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
                         android:text="Ankara"
-                        android:textColor="@color/colorSplashBackground"
+                        android:textColor="@color/colorPrimaryDark"
                         android:textSize="18sp" />
 
                     <ImageView
@@ -85,7 +85,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
                         android:text="11:30"
-                        android:textColor="@color/colorSplashBackground"
+                        android:textColor="@color/colorPrimaryDark"
                         android:textSize="18sp" />
                 </LinearLayout>
             </LinearLayout>
@@ -99,7 +99,7 @@
                 android:layout_marginEnd="5dp"
                 android:gravity="end"
                 android:text="53"
-                android:textColor="@color/colorSplashBackground"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="40sp" />
 
             <RelativeLayout
@@ -122,7 +122,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_toEndOf="@id/image_view_avatar_item_order"
-                    android:textColor="@color/colorSplashBackground"/>
+                    android:textColor="@color/colorPrimaryDark"/>
 
                 <TextView
                     android:id="@+id/text_view_additional_info_item_order"
@@ -130,7 +130,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="30dp"
-                    android:textColor="@color/colorSplashBackground"
+                    android:textColor="@color/colorPrimaryDark"
                     android:layout_toEndOf="@id/image_view_avatar_item_order" />
 
                 <TextView
