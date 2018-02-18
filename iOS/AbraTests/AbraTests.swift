@@ -1,10 +1,3 @@
-//
-//  AbraTests.swift
-//  AbraTests
-//
-//  Created by Hakan Eren on 16/02/2018.
-//  Copyright © 2018 Hakan Eren. All rights reserved.
-//
 
 import XCTest
 @testable import Abra
