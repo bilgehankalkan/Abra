@@ -55,34 +55,34 @@ public class FindCourierFilterActivity extends BaseActivity implements OnSearchO
     @Override
     public void onOriginSelected(Location originLocation) {
         getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().getFragments().get(0)).commit();
-        finish();
+        onBackPressed();
         findCourierFragment.onOriginSelected(originLocation);
     }
 
     @Override
     public void onOriginDateSelected(String date) {
         getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().getFragments().get(0)).commit();
-        finish();
+        onBackPressed();
         findCourierFragment.onOriginDateSelected(date);
     }
 
     @Override
     public void onOriginTimeSelected(String time) {
         getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().getFragments().get(0)).commit();
-        finish();
+        onBackPressed();
         findCourierFragment.onOriginTimeSelected(time);
     }
 
     @Override
     public void onDestinationSelected(Location destinationLocation) {
         getSupportFragmentManager().beginTransaction().remove(getSupportFragmentManager().getFragments().get(0)).commit();
-        finish();
+        onBackPressed();
         findCourierFragment.onDestinationSelected(destinationLocation);
     }
 
     @Override
     public void onBackPressed() {
         finish();
-        overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
+        overridePendingTransition(R.anim.slide_out_down, R.anim.slide_in_down);
     }
 }
