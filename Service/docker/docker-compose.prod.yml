@@ -14,6 +14,10 @@ services:
       - redis
   redis:
     image: redis:3.2-alpine
+  rabbit:
+    image: rabbitmq:3-alpine
   db:
     image: mongo:3.2-jessie
+      volumes: 
+      - /db/mongodb:/data/db
     #command: sleep(1000) && mongo --host localhost --eval  "db.getSiblingDB('${dbName}').createUser({user:'${dbUser}', pwd:'${dbPsswrd}', roles:[{role:'readWrite',db:'${dbName}'}]});"
