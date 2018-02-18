@@ -1,7 +1,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-const urlencode=require("urlencode");
 const linq = require("ex-js-linq");
 const math = require("../utilities/math");
 const courierModel = require("../models/courier");
