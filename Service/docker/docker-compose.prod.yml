@@ -1,0 +1,19 @@
+version: '3'
+services:
+  web_app:
+    image: abra-web:0.1
+    env_file:
+      - webapp.dev.env
+    build:
+      context: ../src
+      dockerfile: Dockerfile
+    ports:
+      - 5353:80
+    depends_on:
+      - db
+      - redis
+  redis:
+    image: redis:3.2-alpine
+  db:
+    image: mongo:3.2-jessie
+    #command: sleep(1000) && mongo --host localhost --eval  "db.getSiblingDB('${dbName}').createUser({user:'${dbUser}', pwd:'${dbPsswrd}', roles:[{role:'readWrite',db:'${dbName}'}]});"
