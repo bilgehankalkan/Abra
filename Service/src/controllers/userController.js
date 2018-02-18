@@ -90,7 +90,7 @@ router.post("/:userId/notification/token", (req, res) => {
 
 
 router.get("/:userId/courier/book/current/:pageIndex/:pageSize", (req, res) => {
-    new objectIniter().couriers(bookModel.getCourierCurrentsByUserId(req.params.userId, req.params.pageIndex, req.params.pageSize, req)
+    objectIniter.couriers(bookModel.getCourierCurrentsByUserId(req.params.userId, req.params.pageIndex, req.params.pageSize, req)
         .then((books) => {
             var courierIdArray = [];
             new linq(books).forEach((x) => {
@@ -121,7 +121,7 @@ router.get("/:userId/courier/book/current/:pageIndex/:pageSize", (req, res) => {
 router.get("/:userId/courier/book/past/:pageIndex/:pageSize", (req, res) => {
     var userIdArray = [];
     var locationIdArray = [];
-    new objectIniter().couriers(bookModel.getCourierPastsByUserId(req.params.userId, req.params.pageIndex, req.params.pageSize, req)
+    objectIniter.couriers(bookModel.getCourierPastsByUserId(req.params.userId, req.params.pageIndex, req.params.pageSize, req)
         .then((books) => {
             var courierIdArray = [];
             new linq(books).forEach((x) => {
@@ -150,7 +150,7 @@ router.get("/:userId/courier/book/past/:pageIndex/:pageSize", (req, res) => {
 });
 
 router.get("/:userId/carry/book/current/:pageIndex/:pageSize", (req, res) => {
-    new objectIniter().couriers(bookModel.getCarryCurrentsByUserId(req.params.userId, req.params.pageIndex, req.params.pageSize, req)
+    objectIniter.couriers(bookModel.getCarryCurrentsByUserId(req.params.userId, req.params.pageIndex, req.params.pageSize, req)
         .then((books) => {
             var courierIdArray = [];
             new linq(books).forEach((x) => {
@@ -181,7 +181,7 @@ router.get("/:userId/carry/book/current/:pageIndex/:pageSize", (req, res) => {
 router.get("/:userId/carry/book/past/:pageIndex/:pageSize", (req, res) => {
     var userIdArray = [];
     var locationIdArray = [];
-    new objectIniter().couriers(bookModel.getCarryPastsByUserId(req.params.userId, req.params.pageIndex, req.params.pageSize, req)
+    objectIniter.couriers(bookModel.getCarryPastsByUserId(req.params.userId, req.params.pageIndex, req.params.pageSize, req)
         .then((books) => {
             var courierIdArray = [];
             new linq(books).forEach((x) => {

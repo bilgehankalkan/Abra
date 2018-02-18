@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const urlencode=require("urlencode");
 const linq = require("ex-js-linq");
 const math = require("../utilities/math");
 const courierModel = require("../models/courier");
@@ -111,7 +112,7 @@ router.get("/:pageIndex/:pageSize", (req, res) => {
 });
 
 router.get("/:id", (req, res) => {
-    new objectIniter().couriers(courierModel.getById(req.params.id, req)
+    objectIniter.couriers(courierModel.getById(req.params.id, req)
         .then((courier) => {
             return [courier]
         }), null, req)
@@ -133,6 +134,7 @@ router.get("/:id", (req, res) => {
 });
 
 router.post("/", (req, res) => {
+console.log(date);
     var courier = {
         dateCreated: Date.now(),
         destinationDate: new Date(req.body.destinationDate),
@@ -160,7 +162,7 @@ router.post("/", (req, res) => {
 });
 
 router.get("/search/:pageIndex/:pageSize", (req, res) => {
-    new objectIniter().couriers(courierModel.search(new Date(req.query.originDate), req.query.destination, req.query.origin, req.query.weight, req.params.pageSize, req.paramspageIndex, req)
+    objectIniter.couriers(courierModel.search(new Date(req.query.originDate), req.query.destination, req.query.origin, req.query.weight, req.params.pageSize, req.paramspageIndex, req)
         .then((couriers) => {
             return couriers;
         }), null, req)
