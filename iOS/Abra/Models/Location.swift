@@ -14,6 +14,7 @@ class Location: Object, Mappable {
     
     @objc dynamic var identifier = ""
     @objc dynamic var name = ""
+    @objc dynamic var date = ""
     
     required convenience init?(map: Map) {
         self.init()
@@ -22,6 +23,7 @@ class Location: Object, Mappable {
     func mapping(map: Map) {
         identifier  <- map["_id"]
         name        <- map["name"]
+        date        <- map["date"]
     }
     
 }

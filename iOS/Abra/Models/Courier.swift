@@ -7,7 +7,6 @@
 //
 
 struct CourierAddRequest {
-    
     var ownerId = "5a8746500000000000000000"
     var origin = ""
     var originDate = ""
@@ -17,7 +16,6 @@ struct CourierAddRequest {
     var instantBooking = false
     var price = 0
     var note = ""
-    
 }
 
 import ObjectMapper

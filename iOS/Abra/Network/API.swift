@@ -50,8 +50,23 @@ final class API {
             if response.error != nil {
                 completion(nil, response.error)
             }
-            if let courierAddResponse = response.result.value {
-                completion(courierAddResponse, nil)
+            if let responseValue = response.result.value {
+                completion(responseValue, nil)
+            }
+            else {
+                completion(nil, response.result.error)
+            }
+        }
+    }
+    
+    func orders(_ endpoint: ordersEndpoint, completion: @escaping ([Order]?, Error?) -> Void) {
+        request(orders: endpoint).responseArray(keyPath: keyPath) {
+            (response: DataResponse<[Order]>) in
+            if response.error != nil {
+                completion(nil, response.error)
+            }
+            if let responseValue = response.result.value {
+                completion(responseValue, nil)
             }
             else {
                 completion(nil, response.result.error)
@@ -175,6 +190,45 @@ extension API {
                         "price": courierAddRequest.price,
                         "note": courierAddRequest.note]
             }
+        }
+    }
+    
+}
+
+extension API {
+    
+    fileprivate func request(orders endpoint: ordersEndpoint) -> DataRequest {
+        return Alamofire.request(baseUrl + endpoint.path,
+                                 method: endpoint.method,
+                                 parameters: endpoint.parameters,
+                                 encoding: API.sharedManager.encoding,
+                                 headers: API.sharedManager.headers).validate()
+    }
+    
+    enum ordersEndpoint {
+        case current
+        case past
+
+        var path: String {
+            switch self {
+            case .current:
+                return "/user/" + API.sharedManager.userID + "/courier/book/current/0/20"
+            case .past:
+                return "/user/" + API.sharedManager.userID + "/courier/book/past/0/20"
+            }
+        }
+        
+        var method: HTTPMethod {
+            switch self {
+            case .current:
+                return .get
+            case .past:
+                return .get
+            }
+        }
+        
+        var parameters: [String: Any]? {
+            return nil
         }
     }
     
