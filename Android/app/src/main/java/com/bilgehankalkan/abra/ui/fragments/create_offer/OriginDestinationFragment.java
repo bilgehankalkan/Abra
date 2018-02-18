@@ -16,7 +16,7 @@ import android.widget.Toast;
 import com.bilgehankalkan.abra.R;
 import com.bilgehankalkan.abra.service.models.Location;
 import com.bilgehankalkan.abra.service.models.LocationSearchResponse;
-import com.bilgehankalkan.abra.ui.activities.MainActivity;
+import com.bilgehankalkan.abra.ui.activities.BaseActivity;
 import com.bilgehankalkan.abra.ui.adapters.SearchAdapter;
 import com.bilgehankalkan.abra.utils.RecyclerItemClickListener;
 
@@ -120,7 +120,7 @@ public class OriginDestinationFragment extends CreateOfferBaseFragment {
     }
 
     private void getSuggestions(String query) {
-        Call<LocationSearchResponse> call = apiInterface.getLocationSearch(mActivity.getHeader(), query);
+        Call<LocationSearchResponse> call = BaseActivity.apiInterface.getLocationSearch(BaseActivity.getHeader(), query);
         call.enqueue(new Callback<LocationSearchResponse>() {
             @Override
             public void onResponse(@NonNull Call<LocationSearchResponse> call, @NonNull Response<LocationSearchResponse> response) {
@@ -130,13 +130,15 @@ public class OriginDestinationFragment extends CreateOfferBaseFragment {
                         suggestionsList.clear();
                         suggestionsList.addAll(locationSearchResponse.getData());
                         mActivity.runOnUiThread(() -> searchAdapter.notifyDataSetChanged());
-                    }
-                }
+                    } else
+                        Toast.makeText(mActivity, locationSearchResponse.getMsg(), Toast.LENGTH_SHORT).show();
+                } else
+                    Toast.makeText(mActivity, R.string.connection_error, Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(@NonNull Call<LocationSearchResponse> call, @NonNull Throwable t) {
-                Toast.makeText(getContext(), R.string.connection_error, Toast.LENGTH_SHORT).show();
+                Toast.makeText(mActivity, R.string.connection_error, Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -11,10 +11,10 @@ public class BaseResponse {
 
     @SerializedName("code")
     @Expose
-    protected Integer code;
+    private Integer code;
     @SerializedName("msg")
     @Expose
-    protected String msg;
+    private String msg;
 
     public Integer getCode() {
         return code;

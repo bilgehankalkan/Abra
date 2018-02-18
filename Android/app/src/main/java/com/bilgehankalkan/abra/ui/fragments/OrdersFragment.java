@@ -135,12 +135,12 @@ public class OrdersFragment extends BaseFragment {
         map.put("originDate", params[2]);
         map.put("originTime", params[3]);
         map.put("weight", params[4]);
-        Call<OrderListResult> call = apiInterface.getSearchResult(pageIndex, 20, map);
+        Call<OrderListResult> call = BaseActivity.apiInterface.getSearchResult(pageIndex, 20, map);
         call.enqueue(callback);
     }
 
     private void getOrders() {
-        Call<OrderListResult> call = apiInterface.getOrders(BaseActivity.USER_ID,
+        Call<OrderListResult> call = BaseActivity.apiInterface.getOrders(BaseActivity.USER_ID,
                 isCourier ? ApiInterface.COURIER : ApiInterface.CARRY,
                 isPast ? ApiInterface.PAST : ApiInterface.CURRENT, pageIndex, 20);
         call.enqueue(callback);

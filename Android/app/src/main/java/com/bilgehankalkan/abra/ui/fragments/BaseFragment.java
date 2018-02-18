@@ -13,14 +13,12 @@ import com.bilgehankalkan.abra.ui.activities.BaseActivity;
 
 public class BaseFragment extends Fragment {
 
-    public static ApiInterface apiInterface;
     public BaseActivity mActivity;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
 
-        apiInterface = ApiClient.getRetrofit().create(ApiInterface.class);
         mActivity = (BaseActivity) context;
     }
 }
