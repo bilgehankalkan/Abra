@@ -25,4 +25,6 @@ Now you are all set!
 
 * [Java](https://java.com/) - General-purpose programming language
 * [Android Studio](https://developer.android.com/studio/) - Modern Android development environment
-* Many other libraries on [Github](https://github.com).
+* [FragNav](https://github.com/ncapdevi/FragNav) - Android library for managing multiple stacks of fragments.
+* [Icepick](https://github.com/frankiesardo/icepick) -  Android library that eliminates the boilerplate of saving and restoring instance state.
+* [android-segmented-control](https://github.com/Kaopiz/android-segmented-control) - Custom view for Android which is based on RadioGroup and RadioButton widget. 
