@@ -8,6 +8,6 @@
 
 import UIKit
 
-class InboxViewController: UCViewController {
+class UCInboxViewController: UCViewController {
 
 }

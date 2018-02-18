@@ -4,6 +4,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 def network
 
 pod 'Alamofire'
+pod 'AlamofireImage'
 pod 'AlamofireObjectMapper'
 pod 'ObjectMapper+Realm'
 pod 'RealmSwift'

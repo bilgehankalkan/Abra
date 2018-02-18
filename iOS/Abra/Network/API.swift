@@ -206,15 +206,25 @@ extension API {
     }
     
     enum ordersEndpoint {
-        case current
-        case past
+        case current(OrderDeliveryMode)
+        case past(OrderDeliveryMode)
 
         var path: String {
             switch self {
-            case .current:
-                return "/user/" + API.sharedManager.userID + "/courier/book/current/0/20"
-            case .past:
-                return "/user/" + API.sharedManager.userID + "/courier/book/past/0/20"
+            case .current(let orderDeliveryMode):
+                switch orderDeliveryMode {
+                case .courier:
+                    return "/user/" + API.sharedManager.userID + "/courier/book/current/0/20"
+                case .carry:
+                    return "/user/" + API.sharedManager.userID + "/carry/book/current/0/20"
+                }
+            case .past(let orderDeliveryMode):
+                switch orderDeliveryMode {
+                case .courier:
+                    return "/user/" + API.sharedManager.userID + "/courier/book/past/0/20"
+                case .carry:
+                    return "/user/" + API.sharedManager.userID + "/carry/book/past/0/20"
+                }
             }
         }
         

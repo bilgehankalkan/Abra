@@ -13,13 +13,13 @@ enum OSLocationMode {
     case destination
 }
 
-protocol OSLocationDelegate {
+protocol OSLocationViewModelDelegate {
     func selected(_ location: Location)
 }
 
 class OSLocationViewModel: NSObject {
     
-    var delegate: OSLocationDelegate?
+    var delegate: OSLocationViewModelDelegate?
     var locationMode: OSLocationMode = .origin {
         didSet {
             switch locationMode {
@@ -51,9 +51,9 @@ class OSLocationViewModel: NSObject {
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var locationTextField: UITextField!
-    @IBOutlet weak var loadingActivityIndicatorView: UIActivityIndicatorView!
     @IBOutlet weak var locationsTableView: UITableView!
-    
+    @IBOutlet weak var loadingActivityIndicatorView: UIActivityIndicatorView!
+
     var locations = [Location]()
     
     var timer: Timer?
@@ -63,8 +63,8 @@ class OSLocationViewModel: NSObject {
         timer = Timer.scheduledTimer(timeInterval: 0.3, target: self, selector: #selector(performSearch(_:)), userInfo: sender, repeats: false)
     }
     
-    @objc func performSearch(_ timer: Timer) {
-        if let textField = timer.userInfo as? UITextField {
+    @objc func performSearch(_ sender: Timer) {
+        if let textField = sender.userInfo as? UITextField {
             DispatchQueue.global(qos: .userInitiated).async { [unowned self] in
                 self.locations.removeAll()
                 DispatchQueue.main.async {
@@ -73,7 +73,7 @@ class OSLocationViewModel: NSObject {
                     self.loadingActivityIndicatorView.isHidden = false
                 }
             }
-            API.sharedManager.location(search: textField.text ?? "nil", completion: {
+            API.sharedManager.location(search: textField.text ?? "", completion: {
                 (locations: [Location]?, error: Error?) in
                 DispatchQueue.global(qos: .userInitiated).async { [unowned self] in
                     if let locations = locations {
@@ -104,8 +104,7 @@ extension OSLocationViewModel: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         
-        let location = locations[indexPath.item]
-        cell.textLabel?.text = location.name
+        cell.textLabel?.text = locations[indexPath.item].name
 
         return cell
     }
@@ -115,7 +114,7 @@ extension OSLocationViewModel: UITableViewDataSource {
 extension OSLocationViewModel: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: false)
+        tableView.deselectRow(at: indexPath, animated: true)
         let location = locations[indexPath.item]
         locationTextField.text = location.name
         self.delegate?.selected(location)
@@ -137,7 +136,7 @@ class OSLocationViewController: OSBaseViewController {
     
 }
 
-extension OSLocationViewController: OSLocationDelegate {
+extension OSLocationViewController: OSLocationViewModelDelegate {
     
     func selected(_ location: Location) {
         switch locationMode {

@@ -18,11 +18,11 @@ class BaseNavigationController: UINavigationController {
     }
     
     @objc private func showProfile(_ sender: UIBarButtonItem) {
-        presentViewController(withIdentifier: "ProfileViewController", animated: true)
+        presentViewController(withIdentifier: "UCProfileViewController", animated: true)
     }
     
     @objc private func showInbox(_ sender: UIBarButtonItem) {
-        presentViewController(withIdentifier: "InboxViewController", animated: true)
+        presentViewController(withIdentifier: "UCInboxViewController", animated: true)
     }
     
     private func presentViewController(withIdentifier identifier: String, animated: Bool) {

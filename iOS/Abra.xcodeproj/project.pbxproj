@@ -14,11 +14,13 @@
 		6416F1FB2037985C00B77D8B /* OSSwitchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6416F1FA2037985C00B77D8B /* OSSwitchViewController.swift */; };
 		6416F1FF2037987100B77D8B /* OSNoteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6416F1FE2037987100B77D8B /* OSNoteViewController.swift */; };
 		6416F203203798A700B77D8B /* OSFinishViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6416F202203798A700B77D8B /* OSFinishViewController.swift */; };
-		647DEF9A20383E74004490FE /* OFBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647DEF9920383E74004490FE /* OFBaseViewController.swift */; };
+		647DEF9A20383E74004490FE /* ODBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647DEF9920383E74004490FE /* ODBaseViewController.swift */; };
 		647DEFA3203875FD004490FE /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647DEFA2203875FD004490FE /* Location.swift */; };
 		647DEFA62038791D004490FE /* UCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647DEFA52038791D004490FE /* UCViewController.swift */; };
-		647DEFAA20387E02004490FE /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647DEFA920387E02004490FE /* NetworkManager.swift */; };
+		647DEFAA20387E02004490FE /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647DEFA920387E02004490FE /* API.swift */; };
 		647DEFAD20387EAE004490FE /* Courier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647DEFAC20387EAE004490FE /* Courier.swift */; };
+		649AF8C22038E672005AD4E9 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649AF8C12038E672005AD4E9 /* Order.swift */; };
+		649AF8C420390F78005AD4E9 /* ODDeliveriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 649AF8C320390F78005AD4E9 /* ODDeliveriesViewController.swift */; };
 		64E6D6A72037B16E007A4475 /* OSTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64E6D6A62037B16E007A4475 /* OSTimeViewController.swift */; };
 		64E6D6A92037BF64007A4475 /* OSBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64E6D6A82037BF64007A4475 /* OSBaseViewController.swift */; };
 		64ED622620375B9B008CDEB1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64ED622520375B9B008CDEB1 /* AppDelegate.swift */; };
@@ -28,10 +30,10 @@
 		64ED623B20375B9B008CDEB1 /* AbraTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64ED623A20375B9B008CDEB1 /* AbraTests.swift */; };
 		64ED624620375B9B008CDEB1 /* AbraUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64ED624520375B9B008CDEB1 /* AbraUITests.swift */; };
 		64ED6256203779BE008CDEB1 /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64ED6255203779BE008CDEB1 /* BaseNavigationController.swift */; };
-		64ED625820378181008CDEB1 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64ED625720378181008CDEB1 /* ProfileViewController.swift */; };
-		64ED625A20378187008CDEB1 /* InboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64ED625920378187008CDEB1 /* InboxViewController.swift */; };
+		64ED625820378181008CDEB1 /* UCProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64ED625720378181008CDEB1 /* UCProfileViewController.swift */; };
+		64ED625A20378187008CDEB1 /* UCInboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64ED625920378187008CDEB1 /* UCInboxViewController.swift */; };
 		64ED625C203781BC008CDEB1 /* OSCourierViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64ED625B203781BC008CDEB1 /* OSCourierViewController.swift */; };
-		64ED625E203781C6008CDEB1 /* OrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64ED625D203781C6008CDEB1 /* OrdersViewController.swift */; };
+		64ED625E203781C6008CDEB1 /* ODOrdersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64ED625D203781C6008CDEB1 /* ODOrdersViewController.swift */; };
 		64ED6260203781CF008CDEB1 /* OSCarryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64ED625F203781CF008CDEB1 /* OSCarryViewController.swift */; };
 		7DD4B4235F2902934F62874D /* Pods_AbraUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44C891810A95E6F0DE649AF3 /* Pods_AbraUITests.framework */; };
 		881D5828EB4513D5EEFFA470 /* Pods_AbraTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9EC615AB478694676C51DCC5 /* Pods_AbraTests.framework */; };
@@ -66,11 +68,13 @@
 		6416F1FA2037985C00B77D8B /* OSSwitchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSSwitchViewController.swift; sourceTree = "<group>"; };
 		6416F1FE2037987100B77D8B /* OSNoteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSNoteViewController.swift; sourceTree = "<group>"; };
 		6416F202203798A700B77D8B /* OSFinishViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSFinishViewController.swift; sourceTree = "<group>"; };
-		647DEF9920383E74004490FE /* OFBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OFBaseViewController.swift; sourceTree = "<group>"; };
+		647DEF9920383E74004490FE /* ODBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ODBaseViewController.swift; sourceTree = "<group>"; };
 		647DEFA2203875FD004490FE /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		647DEFA52038791D004490FE /* UCViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UCViewController.swift; sourceTree = "<group>"; };
-		647DEFA920387E02004490FE /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		647DEFA920387E02004490FE /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		647DEFAC20387EAE004490FE /* Courier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Courier.swift; sourceTree = "<group>"; };
+		649AF8C12038E672005AD4E9 /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
+		649AF8C320390F78005AD4E9 /* ODDeliveriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ODDeliveriesViewController.swift; sourceTree = "<group>"; };
 		64E6D6A62037B16E007A4475 /* OSTimeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSTimeViewController.swift; sourceTree = "<group>"; };
 		64E6D6A82037BF64007A4475 /* OSBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSBaseViewController.swift; sourceTree = "<group>"; };
 		64ED622220375B9B008CDEB1 /* Abra.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Abra.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -86,10 +90,10 @@
 		64ED624520375B9B008CDEB1 /* AbraUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbraUITests.swift; sourceTree = "<group>"; };
 		64ED624720375B9B008CDEB1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		64ED6255203779BE008CDEB1 /* BaseNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
-		64ED625720378181008CDEB1 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
-		64ED625920378187008CDEB1 /* InboxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxViewController.swift; sourceTree = "<group>"; };
+		64ED625720378181008CDEB1 /* UCProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UCProfileViewController.swift; sourceTree = "<group>"; };
+		64ED625920378187008CDEB1 /* UCInboxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UCInboxViewController.swift; sourceTree = "<group>"; };
 		64ED625B203781BC008CDEB1 /* OSCourierViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSCourierViewController.swift; sourceTree = "<group>"; };
-		64ED625D203781C6008CDEB1 /* OrdersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrdersViewController.swift; sourceTree = "<group>"; };
+		64ED625D203781C6008CDEB1 /* ODOrdersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ODOrdersViewController.swift; sourceTree = "<group>"; };
 		64ED625F203781CF008CDEB1 /* OSCarryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSCarryViewController.swift; sourceTree = "<group>"; };
 		6CEBDA3EA1DB3348D7D8C7EB /* Pods-Abra.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Abra.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Abra/Pods-Abra.debug.xcconfig"; sourceTree = "<group>"; };
 		88A5048DAAB06B86C6A27FD2 /* Pods_Abra.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Abra.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -152,13 +156,14 @@
 			path = OfferSelect;
 			sourceTree = "<group>";
 		};
-		647DEF9B20383E88004490FE /* OrdersFind */ = {
+		647DEF9B20383E88004490FE /* OrderDeliver */ = {
 			isa = PBXGroup;
 			children = (
-				647DEF9920383E74004490FE /* OFBaseViewController.swift */,
-				64ED625D203781C6008CDEB1 /* OrdersViewController.swift */,
+				647DEF9920383E74004490FE /* ODBaseViewController.swift */,
+				64ED625D203781C6008CDEB1 /* ODOrdersViewController.swift */,
+				649AF8C320390F78005AD4E9 /* ODDeliveriesViewController.swift */,
 			);
-			path = OrdersFind;
+			path = OrderDeliver;
 			sourceTree = "<group>";
 		};
 		647DEFA420387602004490FE /* Models */ = {
@@ -166,6 +171,7 @@
 			children = (
 				647DEFA2203875FD004490FE /* Location.swift */,
 				647DEFAC20387EAE004490FE /* Courier.swift */,
+				649AF8C12038E672005AD4E9 /* Order.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -173,8 +179,8 @@
 		647DEFA820387946004490FE /* UserContents */ = {
 			isa = PBXGroup;
 			children = (
-				64ED625920378187008CDEB1 /* InboxViewController.swift */,
-				64ED625720378181008CDEB1 /* ProfileViewController.swift */,
+				64ED625920378187008CDEB1 /* UCInboxViewController.swift */,
+				64ED625720378181008CDEB1 /* UCProfileViewController.swift */,
 				647DEFA52038791D004490FE /* UCViewController.swift */,
 			);
 			path = UserContents;
@@ -183,7 +189,7 @@
 		647DEFAB20387E06004490FE /* Network */ = {
 			isa = PBXGroup;
 			children = (
-				647DEFA920387E02004490FE /* NetworkManager.swift */,
+				647DEFA920387E02004490FE /* API.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -264,7 +270,7 @@
 			isa = PBXGroup;
 			children = (
 				6416F1EF203797A400B77D8B /* OfferSelect */,
-				647DEF9B20383E88004490FE /* OrdersFind */,
+				647DEF9B20383E88004490FE /* OrderDeliver */,
 				6416F1EE2037979B00B77D8B /* Shared */,
 				647DEFA820387946004490FE /* UserContents */,
 			);
@@ -556,6 +562,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Abra/Pods-Abra-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireObjectMapper/AlamofireObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper+Realm/ObjectMapper_Realm.framework",
@@ -565,6 +572,7 @@
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireObjectMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper_Realm.framework",
@@ -598,24 +606,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				647DEFAA20387E02004490FE /* NetworkManager.swift in Sources */,
+				647DEFAA20387E02004490FE /* API.swift in Sources */,
 				6416F1F92037984C00B77D8B /* OSAmountViewController.swift in Sources */,
 				64E6D6A92037BF64007A4475 /* OSBaseViewController.swift in Sources */,
 				6416F1FF2037987100B77D8B /* OSNoteViewController.swift in Sources */,
+				649AF8C420390F78005AD4E9 /* ODDeliveriesViewController.swift in Sources */,
 				6416F203203798A700B77D8B /* OSFinishViewController.swift in Sources */,
-				647DEF9A20383E74004490FE /* OFBaseViewController.swift in Sources */,
+				647DEF9A20383E74004490FE /* ODBaseViewController.swift in Sources */,
+				649AF8C22038E672005AD4E9 /* Order.swift in Sources */,
 				647DEFA3203875FD004490FE /* Location.swift in Sources */,
 				64ED625C203781BC008CDEB1 /* OSCourierViewController.swift in Sources */,
 				6416F1F3203797E200B77D8B /* OSDateViewController.swift in Sources */,
 				6416F1F1203797D900B77D8B /* OSLocationViewController.swift in Sources */,
-				64ED625E203781C6008CDEB1 /* OrdersViewController.swift in Sources */,
+				64ED625E203781C6008CDEB1 /* ODOrdersViewController.swift in Sources */,
 				647DEFA62038791D004490FE /* UCViewController.swift in Sources */,
-				64ED625820378181008CDEB1 /* ProfileViewController.swift in Sources */,
+				64ED625820378181008CDEB1 /* UCProfileViewController.swift in Sources */,
 				64ED6260203781CF008CDEB1 /* OSCarryViewController.swift in Sources */,
 				64ED6256203779BE008CDEB1 /* BaseNavigationController.swift in Sources */,
 				6416F1FB2037985C00B77D8B /* OSSwitchViewController.swift in Sources */,
 				64ED622620375B9B008CDEB1 /* AppDelegate.swift in Sources */,
-				64ED625A20378187008CDEB1 /* InboxViewController.swift in Sources */,
+				64ED625A20378187008CDEB1 /* UCInboxViewController.swift in Sources */,
 				64E6D6A72037B16E007A4475 /* OSTimeViewController.swift in Sources */,
 				647DEFAD20387EAE004490FE /* Courier.swift in Sources */,
 			);

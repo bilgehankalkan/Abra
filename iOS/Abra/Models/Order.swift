@@ -6,6 +6,187 @@
 //  Copyright © 2018 Hakan Eren. All rights reserved.
 //
 
+enum OrderDeliveryMode {
+    case courier
+    case carry
+}
+
+protocol OrderViewModelDelegate {
+    func selected(_ order: Order)
+}
+
+class OrderViewModel: NSObject {
+    
+    var delegate: OrderViewModelDelegate?
+    var orderDeliveryMode: OrderDeliveryMode = .courier {
+        didSet {
+            ordersSegmentedControl.selectedSegmentIndex = 0
+            ordersSegmentedControl.addTarget(self, action: #selector(segmentChanged(_:)), for: .valueChanged)
+            
+            DispatchQueue.global(qos: .userInitiated).async { [unowned self] in
+                self.currentOrders.removeAll()
+                self.pastOrders.removeAll()
+                DispatchQueue.main.async {
+                    self.ordersTableView.reloadData()
+                    self.ordersTableView.isHidden = true
+                    self.loadingActivityIndicatorView.isHidden = false
+                }
+            }
+            API.sharedManager.orders(.current(orderDeliveryMode), completion: {
+                (orders: [Order]?, error: Error?) in
+                DispatchQueue.global(qos: .userInitiated).async { [unowned self] in
+                    if let orders = orders {
+                        self.currentOrders.append(contentsOf: orders)
+                    }
+                    DispatchQueue.main.async {
+                        self.ordersTableView.reloadData()
+                        self.ordersTableView.isHidden = false
+                        self.loadingActivityIndicatorView.isHidden = true
+                    }
+                }
+            })
+            API.sharedManager.orders(.past(orderDeliveryMode), completion: {
+                (orders: [Order]?, error: Error?) in
+                DispatchQueue.global(qos: .userInitiated).async { [unowned self] in
+                    if let orders = orders {
+                        self.pastOrders.append(contentsOf: orders)
+                    }
+                    DispatchQueue.main.async {
+                        self.ordersTableView.reloadData()
+                        self.ordersTableView.isHidden = false
+                        self.loadingActivityIndicatorView.isHidden = true
+                    }
+                }
+            })
+        }
+    }
+    
+    let ordersSegmentedControl = UISegmentedControl(items: ["Current", "Past"])
+    
+    @IBOutlet weak var ordersTableView: UITableView!
+    @IBOutlet weak var loadingActivityIndicatorView: UIActivityIndicatorView!
+    
+    var currentOrders = [Order]()
+    var pastOrders = [Order]()
+    
+    @objc func segmentChanged(_ sender: UISegmentedControl) {
+        ordersTableView.reloadData()
+    }
+    
+}
+
+extension OrderViewModel: UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if ordersSegmentedControl.selectedSegmentIndex == 0 {
+            return currentOrders.count
+        }
+        else if ordersSegmentedControl.selectedSegmentIndex == 1 {
+            return pastOrders.count
+        }
+        return 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! OrderTableViewCell
+        
+        if ordersSegmentedControl.selectedSegmentIndex == 0 {
+            cell.order = currentOrders[indexPath.item]
+        }
+        else if ordersSegmentedControl.selectedSegmentIndex == 1 {
+            cell.order = pastOrders[indexPath.item]
+        }
+        
+        return cell
+    }
+    
+}
+
+extension OrderViewModel: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        if ordersSegmentedControl.selectedSegmentIndex == 0 {
+            delegate?.selected(currentOrders[indexPath.item])
+        }
+        else if ordersSegmentedControl.selectedSegmentIndex == 1 {
+            delegate?.selected(pastOrders[indexPath.item])
+        }
+    }
+    
+}
+
+import AlamofireImage
+
+class OrderTableViewCell: UITableViewCell {
+    
+    var order = Order() {
+        didSet {
+            originTimeLabel.text = order.origin?.date
+            originLocationLabel.text = order.origin?.name
+            destinationTimeLabel.text = order.destination?.date
+            destinationLocationLabel.text = order.destination?.name
+            nameLabel.text = (order.owner?.name ?? "") + " " + (order.owner?.surname ?? "")
+            ratingLabel.text = "\(order.avarageRating)" + " - " + "\(order.totalRating)" + " rating"
+            if order.avarageRating >= 4.0 {
+                ratingStarImageView.tintColor = UIColor.ratingStarGreen
+            }
+            else if order.avarageRating >= 3.0 {
+                ratingStarImageView.tintColor = UIColor.ratingStarOrange
+            }
+            else {
+                ratingStarImageView.tintColor = UIColor.ratingStarRed
+            }
+            
+            if let orderOwner = order.owner, let ownerAvatar = URL(string: orderOwner.avatar) {
+                avatarImageView.af_setImage(withURL: ownerAvatar, placeholderImage: UIImage(named: "placeholder"))
+            }
+            
+            weightLabel.text = "\(order.weight)" + " kg"
+            instantBookingImageView.isHidden = !order.instantBooking
+            priceLabel.text = "\(order.price)" + "₺"
+        }
+    }
+    
+    @IBOutlet weak var originTimeLabel: UILabel!
+    @IBOutlet weak var originLocationLabel: UILabel!
+    @IBOutlet weak var destinationTimeLabel: UILabel!
+    @IBOutlet weak var destinationLocationLabel: UILabel!
+    @IBOutlet weak var avatarImageView: UIImageView!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var ratingStarImageView: UIImageView!
+    @IBOutlet weak var ratingLabel: UILabel!
+    @IBOutlet weak var weightLabel: UILabel!
+    @IBOutlet weak var instantBookingImageView: UIImageView!
+    @IBOutlet weak var priceLabel: UILabel!
+    
+}
+
+extension UIColor {
+    
+    static var ratingStarGreen: UIColor {
+        return UIColor(red:0.57, green:0.86, blue:0.35, alpha:1.0)
+    }
+    
+    static var ratingStarOrange: UIColor {
+        return UIColor(red:0.97, green:0.55, blue:0.29, alpha:1.0)
+    }
+    
+    static var ratingStarRed: UIColor {
+        return UIColor(red:0.85, green:0.00, blue:0.15, alpha:1.0)
+    }
+    
+    static var seperatorGray: UIColor {
+        return UIColor(red:0.88, green:0.88, blue:0.88, alpha:1.0)
+    }
+    
+}
+
 import ObjectMapper
 import ObjectMapper_Realm
 import RealmSwift
