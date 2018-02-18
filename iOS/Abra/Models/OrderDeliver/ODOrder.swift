@@ -140,6 +140,9 @@ class OrderTableViewCell: UITableViewCell {
             if let orderOwner = order.owner, let ownerAvatar = URL(string: orderOwner.avatar) {
                 avatarImageView.af_setImage(withURL: ownerAvatar, placeholderImage: UIImage(named: "avatar-placeholder"))
             }
+            else {
+                avatarImageView.image = UIImage(named: "avatar-placeholder")
+            }
             
             weightLabel.text = "\(order.weight)" + " kg"
             instantBookingImageView.isHidden = !order.instantBooking
