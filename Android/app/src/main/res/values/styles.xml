@@ -15,7 +15,7 @@
     <style name="CardViewButtonTheme" parent="CardView">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="cardBackgroundColor">@color/colorSplashBackground</item>
+        <item name="cardBackgroundColor">@color/colorPrimaryDark</item>
         <item name="cardElevation">0dp</item>
         <item name="cardCornerRadius">5dp</item>
         <item name="android:layout_gravity">center</item>
@@ -43,7 +43,7 @@
     </style>
 
     <style name="TextViewSmallHeaderStyle" parent="TextViewBase">
-        <item name="android:textColor">@color/colorSplashBackground</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
     </style>
 
 
