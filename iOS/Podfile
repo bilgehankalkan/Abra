@@ -1,0 +1,36 @@
+
+source 'https://github.com/CocoaPods/Specs.git'
+
+def network
+    
+    pod 'Alamofire'
+    pod 'AlamofireImage'
+    pod 'AlamofireObjectMapper'
+    pod 'ObjectMapper+Realm'
+    pod 'RealmSwift'
+    
+end
+
+def animation
+    
+    pod 'MBProgressHUD'
+    
+end
+
+target 'Abra' do
+    
+    use_frameworks!
+    platform :ios, '11.0'
+    
+    network
+    animation
+    
+    target 'AbraTests' do
+        inherit! :search_paths
+    end
+    
+    target 'AbraUITests' do
+        inherit! :search_paths
+    end
+    
+end
