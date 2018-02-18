@@ -4,6 +4,7 @@ const collections = {
     location: "Locations",
     token: "Tokens",
     users: "Users",
+    notificationToken: "NotificationTokens",
     // rezervasyonlar
     book: "Books"
 };

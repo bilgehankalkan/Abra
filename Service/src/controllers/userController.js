@@ -6,6 +6,7 @@ const math = require("../utilities/math");
 const courierModel = require("../models/courier");
 const bookModel = require("../models/book");
 const userModel = require("../models/user");
+const notificationTokenModel = require("../models/notificationToken");
 const locationModel = require("../models/location");
 const tokenModel = require("../models/token");
 const responseCode = require("../utilities/responseCode");
@@ -69,6 +70,21 @@ router.get("/:userId/logout", (req, res) => {
             res.status(responseCode.SERVER_ERROR)
                 .send(response(responseCode.SERVER_ERROR, dictionary.errorMessages.systemError));
         })
+});
+
+router.post("/:userId/notification/token", (req, res) => {
+    notificationTokenModel.insert(require.params.userId, req.body.token, req)
+        .then((token) => {
+            res.status(responseCode.OK)
+                .send(response(responseCode.OK, "", {
+                    key: "token",
+                    value: token
+                }));
+        })
+        .catch((err) => {
+            res.status(err.statusCode)
+                .send(response(err.statusCode, err.message));
+        });
 });
 
 function initCouriers(data, userId, req) {
