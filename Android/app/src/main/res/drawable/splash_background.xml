@@ -3,7 +3,7 @@
     <item android:drawable="@color/colorPrimaryDark"/>
 
     <item>
-        <bitmap android:gravity="center" android:tileMode="clamp"
+        <bitmap android:gravity="center"
             android:src="@drawable/hackathon"/>
     </item>
 </layer-list>
