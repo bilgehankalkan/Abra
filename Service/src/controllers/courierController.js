@@ -9,6 +9,8 @@ const userModel = require("../models/user");
 const locationModel = require("../models/location");
 const response = require("../utilities/response");
 const responseCode = require("../utilities/responseCode");
+const objectIniter = require("../helpers/objectIniter");
+const eventBus = require("../eventBus");
 let router = express.Router();
 
 const Schema = mongoose.Schema;
@@ -108,82 +110,8 @@ router.get("/:pageIndex/:pageSize", (req, res) => {
         });
 });
 
-
-function initCouriers(data, userId, req) {
-    var userIdArray = [];
-    var locationIdArray = [];
-    return data
-        .then((couriers) => {
-            new linq(couriers).forEach((x) => {
-                userIdArray.push(x.ownerId);
-                locationIdArray.push(x.origin);
-                locationIdArray.push(x.destination);
-            });
-            return couriers;
-        })
-        .then((couriers) => {
-            return userModel.getListByIdArray(userIdArray, req)
-                .then((users) => {
-                    return {
-                        users: users,
-                        couriers: couriers
-                    }
-                });
-        })
-        .then((result) => {
-            return locationModel.getListByIdArray(locationIdArray, req)
-                .then((locations) => {
-                    return {
-                        users: result.users,
-                        couriers: result.couriers,
-                        locations: locations
-                    }
-                });
-        })
-        .then((result) => {
-            var couriers = result.couriers;
-            var locations = result.locations;
-            var users = result.users;
-
-            couriers = new linq(couriers).select((x) => {
-                var owner = new linq(users).firstOrDefault((y) => {
-                    return x.ownerId.toString() == y._id.toString();
-                });
-                var origin = new linq(locations).firstOrDefault((y) => {
-                    return x.origin.toString() == y._id.toString();
-                });
-                var destination = new linq(locations).firstOrDefault((y) => {
-                    return x.destination.toString() == y._id.toString();
-                });
-                return {
-                    _id: x._id,
-                    dateCreated: x.dateCreated,
-                    owner: owner,
-                    destination: {
-                        _id: x.destination.toString(),
-                        name: destination.name,
-                        date: x.destinationDate
-                    },
-                    origin: {
-                        _id: x.origin.toString(),
-                        name: origin.name,
-                        date: x.originDate
-                    },
-                    isMyOrder: (owner._id.toString() == userId),
-                    weight: x.weight,
-                    price: x.price,
-                    avgRating: parseInt(math.random(1, 5)),
-                    totalRating: parseInt(math.random(1, 100)),
-                    instantBooking: x.instantBooking,
-                }
-            }).toArray();
-            return couriers;
-        })
-}
-
 router.get("/:id", (req, res) => {
-    console.log(courierModel.getById(req.params.id, req));
-    initCouriers(courierModel.getById(req.params.id, req)
+    new objectIniter().couriers(courierModel.getById(req.params.id, req)
         .then((courier) => {
             return [courier]
         }), null, req)
@@ -198,26 +126,6 @@ router.get("/:id", (req, res) => {
                     value: courier
                 }))
         })
-        // .then((result) => {
-        //     var locationIdArray = [];
-        //     locationIdArray.push(result.courier.origin);
-        //     locationIdArray.push(result.courier.destination);
-        //     return locationModel.getListByIdArray(locationIdArray, req)
-        //         .then((locations) => {
-
-        //             var courier = {
-
-        //             };
-        //             return courier;
-        //         })
-        // })
-        // .then((courier) => {
-        //     res.status(responseCode.OK)
-        //         .send(response(responseCode.OK, "", {
-        //             key: "courier",
-        //             value: courier
-        //         }))
-        // })
         .catch((err) => {
             res.status(err.statusCode)
                 .send(response(err.statusCode, err.message));
@@ -252,102 +160,22 @@ router.post("/", (req, res) => {
 });
 
 router.get("/search/:pageIndex/:pageSize", (req, res) => {
-    courierModel.search(new Date(req.query.originDate), req.query.destination, req.query.origin, req.query.weight, req.params.pageSize, req.paramspageIndex, req)
+    new objectIniter().couriers(courierModel.search(new Date(req.query.originDate), req.query.destination, req.query.origin, req.query.weight, req.params.pageSize, req.paramspageIndex, req)
         .then((couriers) => {
-            var userIdArray = [];
-            var locationIdArray = [];
-            new linq(couriers).forEach((x) => {
-                userIdArray.push(x.ownerId);
-                locationIdArray.push(x.origin);
-                locationIdArray.push(x.destination);
-            });
-            return {
-                userIdArray: userIdArray,
-                locationIdArray: locationIdArray,
-                couriers: couriers
-            }
-        }).then((result) => {
-            userModel.getListByIdArray(result.userIdArray, req)
-                .then((users) => {
-                    var couriers = new linq(result.couriers)
-                        .select((x) => {
-                            var owner = new linq(users).firstOrDefault((y) => {
-                                return x.ownerId.toString() == y._id.toString();
-                            });
-                            return {
-                                _id: x._id,
-                                dateCreated: x.dateCreated,
-                                owner: owner,
-                                destination: {
-                                    _id: x.destination.toString(),
-                                    date: x.destinationDate
-                                },
-                                origin: {
-                                    _id: x.origin.toString(),
-                                    date: x.originDate
-                                },
-                                price: x.price,
-                                weight: x.weight,
-                                avgRating: parseInt(math.random(1, 5)),
-                                totalRating: parseInt(math.random(1, 100)),
-                                instantBooking: x.instantBooking,
-                            }
-                        }).toArray();
-                    return couriers;
-                })
-                .then((couriers) => {
-                    locationModel.getListByIdArray(result.locationIdArray, req)
-                        .then((locations) => {
-                            couriers = new linq(couriers)
-                                .select((x) => {
-                                    var origin = new linq(locations).firstOrDefault((y) => {
-                                        return x.origin._id.toString() == y._id.toString();
-                                    });
-                                    var destination = new linq(locations).firstOrDefault((y) => {
-                                        return x.destination._id.toString() == y._id.toString();
-                                    });
-                                    return {
-                                        _id: x._id,
-                                        dateCreated: x.dateCreated,
-                                        owner: x.owner,
-                                        origin: {
-                                            name: origin.name,
-                                            date: x.origin.date
-                                        },
-                                        destination: {
-                                            name: destination.name,
-                                            date: x.destination.date
-                                        },
-                                        weight: x.weight,
-                                        avgRating: x.avgRating,
-                                        totalRatingt: x.totalRatingt,
-                                        price: x.price,
-                                        instantBooking: x.instantBooking
-                                    }
-                                }).toArray();
-                            return couriers;
-                        })
-                        .then((couriers) => {
-                            res.status(responseCode.OK)
-                                .send(response(responseCode.OK, "", {
-                                    key: "couriers",
-                                    value: couriers
-                                }));
-                        })
-                        .catch((err) => {
-                            res.status(err.statusCode)
-                                .send(response(err.statusCode, err.message));
-                        });
-                })
-                .catch((err) => {
-                    res.status(err.statusCode)
-                        .send(response(err.statusCode, err.message));
-                });
+            return couriers;
+        }), null, req)
+        .then((couriers) => {
+            res.status(responseCode.OK)
+                .send(response(responseCode.OK, "", {
+                    key: "couriers",
+                    value: couriers
+                }));
         })
         .catch((err) => {
             res.status(err.statusCode)
                 .send(response(err.statusCode, err.message));
         });
+
 });
 
 router.post("/:userId/book", (req, res) => {

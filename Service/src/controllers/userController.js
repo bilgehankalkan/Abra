@@ -9,6 +9,7 @@ const userModel = require("../models/user");
 const notificationTokenModel = require("../models/notificationToken");
 const locationModel = require("../models/location");
 const tokenModel = require("../models/token");
+const objectIniter = require("../helpers/objectIniter");
 const responseCode = require("../utilities/responseCode");
 const response = require("../utilities/response");
 const _dictionary = require("../localization/dictionary");
@@ -87,80 +88,9 @@ router.post("/:userId/notification/token", (req, res) => {
         });
 });
 
-function initCouriers(data, userId, req) {
-    var userIdArray = [];
-    var locationIdArray = [];
-    return data
-        .then((couriers) => {
-            new linq(couriers).forEach((x) => {
-                userIdArray.push(x.ownerId);
-                locationIdArray.push(x.origin);
-                locationIdArray.push(x.destination);
-            });
-            return couriers;
-        })
-        .then((couriers) => {
-            return userModel.getListByIdArray(userIdArray, req)
-                .then((users) => {
-                    return {
-                        users: users,
-                        couriers: couriers
-                    }
-                });
-        })
-        .then((result) => {
-            return locationModel.getListByIdArray(locationIdArray, req)
-                .then((locations) => {
-                    return {
-                        users: result.users,
-                        couriers: result.couriers,
-                        locations: locations
-                    }
-                });
-        })
-        .then((result) => {
-            var couriers = result.couriers;
-            var locations = result.locations;
-            var users = result.users;
-
-            couriers = new linq(couriers).select((x) => {
-                var owner = new linq(users).firstOrDefault((y) => {
-                    return x.ownerId.toString() == y._id.toString();
-                });
-                var origin = new linq(locations).firstOrDefault((y) => {
-                    return x.origin.toString() == y._id.toString();
-                });
-                var destination = new linq(locations).firstOrDefault((y) => {
-                    return x.destination.toString() == y._id.toString();
-                });
-                return {
-                    _id: x._id,
-                    dateCreated: x.dateCreated,
-                    owner: owner,
-                    destination: {
-                        _id: x.destination.toString(),
-                        name: destination.name,
-                        date: x.destinationDate
-                    },
-                    origin: {
-                        _id: x.origin.toString(),
-                        name: origin.name,
-                        date: x.originDate
-                    },
-                    isMyOrder: (owner._id.toString() == userId),
-                    weight: x.weight,
-                    price: x.price,
-                    avgRating: parseInt(math.random(1, 5)),
-                    totalRating: parseInt(math.random(1, 100)),
-                    instantBooking: x.instantBooking,
-                }
-            }).toArray();
-            return couriers;
-        })
-}
 
 router.get("/:userId/courier/book/current/:pageIndex/:pageSize", (req, res) => {
-    initCouriers(bookModel.getCourierCurrentsByUserId(req.params.userId, req.params.pageIndex, req.params.pageSize, req)
+    new objectIniter().couriers(bookModel.getCourierCurrentsByUserId(req.params.userId, req.params.pageIndex, req.params.pageSize, req)
         .then((books) => {
             var courierIdArray = [];
             new linq(books).forEach((x) => {
@@ -191,7 +121,7 @@ router.get("/:userId/courier/book/current/:pageIndex/:pageSize", (req, res) => {
 router.get("/:userId/courier/book/past/:pageIndex/:pageSize", (req, res) => {
     var userIdArray = [];
     var locationIdArray = [];
-    initCouriers(bookModel.getCourierPastsByUserId(req.params.userId, req.params.pageIndex, req.params.pageSize, req)
+    new objectIniter().couriers(bookModel.getCourierPastsByUserId(req.params.userId, req.params.pageIndex, req.params.pageSize, req)
         .then((books) => {
             var courierIdArray = [];
             new linq(books).forEach((x) => {
@@ -220,7 +150,7 @@ router.get("/:userId/courier/book/past/:pageIndex/:pageSize", (req, res) => {
 });
 
 router.get("/:userId/carry/book/current/:pageIndex/:pageSize", (req, res) => {
-    initCouriers(bookModel.getCarryCurrentsByUserId(req.params.userId, req.params.pageIndex, req.params.pageSize, req)
+    new objectIniter().couriers(bookModel.getCarryCurrentsByUserId(req.params.userId, req.params.pageIndex, req.params.pageSize, req)
         .then((books) => {
             var courierIdArray = [];
             new linq(books).forEach((x) => {
@@ -251,7 +181,7 @@ router.get("/:userId/carry/book/current/:pageIndex/:pageSize", (req, res) => {
 router.get("/:userId/carry/book/past/:pageIndex/:pageSize", (req, res) => {
     var userIdArray = [];
     var locationIdArray = [];
-    initCouriers(bookModel.getCarryPastsByUserId(req.params.userId, req.params.pageIndex, req.params.pageSize, req)
+    new objectIniter().couriers(bookModel.getCarryPastsByUserId(req.params.userId, req.params.pageIndex, req.params.pageSize, req)
         .then((books) => {
             var courierIdArray = [];
             new linq(books).forEach((x) => {
