@@ -15,15 +15,16 @@ import com.bilgehankalkan.abra.ui.fragments.InboxFragment;
 import com.bilgehankalkan.abra.ui.fragments.MyProfileFragment;
 import com.bilgehankalkan.abra.ui.fragments.OrdersFragment;
 import com.bilgehankalkan.abra.ui.fragments.create_offer.CreateOfferBaseFragment;
+import com.bilgehankalkan.abra.ui.fragments.create_offer.OriginDestinationFragment;
 import com.ncapdevi.fragnav.FragNavController;
+import com.ncapdevi.fragnav.FragNavTransactionOptions;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends BaseActivity implements OnSearchOptionListener {
+public class MainActivity extends BaseActivity {
 
-    public FragNavController fragNavController;
-    FindCourierFragment findCourierFragment;
+    public static FragNavController fragNavController;
 
     BottomNavigationView bottomNavigationView;
 
@@ -34,9 +35,8 @@ public class MainActivity extends BaseActivity implements OnSearchOptionListener
 
         bottomNavigationView = findViewById(R.id.bottom_navigation_view_main);
 
-        findCourierFragment = new FindCourierFragment();
         List<Fragment> listRootFragments = new ArrayList<>();
-        listRootFragments.add(findCourierFragment);
+        listRootFragments.add(new FindCourierFragment());
         listRootFragments.add(new OrdersFragment());
         listRootFragments.add(new InboxFragment());
         listRootFragments.add(new MyProfileFragment());
@@ -45,8 +45,6 @@ public class MainActivity extends BaseActivity implements OnSearchOptionListener
                 getSupportFragmentManager(), R.id.container_main)
                 .rootFragments(listRootFragments)
                 .build();
-
-        bottomNavigationView.setSelectedItemId(R.id.action_find_courier);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
                 switch (item.getItemId()) {
@@ -74,35 +72,6 @@ public class MainActivity extends BaseActivity implements OnSearchOptionListener
 
     @Override
     public void onBackPressed() {
-        if (fragNavController.getCurrentFrag() instanceof CreateOfferBaseFragment)
-            fragNavController.popFragment();
-        else
-            onBackPressed();
-    }
-
-    @Override
-    public void onOriginSelected(Location originLocation) {
-        findCourierFragment.onOriginSelected(originLocation);
-    }
-
-    @Override
-    public void onOriginDateSelected(String date) {
-        findCourierFragment.onOriginDateSelected(date);
-    }
-
-    @Override
-    public void onOriginTimeSelected(String time) {
-        findCourierFragment.onOriginTimeSelected(time);
-    }
-
-    @Override
-    public void onDestinationSelected(Location destinationLocation) {
-        findCourierFragment.onDestinationSelected(destinationLocation);
-    }
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        fragNavController.onSaveInstanceState(outState);
+        onBackPressed();
     }
 }

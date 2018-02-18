@@ -30,4 +30,6 @@
     <string name="explanation_time_search">Lüfen en uygun saatinizi seçin.</string>
     <string name="explanation_date_search">Lüfen en uygun saatinizi seçin.</string>
     <string name="explanation_add_note">Not eklemek ister misiniz?</string>
+    <string name="connection_error">Bağlantı Hatası</string>
+    <string name="warning_X_not_selected">%1$s seçilmeli.</string>
 </resources>

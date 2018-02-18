@@ -30,5 +30,6 @@
     <string name="explanation_date_search">Please select your initial date.</string>
     <string name="explanation_add_note">Do you want to add note?</string>
     <string name="connection_error">Connection Error</string>
+    <string name="warning_X_not_selected">%1$s is not selected.</string>
 
 </resources>

@@ -23,8 +23,8 @@ public class BaseActivity extends AppCompatActivity {
     public static ApiInterface apiInterface;
 
     private static Map<String, String> mapHeader;
-    private static String TOKEN = "638B736C-C73B-4BB5-AC9C-3B1C08F84078";
-    //private static String USER_ID = "5a87dfbc539a08001205501a";
+    public static String TOKEN = "638B736C-C73B-4BB5-AC9C-3B1C08F84078";
+    public static String USER_ID = "5a888e45c550959c285e1209";
 
     public InputMethodManager imm;
 
