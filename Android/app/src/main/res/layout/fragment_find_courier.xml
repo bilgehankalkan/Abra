@@ -23,11 +23,12 @@
                 style="@style/TextViewSmallHeaderStyle"
                 android:text="@string/origin"/>
 
-            <EditText
+            <TextView
                 android:id="@+id/edit_text_origin_find_fragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:focusable="false"/>
+                android:focusable="false"
+                android:padding="10dp"/>
         </LinearLayout>
 
         <ImageView
@@ -37,7 +38,9 @@
             android:padding="10dp"
             android:layout_gravity="end"
             android:src="@drawable/up_down_array"
-            android:tint="@color/colorSplashBackground" />
+            android:tint="@color/colorSplashBackground"
+            android:clickable="true"
+            android:focusable="true"/>
 
         <LinearLayout
             android:id="@+id/layout_destination_find_fragment"
@@ -50,11 +53,12 @@
                 style="@style/TextViewSmallHeaderStyle"
                 android:text="@string/destination"/>
 
-            <EditText
+            <TextView
                 android:id="@+id/edit_text_destination_find_fragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:focusable="false"/>
+                android:focusable="false"
+                android:padding="10dp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -67,11 +71,12 @@
                 style="@style/TextViewSmallHeaderStyle"
                 android:text="@string/date"/>
 
-            <EditText
+            <TextView
                 android:id="@+id/edit_text_date_find_fragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:focusable="false"/>
+                android:focusable="false"
+                android:padding="10dp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -84,11 +89,12 @@
                 style="@style/TextViewSmallHeaderStyle"
                 android:text="@string/time"/>
 
-            <EditText
+            <TextView
                 android:id="@+id/edit_text_time_find_fragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:focusable="false"/>
+                android:focusable="false"
+                android:padding="10dp"/>
         </LinearLayout>
 
         <LinearLayout

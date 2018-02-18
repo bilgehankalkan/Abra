@@ -66,7 +66,6 @@ public class FindCourierFragment extends BaseFragment {
             if (checkFields())
                 startFilterActivity(4);
         });
-
         imageMinus.setOnClickListener(v -> {
             if (Integer.valueOf(textCapacity.getText().toString()) > 1)
                 textCapacity.setText(Integer.valueOf(textCapacity.getText().toString()) - 1 + "");
@@ -82,6 +81,9 @@ public class FindCourierFragment extends BaseFragment {
             String tempText2 = textViewDestination.getText().toString();
             textViewOrigin.setText(tempText2);
             textViewDestination.setText(tempText1);
+            String originLocationTemp = originLocationId;
+            originLocationId = destinationLocationId;
+            destinationLocationId = originLocationTemp;
         });
 
         return rootView;
