@@ -167,26 +167,6 @@ class OrderTableViewCell: UITableViewCell {
     
 }
 
-extension UIColor {
-    
-    static var ratingStarGreen: UIColor {
-        return UIColor(red:0.57, green:0.86, blue:0.35, alpha:1.0)
-    }
-    
-    static var ratingStarOrange: UIColor {
-        return UIColor(red:0.97, green:0.55, blue:0.29, alpha:1.0)
-    }
-    
-    static var ratingStarRed: UIColor {
-        return UIColor(red:0.85, green:0.00, blue:0.15, alpha:1.0)
-    }
-    
-    static var seperatorGray: UIColor {
-        return UIColor(red:0.88, green:0.88, blue:0.88, alpha:1.0)
-    }
-    
-}
-
 import ObjectMapper
 import ObjectMapper_Realm
 import RealmSwift

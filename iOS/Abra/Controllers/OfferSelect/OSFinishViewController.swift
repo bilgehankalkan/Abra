@@ -8,20 +8,6 @@
 
 import UIKit
 
-protocol OSFinishDelegate {
-    func `continue`()
-}
-
-class OSFinishViewModel: NSObject {
-    
-    var delegate: OSFinishDelegate?
-    
-    @IBAction func `continue`(_ sender: UIButton) {
-        delegate?.`continue`()
-    }
-    
-}
-
 class OSFinishViewController: OSBaseViewController {
     
     @IBOutlet weak var finishViewModel: OSFinishViewModel!
