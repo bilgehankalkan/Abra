@@ -1,6 +1,26 @@
 
 import UIKit
 
+extension Date {
+    
+    func string() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm"
+        return dateFormatter.string(from: self)
+    }
+    
+}
+
+extension String {
+    
+    func date() -> Date {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm"
+        return dateFormatter.date(from: self)!
+    }
+    
+}
+
 extension UIColor {
     
     static var ratingStarGreen: UIColor {
@@ -45,4 +65,15 @@ extension UITextField {
     @objc func closeKeyboard(_ sender: UIBarButtonItem) {
         resignFirstResponder()
     }
+}
+
+
+extension UIViewController {
+    
+    func presentErrorAlertView(_ error: Error?) {
+        let alertView = UIAlertController(title: NSLocalizedString("Ooops!", comment: "Show recognition of a mistake or minor accident"), message: error?.localizedDescription, preferredStyle: .alert)
+        alertView.addAction(UIAlertAction(title: NSLocalizedString("Oki", comment: "Dismiss an alert"), style: .cancel, handler: nil))
+        present(alertView, animated: true, completion: nil)
+    }
+    
 }

@@ -1,5 +1,6 @@
 
 import UIKit
+import MBProgressHUD
 
 enum OfferSelectMode {
     case courier
@@ -7,10 +8,8 @@ enum OfferSelectMode {
 }
 
 struct OfferSelect {
-    var originLocation: Location?
-    var originDate: Date?
-    var destinationLocation: Location?
-    var destinationDate: Date?
+    var origin: Location?
+    var destination: Location?
     var weight: Int?
     var instantBooking: Bool?
     var price: Int?
@@ -31,7 +30,7 @@ class OSBaseViewController: UIViewController {
     lazy fileprivate var switchViewController   = offerSelectStoryboard.instantiateViewController(withIdentifier: "OSSwitchViewController")   as! OSSwitchViewController
     lazy fileprivate var noteViewController     = offerSelectStoryboard.instantiateViewController(withIdentifier: "OSNoteViewController")     as! OSNoteViewController
     lazy fileprivate var finishViewController   = offerSelectStoryboard.instantiateViewController(withIdentifier: "OSFinishViewController")   as! OSFinishViewController
-
+    
     func startOS(mode: OfferSelectMode, completion: (() -> Swift.Void)? = nil) {
         OSBaseViewController.offerSelectMode = mode
         locationViewController.locationMode = .origin
@@ -53,22 +52,22 @@ class OSBaseViewController: UIViewController {
         dateViewController.dateMode = dateMode
         viewController.navigationController?.pushViewController(dateViewController, animated: true)
     }
-
+    
     func showTime(for timeMode: OSTimeMode, from viewController: OSBaseViewController) {
         timeViewController.timeMode = timeMode
         viewController.navigationController?.pushViewController(timeViewController, animated: true)
     }
-
+    
     func showAmount(for amountMode: OSAmountMode, from viewController: OSBaseViewController) {
         amountViewController.amountMode = amountMode
         viewController.navigationController?.pushViewController(amountViewController, animated: true)
     }
-
+    
     func showSwitch(for switchMode: OSSwitchMode, from viewController: OSBaseViewController) {
         switchViewController.switchMode = switchMode
         viewController.navigationController?.pushViewController(switchViewController, animated: true)
     }
-
+    
     func showNote(for noteMode: OSNoteMode, from viewController: OSBaseViewController) {
         noteViewController.noteMode = noteMode
         viewController.navigationController?.pushViewController(noteViewController, animated: true)
@@ -78,19 +77,48 @@ class OSBaseViewController: UIViewController {
         viewController.navigationController?.pushViewController(finishViewController, animated: true)
     }
     
-    func finishOS() {
-        print("-")
-        print(OSBaseViewController.offerSelect)
-        print("-")
-        
-        OSBaseViewController.offerSelect = OfferSelect()
+    func finishOS(_ viewController: OSBaseViewController) {
         switch OSBaseViewController.offerSelectMode {
         case .courier:
-            dismiss(animated: false) {
-                
-            }
+            MBProgressHUD.showAdded(to: viewController.view, animated: true)
+            API.shared.courierList(by: OSBaseViewController.offerSelect, completion: {
+                (orders: [Order]?, error: Error?) in
+                DispatchQueue.global(qos: .userInitiated).async { [unowned self] in
+                    DispatchQueue.main.async {
+                        MBProgressHUD.hide(for: viewController.view, animated: true)
+                        if error != nil {
+                            self.presentErrorAlertView(error)
+                        }
+                        else {
+                            self.dismiss(animated: true) {
+                                OSBaseViewController.offerSelect = OfferSelect()
+                            }
+                        }
+                    }
+                }
+            })
         case .carry:
-            dismiss(animated: true)
+            MBProgressHUD.showAdded(to: viewController.view, animated: true)
+            API.shared.courierAdd(by: OSBaseViewController.offerSelect) {
+                (courierAddResponse: CourierAddResponse?, error: Error?) in
+                DispatchQueue.global(qos: .userInitiated).async { [unowned self] in
+                    DispatchQueue.main.async {
+                        MBProgressHUD.hide(for: viewController.view, animated: true)
+                        if error != nil {
+                            self.presentErrorAlertView(error)
+                        }
+                        else {
+                            let alertView = UIAlertController(title: "Yaayy!!", message: "Your post submitted!\nYou will get a notification as soon as our staff approves your post.", preferredStyle: .alert)
+                            alertView.addAction(UIAlertAction(title: NSLocalizedString("Oki", comment: "Dismiss an alert"), style: .cancel, handler: { (alertAction: UIAlertAction) in
+                                self.dismiss(animated: true) {
+                                    OSBaseViewController.offerSelect = OfferSelect()
+                                }
+                            }))
+                            self.present(alertView, animated: true, completion: nil)
+                        }
+                    }
+                }
+            }
         }
     }
     

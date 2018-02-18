@@ -4,7 +4,7 @@ import AlamofireObjectMapper
 
 final class API {
     
-    static let sharedManager = API()
+    static let shared = API()
     
     fileprivate let baseUrl: String = "https://getir-hackathon.exlinetr.com/sandbox/"
     fileprivate let keyPath = "data"
@@ -29,9 +29,9 @@ final class API {
         }
     }
     
-    func courierList(pageIndex: Int, pageSize: Int, completion: @escaping ([Courier]?, Error?) -> Void) {
-        request(courierList: .all(pageIndex, pageSize)).responseArray(keyPath: keyPath) {
-            (response: DataResponse<[Courier]>) in
+    func courierList(by selection: OfferSelect, completion: @escaping ([Order]?, Error?) -> Void) {
+        request(courier: .all(selection)).responseArray(keyPath: keyPath) {
+            (response: DataResponse<[Order]>) in
             if response.error != nil {
                 completion(nil, response.error)
             }
@@ -44,8 +44,8 @@ final class API {
         }
     }
     
-    func courrier(add endpoint: courierAddEndpoint, completion: @escaping (CourierAddResponse?, Error?) -> Void) {
-        request(courierAdd: endpoint).responseObject(keyPath: keyPath) {
+    func courierAdd(by selection: OfferSelect, completion: @escaping (CourierAddResponse?, Error?) -> Void) {
+        request(courier: .new(selection)).responseObject(keyPath: keyPath) {
             (response: DataResponse<CourierAddResponse>) in
             if response.error != nil {
                 completion(nil, response.error)
@@ -82,8 +82,8 @@ extension API {
         return Alamofire.request(baseUrl + endpoint.path,
                                  method: endpoint.method,
                                  parameters: endpoint.parameters,
-                                 encoding: API.sharedManager.encoding,
-                                 headers: API.sharedManager.headers).validate()
+                                 encoding: API.shared.encoding,
+                                 headers: API.shared.headers).validate()
     }
     
     enum locationEndpoint {
@@ -115,56 +115,22 @@ extension API {
 
 extension API {
     
-    fileprivate func request(courierList endpoint: courierListEndpoint) -> DataRequest {
+    fileprivate func request(courier endpoint: courierEndpoint) -> DataRequest {
         return Alamofire.request(baseUrl + endpoint.path,
                                  method: endpoint.method,
                                  parameters: endpoint.parameters,
-                                 encoding: API.sharedManager.encoding,
-                                 headers: API.sharedManager.headers).validate()
+                                 encoding: endpoint.encoding,
+                                 headers: API.shared.headers).validate()
     }
     
-    enum courierListEndpoint {
-        case all(Int, Int)
-        
-        var path: String {
-            switch self {
-            case .all(let pageIndex, let pageSize):
-                return "courier/" + "\(pageIndex)" + "\(pageSize)"
-            }
-        }
-        
-        var method: HTTPMethod {
-            switch self {
-            case .all:
-                return .get
-            }
-        }
-        
-        var parameters: [String: Any]? {
-            switch self {
-            case .all:
-                return nil
-            }
-        }
-    }
-    
-}
-
-extension API {
-    
-    fileprivate func request(courierAdd endpoint: courierAddEndpoint) -> DataRequest {
-        return Alamofire.request(baseUrl + endpoint.path,
-                                 method: endpoint.method,
-                                 parameters: endpoint.parameters,
-                                 encoding: API.sharedManager.encoding,
-                                 headers: API.sharedManager.headers).validate()
-    }
-    
-    enum courierAddEndpoint {
+    enum courierEndpoint {
+        case all(OfferSelect)
         case new(OfferSelect)
-        
+
         var path: String {
             switch self {
+            case .all:
+                return "courier/search/0/20/"
             case .new:
                 return "courier/"
             }
@@ -172,6 +138,8 @@ extension API {
         
         var method: HTTPMethod {
             switch self {
+            case .all:
+                return .get
             case .new:
                 return .post
             }
@@ -179,16 +147,31 @@ extension API {
         
         var parameters: [String: Any]? {
             switch self {
+            case .all(let offerSelect):
+                return ["userId": API.shared.userID,
+                        "originLocation": (offerSelect.origin?.identifier)!,
+                        "originDate": (offerSelect.origin?.date)!,
+                        "destinationLocation": (offerSelect.origin?.identifier)!,
+                        "weight": (offerSelect.weight)!]
             case .new(let offerSelect):
-                return ["ownerId": API.sharedManager.userID,
-                        "origin" : offerSelect.originLocation?.identifier as Any,
-                        "originDate": offerSelect.originDate as Any,
-                        "destination": offerSelect.destinationLocation?.identifier as Any,
-                        "destinationDate": offerSelect.destinationDate as Any,
-                        "weight": offerSelect.weight as Any,
-                        "instantBooking": offerSelect.instantBooking as Any,
-                        "price": offerSelect.price as Any,
-                        "note": offerSelect.note as Any]
+                return ["ownerId": API.shared.userID,
+                        "origin" : (offerSelect.origin?.identifier)!,
+                        "originDate": (offerSelect.origin?.date)!,
+                        "destination": (offerSelect.destination?.identifier)!,
+                        "destinationDate": (offerSelect.destination?.date)!,
+                        "weight": (offerSelect.weight)!,
+                        "instantBooking": (offerSelect.instantBooking)!,
+                        "price": (offerSelect.price)!,
+                        "note": (offerSelect.note)!]
+            }
+        }
+        
+        var encoding: ParameterEncoding {
+            switch self {
+            case .all:
+                return URLEncoding.`default`
+            case .new:
+                return JSONEncoding.`default`
             }
         }
     }
@@ -201,8 +184,8 @@ extension API {
         return Alamofire.request(baseUrl + endpoint.path,
                                  method: endpoint.method,
                                  parameters: endpoint.parameters,
-                                 encoding: API.sharedManager.encoding,
-                                 headers: API.sharedManager.headers).validate()
+                                 encoding: API.shared.encoding,
+                                 headers: API.shared.headers).validate()
     }
     
     enum ordersEndpoint {
@@ -214,16 +197,16 @@ extension API {
             case .current(let orderDeliveryMode):
                 switch orderDeliveryMode {
                 case .courier:
-                    return "/user/" + API.sharedManager.userID + "/courier/book/current/0/20"
+                    return "/user/" + API.shared.userID + "/courier/book/current/0/20"
                 case .carry:
-                    return "/user/" + API.sharedManager.userID + "/carry/book/current/0/20"
+                    return "/user/" + API.shared.userID + "/carry/book/current/0/20"
                 }
             case .past(let orderDeliveryMode):
                 switch orderDeliveryMode {
                 case .courier:
-                    return "/user/" + API.sharedManager.userID + "/courier/book/past/0/20"
+                    return "/user/" + API.shared.userID + "/courier/book/past/0/20"
                 case .carry:
-                    return "/user/" + API.sharedManager.userID + "/carry/book/past/0/20"
+                    return "/user/" + API.shared.userID + "/carry/book/past/0/20"
                 }
             }
         }
