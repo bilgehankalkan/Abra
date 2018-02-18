@@ -35,5 +35,9 @@
     <string name="explanation_add_note">Do you want to add note?</string>
     <string name="connection_error">Connection Error</string>
     <string name="warning_X_not_selected">%1$s is not selected.</string>
+    <string name="your_deliveries">Your Deliveries</string>
+    <string name="past">Past</string>
+    <string name="current">Current</string>
+    <string name="offer_created">Offer Created</string>
 
 </resources>

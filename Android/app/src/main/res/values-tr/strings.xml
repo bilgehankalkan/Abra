@@ -36,4 +36,8 @@
     <string name="arrival">varış</string>
     <string name="initial">başlangıç</string>
     <string name="explanation_time_date">Lüfen %1$s %2$snizi seçiniz.</string>
+    <string name="your_deliveries">Teslimatlarınız</string>
+    <string name="past">Geçmiş</string>
+    <string name="current">Güncel</string>
+    <string name="offer_created">Teklif Oluşturuldu</string>
 </resources>
