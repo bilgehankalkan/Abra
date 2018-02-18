@@ -50,38 +50,31 @@ model.login = (email, password, req) => {
                 statusCode: responseCode.SERVER_ERROR
             });
         } else if (password == null || password == "") {
-
+            rej({
+                message: dictionary.errorMessages.systemError,
+                statusCode: responseCode.SERVER_ERROR
+            });
         }
+        const query = {
+            email: email,
+            password: password
+        };
+        const options = {
+            new: true,
+            fields: {
+                password: 0
+            }
+        }
+        model.findOne(query, options)
+            .exec()
+            .then(res)
+            .catch((err) => {
+                rej({
+                    message: dictionary.errorMessages.systemError,
+                    statusCode: responseCode.SERVER_ERROR
+                });
+            });
     });
-    const query = {
-        email: email,
-        password: password
-    };
-    const options = {
-        new: true,
-        fields: {
-            password: 0
-        }
-    }
-    userModel.findOne(query, options).then((user) => {
-        var token = guid.create();
-        tokenModel.create({
-            userId: user._id,
-            token: token,
-            dateCreated: Date.now(),
-            isActive: true
-        }).then((r) => {
-            res.status(responseCode.OK)
-                .send(user);
-        }).catch((err) => {
-            res.status(responseCode.SERVER_ERROR)
-                .send();
-        });
-
-    }).catch((err) => {
-        res.status(responseCode.SERVER_ERROR)
-            .send();
-    })
 };
 
 model.getById = (id, req) => {
