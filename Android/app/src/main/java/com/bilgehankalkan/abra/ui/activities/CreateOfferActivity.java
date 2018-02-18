@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bilgehankalkan.abra.R;
 import com.bilgehankalkan.abra.interfaces.OnOfferChosenListener;
@@ -50,21 +51,26 @@ public class CreateOfferActivity extends BaseActivity implements OnOfferChosenLi
     }
 
     private void sendData() {
+        courierRequest.setOwnerId(USER_ID);
         Call<CourierResponse> call = apiInterface.postCourier(getHeader(), courierRequest);
         call.enqueue(new Callback<CourierResponse>() {
             @Override
             public void onResponse(@NonNull Call<CourierResponse> call, @NonNull Response<CourierResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     CourierResponse courierResponse = response.body();
-                    if (courierResponse.getCode() == 200) {
-
-                    }
-                }
+                    if (courierResponse.getCode() == 201) {
+                        finish();
+                        overridePendingTransition(R.anim.slide_out_down, R.anim.slide_in_down);
+                        Toast.makeText(getApplicationContext(), R.string.offer_created, Toast.LENGTH_SHORT).show();
+                    } else
+                        Toast.makeText(getApplicationContext(), courierResponse.getMsg(), Toast.LENGTH_SHORT).show();
+                } else
+                    Toast.makeText(getApplicationContext(), R.string.connection_error, Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(@NonNull Call<CourierResponse> call, @NonNull Throwable t) {
-
+                Toast.makeText(getApplicationContext(), R.string.connection_error, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -84,7 +90,7 @@ public class CreateOfferActivity extends BaseActivity implements OnOfferChosenLi
     @Override
     public void onOriginTimeSelected(String time) {
         fragNavController.pushFragment(OriginDestinationFragment.newInstance(false));
-        courierRequest.setOriginDate(courierRequest.getOriginDate() + "T" + time + ":00.000Z");
+        courierRequest.setOriginDate(courierRequest.getOriginDate() + "T" + time);
     }
 
     @Override
@@ -102,7 +108,7 @@ public class CreateOfferActivity extends BaseActivity implements OnOfferChosenLi
     @Override
     public void onDestinationTimeSelected(String time) {
         fragNavController.pushFragment(CapacityPriceSelectionFragment.newInstance(0));
-        courierRequest.setDestinationDate(courierRequest.getDestinationDate() + "T" + time + ":00.000Z");
+        courierRequest.setDestinationDate(courierRequest.getDestinationDate() + "T" + time);
     }
 
     @Override

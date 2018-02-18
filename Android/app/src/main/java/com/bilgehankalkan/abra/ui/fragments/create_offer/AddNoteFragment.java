@@ -25,7 +25,10 @@ public class AddNoteFragment extends CreateOfferBaseFragment {
         EditText editTextNote = rootView.findViewById(R.id.edit_text_add_note_fragment);
         CardView cardViewPost = rootView.findViewById(R.id.card_view_add_note_fragment);
 
-        cardViewPost.setOnClickListener(v -> onOfferChosenListener.onNotesAdded(editTextNote.getText().toString()));
+        cardViewPost.setOnClickListener(v -> {
+            mActivity.closeSoftKeyboard(editTextNote);
+            onOfferChosenListener.onNotesAdded(editTextNote.getText().toString());
+        });
 
         return rootView;
     }

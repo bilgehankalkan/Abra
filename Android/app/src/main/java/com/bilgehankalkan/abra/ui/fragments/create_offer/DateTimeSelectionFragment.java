@@ -95,7 +95,18 @@ public class DateTimeSelectionFragment extends CreateOfferBaseFragment {
     }
 
     private void getSelectedTime() {
-        selectedTime = timePicker.getCurrentHour() + ":" + timePicker.getCurrentMinute();
+        String hour, minute;
+        if (timePicker.getCurrentHour() < 10)
+            hour = "0" + timePicker.getCurrentHour();
+        else
+            hour = "" + timePicker.getCurrentHour();
+
+        if (timePicker.getCurrentMinute() < 10)
+            minute = "0" + timePicker.getCurrentMinute();
+        else
+            minute = "" + timePicker.getCurrentMinute();
+
+        selectedTime = hour + ":" + minute;
         if (selectedTime.length() < 3) {
             Toast.makeText(getActivity(), getString(R.string.select_valid_argument, "time"), Toast.LENGTH_SHORT).show();
             return;
@@ -112,7 +123,18 @@ public class DateTimeSelectionFragment extends CreateOfferBaseFragment {
     }
 
     private void getSelectedDate() {
-        selectedDate = datePicker.getYear() + "-" + ((int) datePicker.getMonth() + 1) + "-" + datePicker.getDayOfMonth();
+        String month, day;
+        if (datePicker.getMonth() < 9)
+            month = "0" + ((int) datePicker.getMonth() + 1);
+        else
+            month = "" + ((int) datePicker.getMonth() + 1);
+
+        if (datePicker.getDayOfMonth() < 10)
+            day = "0" + datePicker.getDayOfMonth();
+        else
+            day = "" + datePicker.getDayOfMonth();
+
+        selectedDate = datePicker.getYear() + "-" + month + "-" + day;
         if (selectedDate.length() < 8) {
             Toast.makeText(getActivity(), getString(R.string.select_valid_argument, "date"), Toast.LENGTH_SHORT).show();
             return;
