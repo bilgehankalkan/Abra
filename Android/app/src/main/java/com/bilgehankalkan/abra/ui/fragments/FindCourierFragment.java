@@ -86,6 +86,14 @@ public class FindCourierFragment extends BaseFragment {
             destinationLocationId = originLocationTemp;
         });
 
+        textViewOrigin.setText(originLocationName);
+        textViewDestination.setText(destinationLocationName);
+        if (date != null)
+            textViewDate.setText(date);
+        if (time != null)
+            textViewTime.setText(time);
+        textCapacity.setText(capacity + "");
+
         return rootView;
     }
 

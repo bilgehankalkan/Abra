@@ -28,6 +28,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import icepick.Icepick;
+import icepick.State;
 import info.hoang8f.android.segmented.SegmentedGroup;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -44,7 +46,7 @@ public class OrdersFragment extends BaseFragment {
 
     OrderAdapter orderAdapter;
     List<Order> listOrders;
-    private boolean isPast = true, isCourier = true;
+    @State boolean isPast = true, isCourier = true;
     private int pageIndex = 0;
 
     public static OrdersFragment newInstance(@Nullable Bundle params) {
@@ -58,6 +60,8 @@ public class OrdersFragment extends BaseFragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_orders, container, false);
+
+        Icepick.restoreInstanceState(this, savedInstanceState);
 
         recyclerView = rootView.findViewById(R.id.recycler_view_orders_fragment);
         segmentedGroup = rootView.findViewById(R.id.segmented_group_orders_fragment);
@@ -165,4 +169,10 @@ public class OrdersFragment extends BaseFragment {
             Toast.makeText(mActivity, R.string.connection_error, Toast.LENGTH_SHORT).show();
         }
     };
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Icepick.saveInstanceState(this, outState);
+    }
 }
