@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.bilgehankalkan.abra.R;
 import com.bilgehankalkan.abra.interfaces.OnOfferChosenListener;
@@ -12,9 +11,9 @@ import com.bilgehankalkan.abra.service.models.CourierRequest;
 import com.bilgehankalkan.abra.service.models.CourierResponse;
 import com.bilgehankalkan.abra.ui.fragments.create_offer.AddNoteFragment;
 import com.bilgehankalkan.abra.ui.fragments.create_offer.CapacityPriceSelectionFragment;
+import com.bilgehankalkan.abra.ui.fragments.create_offer.DateTimeSelectionFragment;
 import com.bilgehankalkan.abra.ui.fragments.create_offer.InstantBookingFragment;
 import com.bilgehankalkan.abra.ui.fragments.create_offer.OriginDestinationFragment;
-import com.bilgehankalkan.abra.ui.fragments.create_offer.DateTimeSelectionFragment;
 import com.ncapdevi.fragnav.FragNavController;
 
 import retrofit2.Call;
@@ -61,16 +60,16 @@ public class CreateOfferActivity extends BaseActivity implements OnOfferChosenLi
                     if (courierResponse.getCode() == 201) {
                         finish();
                         overridePendingTransition(R.anim.slide_out_down, R.anim.slide_in_down);
-                        Toast.makeText(getApplicationContext(), R.string.offer_created, Toast.LENGTH_SHORT).show();
+                        showSuccess(R.string.offer_created);
                     } else
-                        Toast.makeText(getApplicationContext(), courierResponse.getMsg(), Toast.LENGTH_SHORT).show();
+                        showError(courierResponse.getMsg());
                 } else
-                    Toast.makeText(getApplicationContext(), R.string.connection_error, Toast.LENGTH_SHORT).show();
+                    showError(R.string.connection_error);
             }
 
             @Override
             public void onFailure(@NonNull Call<CourierResponse> call, @NonNull Throwable t) {
-                Toast.makeText(getApplicationContext(), R.string.connection_error, Toast.LENGTH_SHORT).show();
+                showError(R.string.connection_error);
             }
         });
     }

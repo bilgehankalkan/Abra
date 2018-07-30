@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bilgehankalkan.abra.R;
 import com.bilgehankalkan.abra.service.models.Location;
@@ -32,8 +31,10 @@ public class FindCourierFragment extends BaseFragment {
     ImageView imageMinus, imagePlus, imageSwitch;
     TextView textCapacity;
     CardView cardViewSearch;
-    @State String date, time, originLocationName, destinationLocationName, originLocationId, destinationLocationId;
-    @State int capacity = 3;
+    @State
+    String date, time, originLocationName, destinationLocationName, originLocationId, destinationLocationId;
+    @State
+    int capacity = 3;
 
     @SuppressLint("ClickableViewAccessibility")
     @Nullable
@@ -110,19 +111,19 @@ public class FindCourierFragment extends BaseFragment {
 
     private boolean checkFields() {
         if (textViewOrigin.getText().toString().length() == 0) {
-            Toast.makeText(mActivity, getString(R.string.warning_X_not_selected, getString(R.string.origin)), Toast.LENGTH_LONG).show();
+            mActivity.showWarning(getString(R.string.warning_X_not_selected, getString(R.string.origin)));
             return false;
         }
         if (textViewDestination.getText().toString().length() == 0) {
-            Toast.makeText(mActivity, getString(R.string.warning_X_not_selected, getString(R.string.destination)), Toast.LENGTH_LONG).show();
+            mActivity.showWarning(getString(R.string.warning_X_not_selected, getString(R.string.destination)));
             return false;
         }
         if (textViewDate.getText().toString().length() == 0) {
-            Toast.makeText(mActivity, getString(R.string.warning_X_not_selected, getString(R.string.date)), Toast.LENGTH_LONG).show();
+            mActivity.showWarning(getString(R.string.warning_X_not_selected, getString(R.string.date)));
             return false;
         }
         if (textViewTime.getText().toString().length() == 0) {
-            Toast.makeText(mActivity, getString(R.string.warning_X_not_selected, getString(R.string.time)), Toast.LENGTH_LONG).show();
+            mActivity.showWarning(getString(R.string.warning_X_not_selected, getString(R.string.time)));
             return false;
         }
         return true;

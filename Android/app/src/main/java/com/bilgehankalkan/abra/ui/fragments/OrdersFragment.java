@@ -9,9 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import com.bilgehankalkan.abra.R;
 import com.bilgehankalkan.abra.service.ApiInterface;
@@ -46,7 +43,8 @@ public class OrdersFragment extends BaseFragment {
 
     OrderAdapter orderAdapter;
     List<Order> listOrders;
-    @State boolean isPast = true, isCourier = true;
+    @State
+    boolean isPast = true, isCourier = true;
     private int pageIndex = 0;
 
     public static OrdersFragment newInstance(@Nullable Bundle params) {
@@ -79,26 +77,25 @@ public class OrdersFragment extends BaseFragment {
                     } else if (getArguments().getBoolean("isYourDeliveries", false)) {
                         isCourier = false;
                         getOrders();
-                    }
-                else
-                    getOrders();
+                    } else
+                        getOrders();
             }
         });
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(mActivity, recyclerView,
                 new RecyclerItemClickListener.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-                Intent intent = new Intent(mActivity, OrderDetailActivity.class);
-                intent.putExtra("id", listOrders.get(position).getId());
-                startActivity(intent);
-                mActivity.overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
-            }
+                    @Override
+                    public void onItemClick(View view, int position) {
+                        Intent intent = new Intent(mActivity, OrderDetailActivity.class);
+                        intent.putExtra("id", listOrders.get(position).getId());
+                        startActivity(intent);
+                        mActivity.overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
+                    }
 
-            @Override
-            public void onLongItemClick(View view, int position) {
+                    @Override
+                    public void onLongItemClick(View view, int position) {
 
-            }
-        }));
+                    }
+                }));
 
         listOrders = new ArrayList<>();
         orderAdapter = new OrderAdapter(mActivity, listOrders);
@@ -159,14 +156,14 @@ public class OrdersFragment extends BaseFragment {
                     listOrders.addAll(orderListResult.getOrderList());
                     mActivity.runOnUiThread(() -> orderAdapter.notifyDataSetChanged());
                 } else
-                    Toast.makeText(mActivity, orderListResult.getMsg(), Toast.LENGTH_SHORT).show();
+                    mActivity.showError(orderListResult.getMsg());
             } else
-                Toast.makeText(mActivity, R.string.connection_error, Toast.LENGTH_SHORT).show();
+                mActivity.showError(R.string.connection_error);
         }
 
         @Override
         public void onFailure(@NonNull Call<OrderListResult> call, @NonNull Throwable t) {
-            Toast.makeText(mActivity, R.string.connection_error, Toast.LENGTH_SHORT).show();
+            mActivity.showError(R.string.connection_error);
         }
     };
 

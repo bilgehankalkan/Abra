@@ -18,9 +18,7 @@ import com.bilgehankalkan.abra.R;
 
 public class CapacityPriceSelectionFragment extends CreateOfferBaseFragment {
     /**
-     *
      * @param mode 0: Capacity, 1:Price
-     *
      * @return @CapacityPriceSelectionFragment
      */
     public static CapacityPriceSelectionFragment newInstance(int mode) {

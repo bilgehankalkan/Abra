@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bilgehankalkan.abra.R;
 import com.bilgehankalkan.abra.service.models.Location;
@@ -94,7 +93,7 @@ public class OriginDestinationFragment extends CreateOfferBaseFragment {
             }
         }));
         textViewQuestion.setText(getString(R.string.origin_destination_explanation_text,
-                isOriginSelect ?  getString(R.string.origin) : getString(R.string.destination)));
+                isOriginSelect ? getString(R.string.origin) : getString(R.string.destination)));
 
         cardViewContinue.setOnClickListener(v -> {
             if (selectedLocation != null) {
@@ -111,9 +110,8 @@ public class OriginDestinationFragment extends CreateOfferBaseFragment {
                     getFragmentManager().beginTransaction().detach(this).commit();
                 }
             } else
-                Toast.makeText(getContext(), getString(R.string.please_select_origin_destination,
-                        isOriginSelect ? getString(R.string.origin) : getString(R.string.destination)),
-                        Toast.LENGTH_SHORT).show();
+                mActivity.showWarning(getString(R.string.please_select_origin_destination,
+                        isOriginSelect ? getString(R.string.origin) : getString(R.string.destination)));
         });
 
         return rootView;
@@ -131,14 +129,14 @@ public class OriginDestinationFragment extends CreateOfferBaseFragment {
                         suggestionsList.addAll(locationSearchResponse.getData());
                         mActivity.runOnUiThread(() -> searchAdapter.notifyDataSetChanged());
                     } else
-                        Toast.makeText(mActivity, locationSearchResponse.getMsg(), Toast.LENGTH_SHORT).show();
+                        mActivity.showError(locationSearchResponse.getMsg());
                 } else
-                    Toast.makeText(mActivity, R.string.connection_error, Toast.LENGTH_SHORT).show();
+                    mActivity.showError(R.string.connection_error);
             }
 
             @Override
             public void onFailure(@NonNull Call<LocationSearchResponse> call, @NonNull Throwable t) {
-                Toast.makeText(mActivity, R.string.connection_error, Toast.LENGTH_SHORT).show();
+                mActivity.showError(R.string.connection_error);
             }
         });
     }

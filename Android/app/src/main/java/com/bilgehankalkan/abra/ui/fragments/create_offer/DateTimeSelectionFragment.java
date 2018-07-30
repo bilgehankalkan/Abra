@@ -11,11 +11,9 @@ import android.widget.DatePicker;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import com.bilgehankalkan.abra.R;
 import com.bilgehankalkan.abra.ui.activities.FindCourierFilterActivity;
-import com.bilgehankalkan.abra.ui.activities.MainActivity;
 
 /**
  * Created by Bilgehan on 17.02.2018.
@@ -33,7 +31,6 @@ public class DateTimeSelectionFragment extends CreateOfferBaseFragment {
     /**
      * @param mode 0: OriginTime, 1: DestinationTime, 2: SearchOriginTime
      *             3: OriginDate, 4: DestinationDate, 5: SearchOriginDate
-     *
      * @return @DateTimeSelectionFragment;
      */
     public static DateTimeSelectionFragment newInstance(int mode) {
@@ -108,7 +105,7 @@ public class DateTimeSelectionFragment extends CreateOfferBaseFragment {
 
         selectedTime = hour + ":" + minute;
         if (selectedTime.length() < 3) {
-            Toast.makeText(getActivity(), getString(R.string.select_valid_argument, "time"), Toast.LENGTH_SHORT).show();
+            mActivity.showWarning(getString(R.string.select_valid_argument, "time"));
             return;
         }
         if (getContext() instanceof FindCourierFilterActivity) {
@@ -125,9 +122,9 @@ public class DateTimeSelectionFragment extends CreateOfferBaseFragment {
     private void getSelectedDate() {
         String month, day;
         if (datePicker.getMonth() < 9)
-            month = "0" + ((int) datePicker.getMonth() + 1);
+            month = "0" + (datePicker.getMonth() + 1);
         else
-            month = "" + ((int) datePicker.getMonth() + 1);
+            month = "" + (datePicker.getMonth() + 1);
 
         if (datePicker.getDayOfMonth() < 10)
             day = "0" + datePicker.getDayOfMonth();
@@ -136,7 +133,7 @@ public class DateTimeSelectionFragment extends CreateOfferBaseFragment {
 
         selectedDate = datePicker.getYear() + "-" + month + "-" + day;
         if (selectedDate.length() < 8) {
-            Toast.makeText(getActivity(), getString(R.string.select_valid_argument, "date"), Toast.LENGTH_SHORT).show();
+            mActivity.showWarning(getString(R.string.select_valid_argument, "date"));
             return;
         }
         if (getContext() instanceof FindCourierFilterActivity) {

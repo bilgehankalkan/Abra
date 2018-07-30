@@ -3,17 +3,20 @@ package com.bilgehankalkan.abra.ui.activities;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
 import com.bilgehankalkan.abra.service.ApiClient;
 import com.bilgehankalkan.abra.service.ApiInterface;
-import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+
+import es.dmoral.toasty.Toasty;
 
 /**
  * Created by Bilgehan on 17.02.2018.
@@ -53,6 +56,30 @@ public class BaseActivity extends AppCompatActivity {
     public void closeSoftKeyboard(View view) {
         imm = (InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
+
+    public void showError(String errorText) {
+        Toasty.error(this, errorText, Toast.LENGTH_LONG, true).show();
+    }
+
+    public void showError(@StringRes int stringResource) {
+        this.showError(getString(stringResource));
+    }
+
+    public void showWarning(String errorText) {
+        Toasty.warning(this, errorText, Toast.LENGTH_LONG, true).show();
+    }
+
+    public void showWarning(@StringRes int stringResource) {
+        this.showWarning(getString(stringResource));
+    }
+
+    public void showSuccess(String errorText) {
+        Toasty.success(this, errorText, Toast.LENGTH_LONG, true).show();
+    }
+
+    public void showSuccess(@StringRes int stringResource) {
+        this.showSuccess(getString(stringResource));
     }
 
     @Override

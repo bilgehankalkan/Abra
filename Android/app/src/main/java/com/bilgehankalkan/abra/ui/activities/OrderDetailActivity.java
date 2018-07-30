@@ -3,14 +3,9 @@ package com.bilgehankalkan.abra.ui.activities;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bilgehankalkan.abra.R;
 import com.bilgehankalkan.abra.service.models.OrderResult;
-import com.squareup.picasso.Picasso;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -39,17 +34,17 @@ public class OrderDetailActivity extends BaseActivity {
             public void onResponse(@NonNull Call<OrderResult> call, @NonNull Response<OrderResult> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     OrderResult orderResult = response.body();
-                    if (orderResult.getCode() == 200) {
-                        Toast.makeText(getApplicationContext(), R.string.successfully_retrieved, Toast.LENGTH_SHORT).show();
-                    } else
-                        Toast.makeText(getApplicationContext(), orderResult.getMsg(), Toast.LENGTH_SHORT).show();
+                    if (orderResult.getCode() == 200)
+                        showSuccess(R.string.successfully_retrieved);
+                    else
+                        showError(orderResult.getMsg());
                 } else
-                    Toast.makeText(getApplicationContext(), R.string.connection_error, Toast.LENGTH_SHORT).show();
+                    showError(R.string.connection_error);
             }
 
             @Override
             public void onFailure(@NonNull Call<OrderResult> call, @NonNull Throwable t) {
-                Toast.makeText(getApplicationContext(), R.string.connection_error, Toast.LENGTH_SHORT).show();
+                showError(R.string.connection_error);
             }
         });
     }

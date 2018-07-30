@@ -1,8 +1,8 @@
 package com.bilgehankalkan.abra.ui.activities;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 
 import com.bilgehankalkan.abra.service.models.TokenRequest;
 import com.google.firebase.iid.FirebaseInstanceId;
